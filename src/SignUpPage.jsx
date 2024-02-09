@@ -62,7 +62,7 @@ function SignUpPage() {
                             <button className="btn btn-primary" type="submit">S'inscrire</button>
                         </div>
                         <br />
-                        <p>Si vous n'avez pas de compte, veuillez <a href="">cliquer ici</a> pour vous inscrire.</p>
+                        <p>Vous avez déjà un compte? Veuillez <a href="">cliquer ici</a> pour vous connecter.</p>
                     </form>
                 </div>
             </div>

@@ -1,4 +1,3 @@
-import { wait } from "@testing-library/user-event/dist/utils";
 import { useState } from "react";
 
 function SignUpPage() {
@@ -18,7 +17,6 @@ function SignUpPage() {
     };
 
 
-
     return (
         <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <div className="row">
@@ -35,6 +33,10 @@ function SignUpPage() {
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' >Prénom:</label>
                             <input className='col' type="text" id="prénom" required onChange={() => { }} />
+                        </div>
+                        <div className="row align-items-center mb-3">
+                            <label className='form-label col-4' >Ville:</label>
+                            <input className='col' type="text" id="ville" required onChange={() => { }} />
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' htmlFor="email">Courriel:</label>

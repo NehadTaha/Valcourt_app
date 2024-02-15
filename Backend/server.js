@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const { connect } = require("./database/database");
 
 app.use(cors());
 app.use(morgan("tiny"));
@@ -14,5 +15,6 @@ app.get("/", function (req, res) {
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
+  connect()
   console.log("Server listening on port " + port);
 });

@@ -81,11 +81,10 @@ router.post('/register', async(req, res) => {
             email: body.email,
             password: body.password,
             
-            // Empty fields (Temporary)
-            firstName: '',
-            lastName: '',
-            town: '',
-            topics: []
+            firstName: body.firstName,
+            lastName: body.lastName,
+            town: body.town,
+            topics: body.topics
         })
 
         console.log('result: ', result);

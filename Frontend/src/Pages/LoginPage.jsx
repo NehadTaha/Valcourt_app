@@ -1,6 +1,33 @@
+import { useState } from "react";
+
 function LoginPage() {
-    
-    
+
+    const [form, setForm] = useState({});
+
+    function handleInputChange(key, newValue) {
+        form[key] = newValue;
+        setForm(form);
+        console.log(form);
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const loginUrl = 'http://localhost:8080/auth/login';
+        const options = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                
+            },
+            body: JSON.stringify(form)
+        }
+        const response = await fetch(loginUrl, options);
+
+        console.log('response.status: ', response.status);
+        const data = await response.json();
+        console.log('data: ', data);
+    }
     
     
     return (
@@ -11,14 +38,14 @@ function LoginPage() {
                         <h1>Se connecter</h1>
                     </div>
                     <br />
-                    <form onSubmit={() => { }}>
+                    <form onSubmit={handleSubmit}>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' htmlFor="email">Courriel:</label>
-                            <input className='col' type="email" id="email" required onChange={() => { }} />
+                            <input className='col' type="email" id="email" required onChange={(event) => handleInputChange('email', event.target.value)} />
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='col-4 form-label' htmlFor="password">Mot de passe:</label>
-                            <input className="col" type="password" id="password" required onChange={() => { }} />
+                            <input className="col" type="password" id="password" required onChange={(event) => handleInputChange('password', event.target.value)} />
                         </div>
                         <div className="col d-flex justify-content-center">
                             <button className="btn btn-primary" type="submit">Se connecter</button>

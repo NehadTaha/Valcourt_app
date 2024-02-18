@@ -1,7 +1,7 @@
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Card from "../Components/Card";
-import "./Styles/EventBody.css";
+import "../Styles/EventBody.css";
 
 function EventPage() {
   return (

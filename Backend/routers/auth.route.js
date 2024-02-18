@@ -49,6 +49,7 @@ router.post('/login', async(req, res) => {
 
 })
 
+// User registration route
 router.post('/register', async(req, res) => {
     const body = req.body;
     console.log('body: ', body);
@@ -78,7 +79,13 @@ router.post('/register', async(req, res) => {
     try {
         const result = await users.insertOne({
             email: body.email,
-            password: body.password
+            password: body.password,
+            
+            // Empty fields (Temporary)
+            firstName: '',
+            lastName: '',
+            town: '',
+            topics: []
         })
 
         console.log('result: ', result);

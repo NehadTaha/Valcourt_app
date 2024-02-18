@@ -64,6 +64,20 @@ router.post('/register', async(req, res) => {
         return
     }
 
+    // Check if the email is already in the DB
+    const email = await users.findOne({
+        email: body.email,
+    });
+
+    if (email) {
+        res.status(409).send({
+            message: 'Email already in use.'
+        });
+
+        return
+    }
+
+    // Add user to DB
     try {
         const result = await users.insertOne({
             email: body.email,

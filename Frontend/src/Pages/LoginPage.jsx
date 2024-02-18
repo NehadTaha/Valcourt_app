@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function LoginPage() {
 
+    // Holds the login information
     const [form, setForm] = useState({});
 
     function handleInputChange(key, newValue) {

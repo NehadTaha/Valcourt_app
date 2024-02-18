@@ -32,12 +32,9 @@ router.post('/login', async(req, res) => {
         return
     }
 
-    const user = {
-        email: defMail,
-        password: defPass
-    }
+    const user = await users.findOne({ email: body.email })
 
-    if (body.email !== user.email || 
+    if (!user|| body.email !== user.email || 
         body.password !== user.password) {
             res.status(401).send({
                 message: 'Invalid email or password.'

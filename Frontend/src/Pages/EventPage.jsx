@@ -1,12 +1,14 @@
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Card from "../Components/Card";
-import "./Styles/EventBody.css";
+import "../Styles/EventBody.css";
 
 function EventPage() {
   return (
     <>
-      <Navbar />
+      <Navbar props={{
+        isLoggedIn:false
+      }}/>
       <section class="content-container">
         <div class="content-tag">
           <div class="tags">

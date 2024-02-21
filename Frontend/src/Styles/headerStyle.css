@@ -1,11 +1,7 @@
 :root {
-  --darker: #03045e;
-  --dark: #0077b6;
-  --middle: #00b4d8;
-  --pale: #90e0ef;
-  --paler: #caf0f8;
-  --grey-blue: #2c3e50;
-  --dark-shade: #00537f;
+  --paleBlue: #0098d9;
+  --mauve: #232f62;
+  --darkBlue: #164d8e;
 }
 
 * {
@@ -15,6 +11,18 @@
   list-style: none;
   border: none;
   box-sizing: border-box;
+}
+
+.main-logo{
+  background-image: url('../../public/V2030\ transparence.png');
+  background-repeat: no-repeat;
+  background-size:100px;
+  height: 48px;
+  padding-right: 50px;
+  padding-left: 50px;
+  line-height: 48px;
+  justify-self: start;
+  margin-top: 12px;
 }
 
 body {
@@ -38,8 +46,11 @@ body {
   color: white;
   font-size: 30px;
   margin-left: 20px;
+  margin-top: 10px;
   cursor: pointer;
+  line-height: 48px;
 }
+
 .checkbtn:hover {
   color: black;
   transition: all 0.3s;
@@ -50,9 +61,10 @@ body {
 
 header {
   width: 100%;
-  background-color: var(--dark);
+  background-color: var(--darkBlue);
   display: grid;
   grid-template-columns: 33% 33% 33%;
+  line-height: 48px;
 }
 
 header .start {
@@ -60,6 +72,7 @@ header .start {
   justify-items: start;
   align-items: center;
   grid-template-columns: 15% 85%;
+  line-height: 48px;
 }
 
 header .end {
@@ -67,46 +80,50 @@ header .end {
   justify-items: end;
   align-items: center;
   margin-right: 20px;
+  line-height: 48px;
 }
 
 header .end a {
   font-size: 16px;
   color: white;
+  padding: 0px 5px 0px 5px;
   background-color: var(dark);
-
-  padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   text-transform: uppercase;
   text-decoration: none;
 }
 
 header .end a:hover {
-  background-color: var(--middle);
+  background-color: var(--paleBlue);
   transition: 0.3s;
 }
 
 header .end a:active {
-  background-color: var(--dark-shade);
+  background-color: var(--mauve);
   transition: 0.1s;
 }
 
 ul {
-  position: fixed;
+  position: absolute ;
   width: fit-content;
   height: 100%;
-  background: var(--grey-blue);
-  top: 68px;
+  background: var(--mauve);
+  top: 64px;
   left: -100%;
   text-align: center;
   transition: all 0.5s;
   display: flex;
+  align-items: center;
   flex-direction: column;
+  border-radius: 0 0 15px 0px;
   z-index: 1000;
+  box-shadow: 5px 10px 20px black;
 }
 ul li {
   display: block;
   margin: 50px 0;
   line-height: 30px;
+  color: white;
 }
 
 ul li a {

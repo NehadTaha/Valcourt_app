@@ -1,0 +1,21 @@
+:root {
+  --paleBlue: #0098d9;
+  --mauve: #232f62;
+  --darkBlue: #164d8e;
+}
+
+footer{
+background-color: var(--paleBlue);
+}
+
+.link{
+    color: var(--darkBlue);
+}
+
+.link:hover{
+    color: var(--mauve);
+}
+
+.link:active{
+    color: black;
+}

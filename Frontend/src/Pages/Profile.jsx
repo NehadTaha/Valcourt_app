@@ -1,6 +1,5 @@
 //Import Logo from valcourt-app/src/Components/Logo.jsx
-import Logo from "../Components/Logo";
-import ProfileImg from "../Components/Profile_img";
+import Navbar from "../Components/Navbar";
 import "../Styles/style.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../Components/Footer";
@@ -8,29 +7,16 @@ const Profile = () => {
   return (
     <div>
       <div>
-        <Logo />
-      </div>
-      <div
-        className="container-flex text-white d-relative justify-content-center align-items-center m-1 bg-grey
-        "
-        style={{
-          background:
-            "linear-gradient(109.6deg, rgb(61, 121, 176) 11.3%, rgb(35, 66, 164) 91.1%)",
-        }}
-      >
-        <div className="row text-center  ">
-          <div className="col-12">
-            <ProfileImg />
-            <h3>Nom</h3>
-          </div>
-        </div>
-      </div>
+        <Navbar props={{
+          isLoggedIn: true
+        }}/>
+      </div>  
       <div className="container-flex p-5 bg-gradient bg-light">
         <div className="row p-3">
           <div className="col-12">
             <i className="bi bi-suit-heart-fill fs-1 mx-2"></i>
             <button
-              className="btn btn-white fs-1 mb-2 rounded-pill"
+              className="btn fs-1 mb-2 rounded-pill"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#preferedList"
@@ -67,7 +53,7 @@ const Profile = () => {
               Modifier mon profil
             </button>
             <div className="collapse" id="editProfile">
-              <div className="card card-body">
+              <div className="">
                 <form className="row g-3">
                   <div className="col-md-6">
                     <label

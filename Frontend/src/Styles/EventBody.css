@@ -1,25 +1,11 @@
 :root {
-  --darker: #03045e;
-  --dark: #0077b6;
-  --middle: #00b4d8;
-  --pale: #90e0ef;
-  --paler: #caf0f8;
-  --grey-blue: #2c3e50;
-  --dark-shade: #00537f;
+  --paleBlue: #0098d9;
+  --darkBlue: #164d8e;
+  --mauve: #232f62;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  list-style: none;
-  border: none;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: BebasNeueBold;
 }
 
 .content-container {
@@ -50,6 +36,8 @@ body {
 
   box-shadow: 5px 5px 7px black;
   z-index: 1;
+
+  font-family: BebasNeueBold;
 }
 
 .card:hover {
@@ -66,13 +54,14 @@ body {
   transition: all 0.2s;
 }
 .example-date {
-  background-color: #987;
+  background-color:var(--darkBlue);
   position: relative;
   padding: 45px 5px 0px;
   margin-top: 10px;
   margin-right: 500px;
   border-radius: 10px;
   box-shadow: 2px 4px 3px black;
+  font-family: BebasNeueBold;
 }
 
 .example-date .year {
@@ -84,11 +73,13 @@ body {
   transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
   font-weight: bold;
+  color: white;
 }
 
 .example-date .month {
   text-transform: uppercase;
   font-size: 18px;
+  color: white;
 }
 
 .example-date .day {
@@ -97,6 +88,7 @@ body {
   position: absolute;
   left: 5px;
   top: 0px;
+  color: white;
 }
 
 .card .title {
@@ -118,6 +110,7 @@ body {
 .card .content {
   background-color: #3a3b3b;
   border-radius: 0px 0px 10px 10px;
+  
 }
 
 .card p {
@@ -125,9 +118,9 @@ body {
   text-align: center;
   color: white;
   font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
   line-height: 1.5;
+  
 }
 
 .card button {
@@ -142,7 +135,7 @@ body {
   z-index: 1;
 
   border: none;
-  background-color: var(--dark);
+  background-color: var(--paleBlue);
   text-align: center;
 
   color: white;
@@ -151,16 +144,18 @@ body {
 }
 
 .card button:hover {
-  background-color: var(--dark-shade);
+  background-color: var(--darkBlue);
   cursor: pointer;
 }
 .card button:active {
-  background-color: #1a85bd;
+  background-color: var(--mauve);
 }
 
 .content-tag {
   display: grid;
-  margin-top: 50%;
+  margin-top: 40%;
+
+  font-family: BebasNeueBold;
 
   z-index: 1;
 }
@@ -171,7 +166,7 @@ body {
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  color: white;
+  color: black;
   padding: 5%;
   border-radius: 20% 10%;
   border: 1px solid;
@@ -179,7 +174,7 @@ body {
 }
 
 .tags div {
-  padding-top: 10%;
+  padding-top: 5%;
   display: flex;
   align-items: center;
 }
@@ -187,9 +182,8 @@ body {
 .tags label {
   padding-right: 10px;
   font-size: 20px;
-  font-family: Arial, Helvetica, sans-serif;
   text-wrap: wrap;
-  max-width: 150px;
+  max-width: 200px;
 }
 
 .tags label::first-letter {
@@ -197,21 +191,24 @@ body {
 }
 
 .tags button {
-  margin-top: 30%;
-  background-color: var(--dark);
+  margin-top: 5%;
+  background-color: var(--paleBlue);
   color: white;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
 }
 
 .tags button:hover {
-  background-color: #1a85bd;
+  background-color: var(--darkBlue);
   cursor: pointer;
 }
 
 .tags button:active {
-  background-color: var(--middle);
+  background-color: var(--mauve);
   cursor: pointer;
 }
 
@@ -246,7 +243,7 @@ body {
   transform: scale(0);
   transform-origin: bottom left;
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--pale);
+  box-shadow: inset 1em 1em var(--darkBlue);
   /* Windows High Contrast Mode */
   background-color: CanvasText;
 }
@@ -269,7 +266,8 @@ body {
   position: fixed;
   justify-items: end;
   align-items: end;
-  z-index: 0;
+
+  z-index: -1;
 }
 
 .content-fbtn .floating-button {
@@ -280,15 +278,18 @@ body {
   margin-bottom: 100px;
   margin-right: 100px;
   font-size: 30px;
-  color: white;
+  color: black;
   cursor: pointer;
+  border: none;
+  z-index: 1;
 }
 
 .content-fbtn .floating-button:hover {
-  color: black;
+  color: var(--paleBlue);
+  cursor: pointer;
   transition: 0.3s;
 }
 
 .content-fbtn .floating-button p {
-  font-size: 16px;
+  font-size: 22px;
 }

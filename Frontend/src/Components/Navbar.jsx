@@ -1,10 +1,16 @@
 import '../Styles/headerStyle.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStream } from '@fortawesome/free-solid-svg-icons'
-function Navbar(){
+import { faStream, faHouse, faBriefcase, faCalendarDays,faNewspaper,faGlobe } from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
+import ProfileImgSmall from '../Components/ProfileImgSmall'
+function Navbar({props}){
 
-
+  function closeMenu(){
+          document.getElementById("check").checked = false
+  }
     return(
+
+      
         <header>
         <div className="start">
           <div>
@@ -14,27 +20,26 @@ function Navbar(){
             </label>
             <ul>
               <li>
-                  <i className="fa fa-home nav-icon"></i>
-                  <a href="">Event</a>
+                <FontAwesomeIcon icon={faCalendarDays} />
+                  <a href="/event" onClick={closeMenu}>Event</a>
               </li>
               <li>
-                  <i className="fa fa-home nav-icon"></i>
-                  <a href="">Project</a>
+                <FontAwesomeIcon icon={faBriefcase} />
+                  <a href="#" onClick={closeMenu}>Project</a>
               </li>
               <li>
-                  <i className="fa fa-home nav-icon"></i>
-                  <a href="">News</a>
+              <FontAwesomeIcon icon={faNewspaper} />
+                  <a href="#" onClick={closeMenu}>News</a>
               </li>
               <li>
-                  <i className="fa fa-home nav-icon"></i>
-                  <a href="">Main valcourt2030 website</a>
+              <FontAwesomeIcon icon={faHouse} />
+                  <a href="#" onClick={closeMenu}>Main valcourt2030 website</a>
               </li>
-              <i>ICON</i>
+              <i className='main-logo'></i>
           </ul>
           
           </div>
-  
-          <a href="#" className="logo">VALCOURT2030</a>
+          <a href="#" className="main-logo"></a>
         </div>
   
   
@@ -44,7 +49,7 @@ function Navbar(){
   
   
         <div className="end">
-          <a href="#">connect</a>
+        {props.isLoggedIn ? <ProfileImgSmall /> : <a href="/login" onClick={closeMenu}>connect</a>}
         </div>
   
       </header>

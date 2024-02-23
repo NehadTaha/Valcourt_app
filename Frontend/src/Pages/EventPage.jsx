@@ -6,32 +6,71 @@ import "../Styles/EventBody.css";
 function EventPage() {
   return (
     <>
-      <Navbar />
+      <Navbar props={{
+        isLoggedIn:false
+      }}/>
       <section class="content-container">
         <div class="content-tag">
           <div class="tags">
             <div>
-              <label for="">Cooking</label>
+              <label for="">Arts</label>
               <input type="checkbox" name="" id="" />
             </div>
             <div>
-              <label for="">Sports</label>
+              <label for="">Cuisine</label>
               <input type="checkbox" name="" id="" />
             </div>
             <div>
-              <label for="">Tech</label>
+              <label for="">Concertation et partenariats</label>
               <input type="checkbox" name="" id="" />
             </div>
             <div>
-              <label for="">Art</label>
+              <label for="">Développement local</label>
               <input type="checkbox" name="" id="" />
             </div>
             <div>
-              <label for="">Work</label>
+              <label for="">Éducation</label>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div>
+              <label for="">Environnement</label>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div>
+              <label for="">Entrepreneuriat</label>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div>
+              <label for="">Formation</label>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div>
+              <label for="">Implication citoyenne</label>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div>
+              <label for="">Interculturel</label>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div>
+              <label for="">Intergénérationnel</label>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div>
+              <label for="">Musique</label>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div>
+              <label for="">Rencontre sociale</label>
+              <input type="checkbox" name="" id="" />
+            </div>
+            <div>
+              <label for="">Sports et plein air</label>
               <input type="checkbox" name="" id="" />
             </div>
 
-            <button>save</button>
+            <button>Save</button>
+            <button>Clear Selection</button>
           </div>
         </div>
 
@@ -54,12 +93,7 @@ function EventPage() {
           />
         </div>
 
-        <div class="content-fbtn">
-          <button class="floating-button">
-            <i class="fa fa-caret-square-o-up"></i>
-            <p>Go to top</p>
-          </button>
-        </div>
+       
       </section>
       <Footer />
     </>

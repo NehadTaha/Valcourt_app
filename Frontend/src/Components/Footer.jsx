@@ -1,8 +1,10 @@
+import '../Styles/Footer.css'
+
+
 const Footer = () => {
   return (
     <footer
-      className="footer text-white text-center p-3 fs-4"
-      style={{ backgroundColor: "#054285" }}
+      className="footer text-white text-center p-3"
     >
       <h2>Coordonnées</h2>
       <p>
@@ -17,7 +19,7 @@ const Footer = () => {
         Kevin Bombardier, directeur général
         <br />
         <a
-          className="txt-success"
+          className="link"
           href="mailto:valcourt2030@outlook.com?subject=Info Valcourt 2030"
         >
           valcourt2030@outlook.com

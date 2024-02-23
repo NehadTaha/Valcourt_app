@@ -36,6 +36,7 @@ const Card = ({prop}) => {
     setDate()
 
 return (
+
     <div class="card">
       <p class="title">{prop.title}</p>
       <p class="content">

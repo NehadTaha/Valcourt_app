@@ -21,7 +21,7 @@ function Navbar({props}){
             <ul className='navDrawer'>
               <li>
                 <FontAwesomeIcon icon={faCalendarDays} />
-                  <a href="/event" onClick={closeMenu}>Event</a>
+                  <a href="/" onClick={closeMenu}>Event</a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faBriefcase} />

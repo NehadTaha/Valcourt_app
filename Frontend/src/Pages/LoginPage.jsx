@@ -52,7 +52,7 @@ function LoginPage() {
                             <button className="btn btn-primary" type="submit">Se connecter</button>
                         </div>
                         <br />
-                        <p>Si vous n'avez pas de compte, veuillez <a href="">cliquer ici</a> pour vous inscrire.</p>
+                        <p>Si vous n'avez pas de compte, veuillez <a href="/signup">cliquer ici</a> pour vous inscrire.</p>
                     </form>
                 </div>
             </div>

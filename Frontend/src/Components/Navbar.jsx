@@ -18,7 +18,7 @@ function Navbar({props}){
             <label for="check" className="checkbtn">
                 <FontAwesomeIcon icon={faStream} />
             </label>
-            <ul>
+            <ul className='navDrawer'>
               <li>
                 <FontAwesomeIcon icon={faCalendarDays} />
                   <a href="/event" onClick={closeMenu}>Event</a>

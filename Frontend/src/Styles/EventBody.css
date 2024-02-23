@@ -20,7 +20,7 @@
 
   text-align: center;
 }
-.card {
+.customCard {
   display: flex;
   flex-direction: column;
 
@@ -40,16 +40,16 @@
   font-family: BebasNeueBold;
 }
 
-.card:hover {
+.customCard:hover {
   border-radius: 0;
   transition: all 0.2s;
 }
 
-.card:hover .title {
+.customCard:hover .title {
   border-radius: 0;
   transition: all 0.2s;
 }
-.card:hover p {
+.customCard:hover p {
   border-radius: 15px 0px 15px 0px;
   transition: all 0.2s;
 }
@@ -90,7 +90,7 @@
   color: white;
 }
 
-.card .title {
+.customCard .title {
   display: grid;
   background-color: #212121;
   color: white;
@@ -106,13 +106,13 @@
   text-transform: uppercase;
 }
 
-.card .content {
+.customCard .content {
   background-color: #3a3b3b;
   border-radius: 0px 0px 10px 10px;
   
 }
 
-.card p {
+.customCard p {
   padding: 10px;
   text-align: center;
   color: white;
@@ -122,7 +122,7 @@
   
 }
 
-.card button {
+.customCard button {
   max-width: 200px;
   min-width: 200px;
   border-radius: 50px;
@@ -142,11 +142,11 @@
   text-transform: uppercase;
 }
 
-.card button:hover {
+.customCard button:hover {
   background-color: var(--darkBlue);
   cursor: pointer;
 }
-.card button:active {
+.customCard button:active {
   background-color: var(--mauve);
 }
 

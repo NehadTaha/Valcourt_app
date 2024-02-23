@@ -4,14 +4,22 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const { connect } = require("./database/database");
+const authRouter = require('./routers/auth.route')
+
 
 app.use(cors());
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
 
+
 app.get("/", function (req, res) {
   res.send("Hello World");
 });
+
+// Login routes
+app.use('/auth', authRouter);
+
+
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

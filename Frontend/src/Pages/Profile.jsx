@@ -11,7 +11,8 @@ const Profile = () => {
         <Logo />
       </div>
       <div
-        className="container-flex text-white d-relative justify-content-center align-items-center m-1"
+        className="container-flex text-white d-relative justify-content-center align-items-center m-1 bg-grey
+        "
         style={{
           background:
             "linear-gradient(109.6deg, rgb(61, 121, 176) 11.3%, rgb(35, 66, 164) 91.1%)",
@@ -69,7 +70,10 @@ const Profile = () => {
               <div className="card card-body">
                 <form className="row g-3">
                   <div className="col-md-6">
-                    <label htmlFor="inputName" className="form-label">
+                    <label
+                      htmlFor="inputName"
+                      className="form-label text-white"
+                    >
                       Nom et prénom
                     </label>
                     <input
@@ -79,7 +83,10 @@ const Profile = () => {
                     ></input>
                   </div>
                   <div className="col-md-6">
-                    <label htmlFor="inputEmail4" className="form-label">
+                    <label
+                      htmlFor="inputEmail4"
+                      className="form-label text-white"
+                    >
                       Couriel
                     </label>
                     <input
@@ -89,7 +96,10 @@ const Profile = () => {
                     ></input>
                   </div>
                   <div className="col-md-6">
-                    <label htmlFor="inputPassword4" className="form-label">
+                    <label
+                      htmlFor="inputPassword4"
+                      className="form-label text-white"
+                    >
                       Mots de passe
                     </label>
                     <input
@@ -100,7 +110,10 @@ const Profile = () => {
                   </div>
 
                   <div className="col-md-6">
-                    <label htmlFor="inputCity" className="form-label">
+                    <label
+                      htmlFor="inputCity"
+                      className="form-label text-white"
+                    >
                       Ville
                     </label>
                     <input

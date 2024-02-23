@@ -81,6 +81,7 @@ body {
   right: -5px;
   top: 15px;
   -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
   font-weight: bold;
 }

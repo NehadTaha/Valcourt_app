@@ -3,6 +3,11 @@
   --mauve: #232f62;
   --darkBlue: #164d8e;
 }
+.noWhitespace{
+    background-color: var(--paleBlue);
+    height: 100%;
+    padding-bottom: 150px;
+}
 
 footer{
 background-color: var(--paleBlue);

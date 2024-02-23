@@ -8,6 +8,11 @@
   font-family: BebasNeueBold;
 }
 
+body{
+  margin: 0;
+  padding: 0;
+}
+
 .content-container {
   display: grid;
   grid-template-columns: 33% 33% 33%;

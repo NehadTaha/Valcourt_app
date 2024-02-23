@@ -7,7 +7,7 @@ function EventPage() {
   return (
     <>
       <Navbar props={{
-        isLoggedIn:false
+        isLoggedIn:true
       }}/>
       <section class="content-container">
         <div class="content-tag">

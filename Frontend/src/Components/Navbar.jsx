@@ -3,11 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStream, faHouse, faBriefcase, faCalendarDays,faNewspaper,faGlobe } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import ProfileImgSmall from '../Components/ProfileImgSmall'
+import { useNavigate } from 'react-router-dom'
 function Navbar({props}){
 
   function closeMenu(){
-          document.getElementById("check").checked = false
-  }
+          document.getElementById("check").checked = false   
+  } 
+
+  const navigate = useNavigate()
     return(
 
       
@@ -21,19 +24,32 @@ function Navbar({props}){
             <ul className='navDrawer'>
               <li>
                 <FontAwesomeIcon icon={faCalendarDays} />
-                  <a href="/" onClick={closeMenu}>Event</a>
+                  <a href='' onClick={()=>{
+                    closeMenu()
+                    navigate("/")
+                  }}>Event</a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faBriefcase} />
-                  <a href="#" onClick={closeMenu}>Project</a>
+                  <a href="" onClick={ ()=>{
+                                        closeMenu()
+                                        navigate('/')
+                  } 
+                    }>Project</a>
               </li>
               <li>
               <FontAwesomeIcon icon={faNewspaper} />
-                  <a href="#" onClick={closeMenu}>News</a>
+                  <a href="#" onClick={()=>{
+                                        closeMenu()
+                                        navigate('/')
+                  } }>News</a>
               </li>
               <li>
               <FontAwesomeIcon icon={faHouse} />
-                  <a href="#" onClick={closeMenu}>Main valcourt2030 website</a>
+                  <a href="#" onClick={()=>{
+                                        closeMenu()
+                                        navigate('/')
+                  } }>Main valcourt2030 website</a>
               </li>
               <i className='main-logo'></i>
           </ul>
@@ -49,7 +65,7 @@ function Navbar({props}){
   
   
         <div className="end">
-        {props.isLoggedIn ? <ProfileImgSmall /> : <a href="/login" onClick={closeMenu}>connect</a>}
+        {props.isLoggedIn ? <ProfileImgSmall /> : <a href="" onClick={()=>{closeMenu(); navigate('/login')}} >connect</a>}
         </div>
   
       </header>

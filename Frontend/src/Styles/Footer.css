@@ -5,11 +5,11 @@
 }
 
 footer{
-background-color: var(--darkBlue);
+background-color: var(--paleBlue);
 }
 
 .link{
-    color: var(--paleBlue);
+    color: var(--darkBlue);
 }
 
 .link:hover{

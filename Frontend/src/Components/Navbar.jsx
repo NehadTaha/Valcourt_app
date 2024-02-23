@@ -4,7 +4,13 @@ import { faStream, faHouse, faBriefcase, faCalendarDays,faNewspaper,faGlobe } fr
 import { useState } from 'react'
 import ProfileImgSmall from '../Components/ProfileImgSmall'
 function Navbar({props}){
+
+  function closeMenu(){
+          document.getElementById("check").checked = false
+  }
     return(
+
+      
         <header>
         <div className="start">
           <div>
@@ -15,19 +21,19 @@ function Navbar({props}){
             <ul>
               <li>
                 <FontAwesomeIcon icon={faCalendarDays} />
-                  <a href="">Event</a>
+                  <a href="/event" onClick={closeMenu}>Event</a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faBriefcase} />
-                  <a href="">Project</a>
+                  <a href="#" onClick={closeMenu}>Project</a>
               </li>
               <li>
               <FontAwesomeIcon icon={faNewspaper} />
-                  <a href="">News</a>
+                  <a href="#" onClick={closeMenu}>News</a>
               </li>
               <li>
               <FontAwesomeIcon icon={faHouse} />
-                  <a href="">Main valcourt2030 website</a>
+                  <a href="#" onClick={closeMenu}>Main valcourt2030 website</a>
               </li>
               <i className='main-logo'></i>
           </ul>
@@ -43,7 +49,7 @@ function Navbar({props}){
   
   
         <div className="end">
-        {props.isLoggedIn ? <ProfileImgSmall /> : <a href="#">connect</a>}
+        {props.isLoggedIn ? <ProfileImgSmall /> : <a href="/login" onClick={closeMenu}>connect</a>}
         </div>
   
       </header>

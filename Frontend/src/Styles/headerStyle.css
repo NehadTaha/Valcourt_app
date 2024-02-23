@@ -7,10 +7,8 @@
 * {
   margin: 0;
   padding: 0;
-  text-decoration: none;
   list-style: none;
-  border: none;
-  box-sizing: border-box;
+  font-family: BebasNeueBold;
 }
 
 .main-logo{
@@ -23,11 +21,6 @@
   line-height: 48px;
   justify-self: start;
   margin-top: 12px;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .logo {
@@ -52,7 +45,7 @@ body {
 }
 
 .checkbtn:hover {
-  color: black;
+  color: var(--darkBlue);
   transition: all 0.3s;
 }
 #check {
@@ -61,7 +54,7 @@ body {
 
 header {
   width: 100%;
-  background-color: var(--darkBlue);
+  background-color: var(--paleBlue);
   display: grid;
   grid-template-columns: 33% 33% 33%;
   line-height: 48px;
@@ -94,21 +87,20 @@ header .end a {
 }
 
 header .end a:hover {
-  background-color: var(--paleBlue);
+  color: var(--darkBlue);
   transition: 0.3s;
 }
 
 header .end a:active {
-  background-color: var(--mauve);
-  transition: 0.1s;
+  color: var(--mauve);
 }
 
 ul {
   position: absolute ;
   width: fit-content;
   height: 100%;
-  background: var(--mauve);
-  top: 64px;
+  background: var(--paleBlue);
+  top: 63px;
   left: -100%;
   text-align: center;
   transition: all 0.5s;
@@ -117,7 +109,7 @@ ul {
   flex-direction: column;
   border-radius: 0 0 15px 0px;
   z-index: 1000;
-  box-shadow: 5px 10px 20px black;
+  border: 1px solid var(--darkBlue);
 }
 ul li {
   display: block;
@@ -136,7 +128,7 @@ ul li a {
 }
 
 ul li a:hover {
-  color: black;
+  color: var(--darkBlue);
 }
 
 #check:checked ~ ul {

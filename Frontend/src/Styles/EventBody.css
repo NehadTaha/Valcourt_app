@@ -5,19 +5,7 @@
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  list-style: none;
-  border: none;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-
-  
+  font-family: BebasNeueBold;
 }
 
 .content-container {
@@ -48,6 +36,8 @@ body {
 
   box-shadow: 5px 5px 7px black;
   z-index: 1;
+
+  font-family: BebasNeueBold;
 }
 
 .card:hover {
@@ -64,13 +54,14 @@ body {
   transition: all 0.2s;
 }
 .example-date {
-  background-color:var(--mauve);
+  background-color:var(--darkBlue);
   position: relative;
   padding: 45px 5px 0px;
   margin-top: 10px;
   margin-right: 500px;
   border-radius: 10px;
   box-shadow: 2px 4px 3px black;
+  font-family: BebasNeueBold;
 }
 
 .example-date .year {
@@ -118,6 +109,7 @@ body {
 .card .content {
   background-color: #3a3b3b;
   border-radius: 0px 0px 10px 10px;
+  
 }
 
 .card p {
@@ -125,9 +117,9 @@ body {
   text-align: center;
   color: white;
   font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
   line-height: 1.5;
+  
 }
 
 .card button {
@@ -160,7 +152,9 @@ body {
 
 .content-tag {
   display: grid;
-  margin-top: 50%;
+  margin-top: 40%;
+
+  font-family: BebasNeueBold;
 
   z-index: 1;
 }
@@ -179,7 +173,7 @@ body {
 }
 
 .tags div {
-  padding-top: 10%;
+  padding-top: 5%;
   display: flex;
   align-items: center;
 }
@@ -187,9 +181,8 @@ body {
 .tags label {
   padding-right: 10px;
   font-size: 20px;
-  font-family: Arial, Helvetica, sans-serif;
   text-wrap: wrap;
-  max-width: 150px;
+  max-width: 200px;
 }
 
 .tags label::first-letter {
@@ -197,12 +190,15 @@ body {
 }
 
 .tags button {
-  margin-top: 30%;
+  margin-top: 5%;
   background-color: var(--paleBlue);
   color: white;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
 }
 
 .tags button:hover {
@@ -269,6 +265,7 @@ body {
   position: fixed;
   justify-items: end;
   align-items: end;
+
   z-index: -1;
 }
 
@@ -282,10 +279,13 @@ body {
   font-size: 30px;
   color: black;
   cursor: pointer;
+  border: none;
+  z-index: 1;
 }
 
 .content-fbtn .floating-button:hover {
   color: var(--paleBlue);
+  cursor: pointer;
   transition: 0.3s;
 }
 

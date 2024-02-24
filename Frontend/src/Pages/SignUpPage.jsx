@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 function SignUpPage() {
+
+    const navigate = useNavigate()
     
     const [form, setForm] = useState({});
     const [selectedInterests, setSelectedInterests] = useState([]);
@@ -87,7 +90,7 @@ function SignUpPage() {
                             <button className="btn btn-primary" type="submit">S'inscrire</button>
                         </div>
                         <br />
-                        <p>Vous avez déjà un compte? Veuillez <a href="">cliquer ici</a> pour vous connecter.</p>
+                        <p>Vous avez déjà un compte? Veuillez <a href="" onClick={()=>{navigate('/login')}}>cliquer ici</a> pour vous connecter.</p>
                     </form>
                 </div>
             </div>

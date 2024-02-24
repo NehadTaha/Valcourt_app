@@ -5,6 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../Components/Footer";
 const Profile = () => {
   return (
+    <>
     <div>
       <div>
         <Navbar props={{
@@ -131,8 +132,12 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      
+     
     </div>
+    <div className="noWhitespace"></div>
+    <Footer />
+    </>
   );
 };
 export default Profile;

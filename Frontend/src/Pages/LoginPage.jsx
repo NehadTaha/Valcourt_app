@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 function LoginPage() {
+
+    const navigate = useNavigate()
 
     // Holds the login information
     const [form, setForm] = useState({});
@@ -52,7 +55,7 @@ function LoginPage() {
                             <button className="btn btn-primary" type="submit">Se connecter</button>
                         </div>
                         <br />
-                        <p>Si vous n'avez pas de compte, veuillez <a href="">cliquer ici</a> pour vous inscrire.</p>
+                        <p>Si vous n'avez pas de compte, veuillez <a href="" onClick={()=>{navigate('/signup')}} >cliquer ici</a> pour vous inscrire.</p>
                     </form>
                 </div>
             </div>

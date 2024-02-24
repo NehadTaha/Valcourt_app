@@ -37,7 +37,7 @@ const Card = ({prop}) => {
 
 return (
 
-    <div class="card">
+    <div class="customCard">
       <p class="title">{prop.title}</p>
       <p class="content">
         {prop.description}

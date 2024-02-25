@@ -46,12 +46,12 @@ const Profile = () => {
         <div>
           <Navbar isLoggedIn={true} user={user} />
         </div>
-        <div className="container-flex p-5 bg-gradient bg-light flex-grow-1">
+        <div className="container-flex p-2 bg-gradient bg-light flex-grow-1">
           <div className="row p-3">
             <div className="col-12">
-              <i className="bi bi-suit-heart-fill fs-1 mx-2"></i>
+              <i className="bi bi-suit-heart-fill fs-4 mx-1"></i>
               <button
-                className="btn fs-1 mb-2 rounded-pill"
+                className="btn fs-2 mb-2 rounded-pill"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#preferedList"
@@ -75,9 +75,9 @@ const Profile = () => {
           </div>
           <div className="row p-3">
             <div className="col-12">
-              <i className="bi bi-pencil-square fs-1 mx-2"></i>
+              <i className="bi bi-pencil-square fs-4 mx-1"></i>
               <button
-                className="btn btn-white fs-1 mb-2 rounded-pill"
+                className="btn btn-white fs-2 mb-2 rounded-pill"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#editProfile"
@@ -162,8 +162,8 @@ const Profile = () => {
           </div>
           <div className="row p-3">
             <div className="col-12">
-              <i className="bi bi-box-arrow-right fs-1 mx-2"></i>
-              <button className="btn fs-1 mb-2 rounded-pill">
+              <i className="bi bi-box-arrow-right fs-4 mx-1"></i>
+              <button className="btn fs-2 mb-2 rounded-pill">
                 Se déconnecter
               </button>
             </div>

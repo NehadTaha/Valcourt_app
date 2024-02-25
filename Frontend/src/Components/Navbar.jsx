@@ -6,7 +6,6 @@ import {
   faBriefcase,
   faCalendarDays,
   faNewspaper,
-  faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import ProfileImgSmall from "../Components/ProfileImgSmall";
@@ -29,7 +28,7 @@ function Navbar({ isLoggedIn, user }) {
             <li>
               <FontAwesomeIcon icon={faCalendarDays} />
               <a
-                href=""
+                href="/"
                 onClick={() => {
                   closeMenu();
                   navigate("/");
@@ -41,7 +40,7 @@ function Navbar({ isLoggedIn, user }) {
             <li>
               <FontAwesomeIcon icon={faBriefcase} />
               <a
-                href=""
+                href="/"
                 onClick={() => {
                   closeMenu();
                   navigate("/");
@@ -53,7 +52,7 @@ function Navbar({ isLoggedIn, user }) {
             <li>
               <FontAwesomeIcon icon={faNewspaper} />
               <a
-                href="#"
+                href="/"
                 onClick={() => {
                   closeMenu();
                   navigate("/");
@@ -65,7 +64,7 @@ function Navbar({ isLoggedIn, user }) {
             <li>
               <FontAwesomeIcon icon={faHouse} />
               <a
-                href="#"
+                href="/"
                 onClick={() => {
                   closeMenu();
                   navigate("/");
@@ -87,7 +86,7 @@ function Navbar({ isLoggedIn, user }) {
           <ProfileImgSmall user={user} />
         ) : (
           <a
-            href=""
+            href="/login"
             onClick={() => {
               closeMenu();
               navigate("/login");

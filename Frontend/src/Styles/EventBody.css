@@ -298,3 +298,103 @@ body{
 .content-fbtn .floating-button p {
   font-size: 22px;
 }
+/* Media queries for small screens */
+@media (max-width: 768px) {
+  .content-container {
+    grid-template-columns: 100%;
+  }
+
+  .content-card,
+  .customCard,
+  .example-date,
+  .content-tag {
+    justify-self: center;
+    margin-right: 10px;
+    margin-left: 10px;
+    
+    
+  }
+    .example-date {
+      margin: 5%;
+    }
+
+  .content-tag {
+    margin-top: 10%;
+  }
+
+  .content-fbtn {
+    justify-items: center;
+    align-items: center;
+    
+  }
+
+  .content-fbtn .floating-button {
+    margin-bottom: 50px;
+    margin-right: 10px;
+    margin-left: 20px;
+  }
+}
+/* Media queries for medium screens */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .content-container {
+    grid-template-columns: 50% 50%;
+  }
+
+  .content-card,
+  .customCard,
+  .example-date,
+  .content-tag {
+    justify-self: center;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .example-date {
+    margin-bottom: 5%;
+  }
+
+  .content-tag {
+    margin-top: 10%;
+  }
+
+  .content-fbtn {
+    justify-items: center;
+    align-items: center;
+  }
+
+  .content-fbtn .floating-button {
+    margin-bottom: 50px;
+    margin-right: 10px;
+    margin-left: 20px;
+  }
+}
+
+/* Media queries for large screens */
+@media (min-width: 1025px) {
+  .content-container {
+    grid-template-columns: 33% 33% 33%;
+  }
+
+  .content-card,
+  .customCard,
+  .example-date{
+    justify-self: left;
+    
+  }
+  
+
+  .content-tag {
+    margin-top: 10%;
+    margin-bottom: 20px;
+    /* Add margin between tag cards and content cards */
+  }
+
+  .content-fbtn {
+    justify-items: end;
+    align-items: end;
+  }
+
+  .content-fbtn .floating-button {
+    margin-bottom: 100px;
+    margin-right: 100px;
+  }
+}

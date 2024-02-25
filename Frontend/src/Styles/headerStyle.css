@@ -8,18 +8,18 @@
   font-family: BebasNeueBold;
 }
 
-.main-logo{
+.main-logo {
   background-image: url('../../public/V2030\ transparence.png');
   background-repeat: no-repeat;
-  background-size:100px;
+  background-size: contain;
   height: 48px;
   padding-right: 50px;
   padding-left: 50px;
   line-height: 48px;
   justify-self: start;
   margin-top: 12px;
+ 
 }
-
 .logo {
   font-size: 45px;
   font-weight: bolder;
@@ -45,6 +45,7 @@
   color: var(--darkBlue);
   transition: all 0.3s;
 }
+
 #check {
   display: none;
 }
@@ -53,7 +54,7 @@ header {
   width: 100%;
   background-color: var(--paleBlue);
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: auto auto auto;
   line-height: 48px;
 }
 
@@ -61,7 +62,7 @@ header .start {
   display: grid;
   justify-items: start;
   align-items: center;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: auto auto;
   line-height: 48px;
 }
 
@@ -94,7 +95,7 @@ header .end a:active {
 
 .navDrawer {
   list-style: none;
-  position: absolute ;
+  position: absolute;
   width: fit-content;
   height: 100%;
   background: var(--paleBlue);
@@ -109,6 +110,7 @@ header .end a:active {
   z-index: 1000;
   border: 1px solid var(--darkBlue);
 }
+
 .navDrawer li {
   display: block;
   margin: 50px 0;
@@ -129,7 +131,7 @@ header .end a:active {
   color: var(--darkBlue);
 }
 
-#check:checked ~ ul {
+#check:checked~ul {
   left: 0;
   padding: 0px 10px;
   height: 100%;
@@ -157,6 +159,7 @@ header .middle {
   color: black;
   transition: all 0.3s;
 }
+
 .nav-icon {
   color: white;
 }
@@ -169,8 +172,47 @@ header .middle {
   width: fit-content;
   margin-right: 5px;
 }
+
 .search-bar:focus-visible {
   box-shadow: 0px 0px 10px black;
   outline: none;
   transition: all 0.1s;
 }
+
+/* Media Queries for responsiveness */
+
+@media screen and (max-width: 768px) {
+  .main-logo {
+    width: 80px;
+    /* Adjust as needed for smaller screens */
+  }
+
+  .checkbtn {
+    margin-left: 10px;
+    /* Adjust margin for smaller screens */
+  }
+
+  .navDrawer {
+    display: none;
+    /* Hide the navDrawer by default on small screens */
+  }
+
+  #check:checked~.navDrawer {
+    display: flex;
+    /* Display the navDrawer when the checkbox is checked */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .main-logo {
+    width: 60px;
+    /* Adjust as needed for even smaller screens */
+  }
+
+  .checkbtn {
+    margin-left: 5px;
+    /* Adjust margin for smaller screens */
+  }
+}
+
+ 

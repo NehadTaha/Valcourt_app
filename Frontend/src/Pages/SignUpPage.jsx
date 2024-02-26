@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
-import { topics } from "../constants";
+import { topics, municipalities } from "../constants";
 
 function SignUpPage() {
 
@@ -64,7 +64,13 @@ function SignUpPage() {
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' >Municipalité:</label>
-                            <input className='col' type="text" id="municipalité" onChange={(event) => handleInputChange('town', event.target.value)} />
+                            <select className='col' id="municipalité" onChange={(event) => handleInputChange('town', event.target.value, option => option.value)}>
+                                {municipalities.map((element, index) => (
+                                    <option key={index} value={element}>
+                                        {element}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' htmlFor="email">Courriel:</label>
@@ -81,7 +87,7 @@ function SignUpPage() {
 
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' htmlFor="listbox">Intérets:</label>
-                            <select multiple defaultValue={selectedInterests} onChange={(event) => handleInputChange(handleInputChange('topics', Array.from(event.target.selectedOptions, option => option.value)))}>
+                            <select multiple defaultValue={selectedInterests} onChange={(event) => handleInputChange('topics', Array.from(event.target.selectedOptions, option => option.value))}>
                                 {interests.map((interest, index) => (
                                     <option key={index} value={interest}>
                                         {interest}

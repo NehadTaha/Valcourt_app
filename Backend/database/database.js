@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
-
-const url = "mongodb://localhost:27017";
+// I changed local host to 0.0.0.0 because it was not working on my machine
+const url = "mongodb://0.0.0.0:27017";
 const client = new MongoClient(url);
 
 async function connect() {

@@ -47,6 +47,9 @@ function SignUpPage() {
             <div className="row">
                 <div className="col">
                     <div className="d-flex justify-content-center">
+                        <img width="250" height="100" src="./V2030 transparence.png" alt="" />
+                    </div>
+                    <div className="d-flex justify-content-center">
                         <h1>S'inscrire</h1>
                     </div>
                     <br />

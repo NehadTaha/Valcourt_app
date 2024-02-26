@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import { topics } from "../constants";
 
 function SignUpPage() {
 
@@ -8,7 +9,7 @@ function SignUpPage() {
     const [form, setForm] = useState({});
     const [selectedInterests, setSelectedInterests] = useState([]);
 
-    const interests = ['Art', 'Cooking', 'Cultural', 'French'];
+    const interests = topics;
 
     // Updates the form
     function handleInputChange(key, newValue) {
@@ -46,7 +47,7 @@ function SignUpPage() {
             <div className="row">
                 <div className="col">
                     <div className="d-flex justify-content-center">
-                        <h1>S'incrire</h1>
+                        <h1>S'inscrire</h1>
                     </div>
                     <br />
                     <form onSubmit={handleSubmit}>

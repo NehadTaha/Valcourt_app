@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const { connect } = require("./database/database");
 const authRouter = require('./routers/auth.route')
+const userInfoRouter = require('./routers/userInfo')
 
 
 app.use(cors());
@@ -18,11 +19,12 @@ app.get("/", function (req, res) {
 
 // Login routes
 app.use('/auth', authRouter);
+app.use('/userInfo', userInfoRouter);
 
 
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-  connect()
+  connect();
   console.log("Server listening on port " + port);
 });

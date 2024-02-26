@@ -1,10 +1,15 @@
 import profileImage from "../Img/profile_img.png";
-//Import style.css file
-import "../Styles/style.css";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
-const Profile_img = () => {
-  const navigate = useNavigate()
+const ProfileImgSmall = ({ user }) => {
+  const navigate = useNavigate();
+
+  const getInitials = () => {
+    if (user && user.firstName && user.lastName) {
+      return user.firstName[0] + user.lastName[0];
+    }
+    return "";
+  };
 
   return (
     <div
@@ -12,10 +17,11 @@ const Profile_img = () => {
       style={{
         backgroundImage: `url(${profileImage})`,
       }}
-      onClick={()=>navigate("/profile")}
+      onClick={() => navigate("/profile")}
     >
-        <h1 className="smallTxt">NT</h1>
+      <h1 className="smallTxt">{getInitials()}</h1>
     </div>
   );
 };
-export default Profile_img;
+
+export default ProfileImgSmall;

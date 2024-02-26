@@ -63,8 +63,8 @@ function SignUpPage() {
                             <input className='col' type="text" id="nom" required onChange={(event) => handleInputChange('lastName', event.target.value)} />
                         </div>
                         <div className="row align-items-center mb-3">
-                            <label className='form-label col-4' >Ville:</label>
-                            <input className='col' type="text" id="ville" onChange={(event) => handleInputChange('town', event.target.value)} />
+                            <label className='form-label col-4' >Municipalité:</label>
+                            <input className='col' type="text" id="municipalité" onChange={(event) => handleInputChange('town', event.target.value)} />
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' htmlFor="email">Courriel:</label>

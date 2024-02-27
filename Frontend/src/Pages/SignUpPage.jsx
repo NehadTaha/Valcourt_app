@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import { topics, municipalities } from "../constants";
 
 function SignUpPage() {
 
@@ -8,7 +9,7 @@ function SignUpPage() {
     const [form, setForm] = useState({});
     const [selectedInterests, setSelectedInterests] = useState([]);
 
-    const interests = ['Art', 'Cooking', 'Cultural', 'French'];
+    const interests = topics;
 
     // Updates the form
     function handleInputChange(key, newValue) {
@@ -46,7 +47,10 @@ function SignUpPage() {
             <div className="row">
                 <div className="col">
                     <div className="d-flex justify-content-center">
-                        <h1>S'incrire</h1>
+                        <img width="250" height="100" src="./V2030 transparence.png" alt="" />
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <h1>S'inscrire</h1>
                     </div>
                     <br />
                     <form onSubmit={handleSubmit}>
@@ -59,8 +63,14 @@ function SignUpPage() {
                             <input className='col' type="text" id="nom" required onChange={(event) => handleInputChange('lastName', event.target.value)} />
                         </div>
                         <div className="row align-items-center mb-3">
-                            <label className='form-label col-4' >Ville:</label>
-                            <input className='col' type="text" id="ville" onChange={(event) => handleInputChange('town', event.target.value)} />
+                            <label className='form-label col-4' >Municipalité:</label>
+                            <select className='col' id="municipalité" onChange={(event) => handleInputChange('town', event.target.value, option => option.value)}>
+                                {municipalities.map((element, index) => (
+                                    <option key={index} value={element}>
+                                        {element}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' htmlFor="email">Courriel:</label>
@@ -77,7 +87,7 @@ function SignUpPage() {
 
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' htmlFor="listbox">Intérets:</label>
-                            <select multiple defaultValue={selectedInterests} onChange={(event) => handleInputChange(handleInputChange('topics', Array.from(event.target.selectedOptions, option => option.value)))}>
+                            <select multiple defaultValue={selectedInterests} onChange={(event) => handleInputChange('topics', Array.from(event.target.selectedOptions, option => option.value))}>
                                 {interests.map((interest, index) => (
                                     <option key={index} value={interest}>
                                         {interest}

@@ -3,10 +3,48 @@ import Navbar from "../Components/Navbar";
 import "../Styles/style.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../Components/Footer";
+import Tags from "../Components/Tags";
 import { useState, useEffect } from "react";
 
-const Profile = () => {
+const Profile = ({ handleChange }) => {
   const [user, setUser] = useState(null);
+  const [showTags, setShowTags] = useState(false);
+  const [tags, setTags] = useState([]);
+  const handleListEdit = () => {
+    setShowTags(!showTags);
+  };
+
+  const handleChangeTags = async (data) => {
+    try {
+      const token = localStorage.getItem("token");
+      const userInfoUrl = "http://localhost:8080/userInfo/profile";
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        body: JSON.stringify({ topics: data }), // Sending the updated tags array
+      };
+      fetch(userInfoUrl, options)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("data: ", data);
+        })
+        .catch((error) => {
+          console.error("Error updating user info:", error);
+        });
+      setTags(data);
+      setShowTags(false);
+      setUser((prevUser) => ({
+        ...prevUser,
+        topics: data,
+      }));
+    } catch (error) {
+      console.error("Error updating user info:", error);
+    }
+  };
+  // Assuming that `data` contains the updated tags array directly
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -62,6 +100,15 @@ const Profile = () => {
               </button>
               <div className="collapse" id="preferedList">
                 <div className="card card-body">
+                  <div className="d-flex justify-content-end">
+                    <span className="d-flex justify-content-right">
+                      <i
+                        className="bi bi-pencil-square fs-4 mx-1"
+                        type="button"
+                        onClick={handleListEdit}
+                      ></i>{" "}
+                    </span>
+                  </div>
                   <ul>
                     {user &&
                       user.topics &&
@@ -70,6 +117,11 @@ const Profile = () => {
                       ))}
                   </ul>
                 </div>
+                {showTags && (
+                  <div className="card card-body">
+                    <Tags handleChange={handleChangeTags} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -170,6 +222,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   );

@@ -76,7 +76,7 @@ function Navbar({ isLoggedIn, user }) {
   
   
         <div className="end">
-        {props.isLoggedIn ? <ProfileImgSmall /> : <a href="/login" onClick={closeMenu}>connect</a>}
+        {isLoggedIn ? <ProfileImgSmall /> : <a href="/login" onClick={closeMenu}>connect</a>}
         </div>
   
       </header>

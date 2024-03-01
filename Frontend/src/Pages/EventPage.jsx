@@ -2,12 +2,28 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Card from "../Components/Card";
 import "../Styles/EventBody.css";
+import { useEffect, useState } from "react";
 
 function EventPage() {
+
+  const [stateLoggedIn,setStateIsLoggedIn]= useState(false)
+
+  useEffect(()=>{
+    
+    function ifLoggedIn(){
+      if(localStorage.getItem('token')){
+        setStateIsLoggedIn(true)
+      }
+    }
+
+    ifLoggedIn()
+
+  })
+
   return (
     <>
       <Navbar props={{
-        isLoggedIn:false
+        isLoggedIn:stateLoggedIn
       }}/>
       <section class="content-container">
         <div class="content-tag">
@@ -68,7 +84,6 @@ function EventPage() {
               <label for="">Sports et plein air</label>
               <input type="checkbox" name="" id="" />
             </div>
-
             <button>Save</button>
             <button>Clear Selection</button>
           </div>
@@ -92,8 +107,6 @@ function EventPage() {
             }}
           />
         </div>
-
-       
       </section>
       <Footer />
     </>

@@ -1,33 +1,60 @@
-import '../Styles/headerStyle.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStream, faHouse, faBriefcase, faCalendarDays,faNewspaper,faGlobe } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
-import ProfileImgSmall from '../Components/ProfileImgSmall'
-function Navbar({props}){
+import "../Styles/headerStyle.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faStream,
+  faHouse,
+  faBriefcase,
+  faCalendarDays,
+  faNewspaper,
+  faGlobe,
+} from "@fortawesome/free-solid-svg-icons";
 
-  function closeMenu(){
-          document.getElementById("check").checked = false
+
+import ProfileImgSmall from "../Components/ProfileImgSmall";
+import { useNavigate } from "react-router-dom";
+function Navbar({ isLoggedIn, user }) {
+
+
+
+  function closeMenu() {
+    document.getElementById("check").checked = false;
   }
-    return(
 
-      
-        <header>
-        <div className="start">
-          <div>
-            <input type="checkbox" id="check" />
-            <label for="check" className="checkbtn">
-                <FontAwesomeIcon icon={faStream} />
-            </label>
-            <ul>
-              <li>
-                <FontAwesomeIcon icon={faCalendarDays} />
-                  <a href="/event" onClick={closeMenu}>Event</a>
-              </li>
-              <li>
-                <FontAwesomeIcon icon={faBriefcase} />
-                  <a href="#" onClick={closeMenu}>Project</a>
-              </li>
-              <li>
+  const navigate = useNavigate();
+  return (
+    <header>
+      <div className="start">
+        <div>
+          <input type="checkbox" id="check" />
+          <label for="check" className="checkbtn">
+            <FontAwesomeIcon icon={faStream} />
+          </label>
+          <ul className="navDrawer">
+            <li>
+              <FontAwesomeIcon icon={faCalendarDays} />
+              <a
+                href=""
+                onClick={() => {
+                  closeMenu();
+                  navigate("/");
+                }}
+              >
+                Event
+              </a>
+            </li>
+            <li>
+              <FontAwesomeIcon icon={faBriefcase} />
+              <a
+                href=""
+                onClick={() => {
+                  closeMenu();
+                  navigate("/");
+                }}
+              >
+                Project
+              </a>
+            </li>
+            <li>
               <FontAwesomeIcon icon={faNewspaper} />
                   <a href="#" onClick={closeMenu}>News</a>
               </li>

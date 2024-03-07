@@ -22,9 +22,6 @@ router.post("/login", async (req, res) => {
   const body = req.body;
   console.log("body: ", body);
 
-  const defPass = "1234";
-  const defMail = "his@mail.com";
-
   if (!body.email || !body.password) {
     res.status(401).send({
       message: "Missing credentials. Access denied.",
@@ -42,6 +39,7 @@ router.post("/login", async (req, res) => {
 
     return;
   }
+  
   // Generate token
   const token = jwt.sign({ userId: user._id }, secret_key, {
     expiresIn: "1h",

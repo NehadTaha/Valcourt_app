@@ -10,6 +10,7 @@ function SignUpPage() {
     const [selectedInterests, setSelectedInterests] = useState([]);
 
     const interests = topics;
+    const municipalityText = 'Choisissez votre municipalité'
 
     // Updates the form
     function handleInputChange(key, newValue) {
@@ -41,7 +42,14 @@ function SignUpPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (form.password !== form.confirmPassword) {
+        console.log(form.town);
+
+        if(form.town == null || form.town === municipalityText) {
+            alert('Indiquez votre municipalité.')
+            return
+        }
+
+        if(form.password !== form.confirmPassword) {
             alert('Les mots de passe ne sont pas pareils.');
             return;
         }
@@ -92,6 +100,7 @@ function SignUpPage() {
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' >Municipalité:</label>
                             <select className='col' id="municipalité" onChange={(event) => handleInputChange('town', event.target.value, option => option.value)}>
+                                    <option>{municipalityText}</option>
                                 {municipalities.map((element, index) => (
                                     <option key={index} value={element}>
                                         {element}

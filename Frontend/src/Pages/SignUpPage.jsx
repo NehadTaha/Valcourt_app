@@ -42,8 +42,6 @@ function SignUpPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(form.town);
-
         if(form.town == null || form.town === municipalityText) {
             alert('Indiquez votre municipalité.')
             return

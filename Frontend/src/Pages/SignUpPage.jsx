@@ -18,11 +18,38 @@ function SignUpPage() {
         console.log(form);
     }
 
+    // Validates password security
+    function validatePassword(password) {
+        const lengthRegex = /[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]{8}[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]*/;
+        const lengthTest = lengthRegex.test(password); // true/false
+
+        const upperRegex = /[A-Z]/
+        const upperTest = upperRegex.test(password);
+
+        const lowerRegex = /[a-z]/
+        const lowerTest = lowerRegex.test(password);
+
+        const numbersRegex = /\d/
+        const numbersTest = numbersRegex.test(password);
+
+        const specialRegex = /[!#$%&'*+\/=?^_`{|}~-]/
+        const specialTest = specialRegex.test(password);
+
+        return lengthTest && upperTest && lowerTest && numbersTest && specialTest;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (form.password !== form.confirmPassword) {
-            console.log('Les mots de passe ne sont pas pareils.');
+            alert('Les mots de passe ne sont pas pareils.');
+            return;
+        }
+
+        // If the password does not pass the test, end the procedure.
+        if(!validatePassword(form.password)) {
+            alert("Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial (#$%?&*).")
+            return;
         }
 
 

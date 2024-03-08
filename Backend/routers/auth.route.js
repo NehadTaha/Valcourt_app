@@ -1,7 +1,8 @@
 const express = require("express");
 const { client } = require("../database/database");
 const jwt = require("jsonwebtoken");
-const secret_key = "utwet72re71f782te";
+const bcrypt = require("bcrypt");
+const secret_key = require("../constants");
 
 const router = express.Router();
 
@@ -31,15 +32,26 @@ router.post("/login", async (req, res) => {
   }
 
   const user = await users.findOne({ email: body.email });
-
-  if (!user || body.email !== user.email || body.password !== user.password) {
+  
+  if (!user || body.email !== user.email) {
     res.status(401).send({
-      message: "Invalid email or password.",
+      message: 'Invalid email or password.',
     });
-
+    
     return;
   }
   
+  const verify = await bcrypt.compare(body.password, user.password);
+  
+  if (!verify) {
+    res.status(401).send({
+        message: 'Invalid email or password.'
+    });
+
+    return
+}
+
+
   // Generate token
   const token = jwt.sign({ userId: user._id }, secret_key, {
     expiresIn: "1h",
@@ -50,6 +62,7 @@ router.post("/login", async (req, res) => {
     token: token,
   });
 });
+
 
 // User registration route
 router.post("/register", async (req, res) => {
@@ -77,11 +90,16 @@ router.post("/register", async (req, res) => {
     return;
   }
 
+  // Hash the password
+  const salt = await bcrypt.genSalt(10);
+  const passwordHash = await bcrypt.hash(body.password, salt)
+
+
   // Add user to DB
   try {
     const result = await users.insertOne({
       email: body.email,
-      password: body.password,
+      password: passwordHash,
 
       firstName: body.firstName,
       lastName: body.lastName,

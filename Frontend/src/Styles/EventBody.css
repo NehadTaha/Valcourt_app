@@ -157,8 +157,12 @@ body{
 }
 
 .content-tag {
-  display: grid;
-  margin-top: 40%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+
+  justify-items: center;
+  align-items: center;
 
   font-family: BebasNeueBold;
 
@@ -168,21 +172,96 @@ body{
 .content-tag .tags {
   position: relative;
   justify-self: center;
-  align-self: flex-start;
-  display: flex;
+  align-items: center;
   flex-direction: column;
+  display: flex;
   color: black;
   padding: 5%;
-  border-radius: 20% 10%;
+  margin-right: 10px;
   border: 1px solid;
   box-shadow: 2px 2px 4px black;
 }
 
-.tags div {
-  padding-top: 5%;
+.cluster{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 300px;
+
+  align-self: center;
+}
+
+
+.tag-node{
   display: flex;
   align-items: center;
+  justify-items: center;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 15px;
 }
+.clickable{
+  cursor: pointer;
+  margin-top: 10px;
+  user-select: none;
+}
+
+.clickable:hover{
+  box-shadow: 0 0 5px;
+}
+
+.addTags-menu-hide{
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.customDropdown{
+  background-color: rgb(201, 201, 201);
+  position: relative;
+  top: -4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 130px;
+  width: 130px;
+  height: fit-content;
+  border-radius: 10px 10px 5px 5px;
+  z-index: 1000;
+}
+.cDText{
+  padding-left: 1px;
+  padding-right: 1px;
+  margin: 2px;
+  max-width: 130px;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  border: 1px solid white;
+  border-radius: 5px;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.cDText:active{
+  box-shadow: 0 0 5px;
+}
+
+.noSpace{
+  padding: 0;
+  margin: 0;
+}
+.x-icon{
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.tags-title{
+  font-size: large;
+  font-weight: bold;
+  height: 20px;
+}
+
 
 .tags label {
   padding-right: 10px;
@@ -195,6 +274,8 @@ body{
   text-transform: uppercase;
 }
 
+
+
 .tags button {
   margin-top: 5%;
   background-color: var(--paleBlue);
@@ -205,6 +286,8 @@ body{
   font-size: 20px;
   border: none;
   border-radius: 50px;
+  margin: 10px;
+  
 }
 
 .tags button:hover {

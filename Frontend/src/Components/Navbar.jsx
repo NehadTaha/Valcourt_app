@@ -7,12 +7,89 @@ import {
   faCalendarDays,
   faNewspaper,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import ProfileImgSmall from "../Components/ProfileImgSmall";
 import { useNavigate } from "react-router-dom";
 function Navbar({ isLoggedIn, user }) {
+
+  const [logTest,setLogTest]= useState(isLoggedIn)
+
+  const [vUser,setVUser] = useState(user)
+
+  const [isMenuOpen,setIsMenuopen] = useState(false)
+
+
+
+  useEffect(()=>{
+
+    let token = ""
+    
+    function getUser(){ 
+      if(localStorage.getItem("token")){
+        setLogTest(true)
+        token = localStorage.getItem('token')
+      }
+    }
+
+    const fetchUserInfo = async () => {
+      const userInfoUrl = "http://localhost:8080/userInfo/profile";
+      const options = {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      };
+
+      try {
+        const response = await fetch(userInfoUrl, options);
+        const data = await response.json();
+
+        if (response.ok) {
+          setVUser(data); // Set user info state
+        } else {
+          console.error("Error fetching user info:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+        setVUser(false)
+      }
+    };
+
+    getUser()
+    if(token !== ""){
+      if(vUser == false){
+        setLogTest(false)
+      }
+      else{
+        fetchUserInfo()
+      }
+    }
+    else{
+      setLogTest(false)
+    }
+  },[])
+
   function closeMenu() {
     document.getElementById("check").checked = false;
+  }
+
+  function menuFlop(){
+    if(!isMenuOpen){
+      setIsMenuopen(true)
+      document.getElementById("check").click()
+    }
+    else{
+      setIsMenuopen(false)
+      document.getElementById("check").click()
+    }
+  }
+
+  function onMenuOpen(){
+    menuFlop()
+    if(isMenuOpen){
+      document.body.style.overflow = 'unset';
+    }else{
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   const navigate = useNavigate();
@@ -20,7 +97,7 @@ function Navbar({ isLoggedIn, user }) {
     <header>
       <div className="start">
         <div>
-          <input type="checkbox" id="check" />
+          <input type="checkbox" id="check" onClick={onMenuOpen}/>
           <label for="check" className="checkbtn">
             <FontAwesomeIcon icon={faStream} />
           </label>
@@ -82,8 +159,8 @@ function Navbar({ isLoggedIn, user }) {
       <div className="middle"></div>
 
       <div className="end">
-        {isLoggedIn ? (
-          <ProfileImgSmall user={user} />
+        {logTest ? (
+          <ProfileImgSmall user={vUser} />
         ) : (
           <a
             href="/login"

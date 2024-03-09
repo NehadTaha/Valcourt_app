@@ -187,6 +187,14 @@ header .middle {
     /* Adjust as needed for smaller screens */
   }
 
+  #check:checked~ul {
+    left: 0;
+    padding: 0px 10px;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+  }
+
   .checkbtn {
     margin-left: 10px;
     /* Adjust margin for smaller screens */

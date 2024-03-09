@@ -2,7 +2,7 @@ const express = require("express");
 const { client } = require("../database/database");
 const { ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
-const secret_key = "utwet72re71f782te";
+const secret_key = require("../constants");
 
 const router = express.Router();
 

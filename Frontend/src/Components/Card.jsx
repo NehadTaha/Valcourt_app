@@ -11,9 +11,9 @@ const Card = ({ prop }) => {
     "07": "July",
     "08": "August",
     "09": "September",
-    10: "October",
-    11: "November",
-    12: "December",
+    "10": "October",
+    "11": "November",
+    "12": "December",
   };
 
   let day = "01";

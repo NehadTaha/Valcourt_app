@@ -10,6 +10,7 @@ function SignUpPage() {
     const [selectedInterests, setSelectedInterests] = useState([]);
 
     const interests = topics;
+    const municipalityText = 'Choisissez votre municipalité'
 
     // Updates the form
     function handleInputChange(key, newValue) {
@@ -18,11 +19,43 @@ function SignUpPage() {
         console.log(form);
     }
 
+    // Validates password security
+    function validatePassword(password) {
+        const lengthRegex = /[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]{8}[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]*/;
+        const lengthTest = lengthRegex.test(password); // true/false
+
+        const upperRegex = /[A-Z]/
+        const upperTest = upperRegex.test(password);
+
+        const lowerRegex = /[a-z]/
+        const lowerTest = lowerRegex.test(password);
+
+        const numbersRegex = /\d/
+        const numbersTest = numbersRegex.test(password);
+
+        const specialRegex = /[!#$%&'*+\/=?^_`{|}~-]/
+        const specialTest = specialRegex.test(password);
+
+        return lengthTest && upperTest && lowerTest && numbersTest && specialTest;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (form.password !== form.confirmPassword) {
-            console.log('Les mots de passe ne sont pas pareils.');
+        if(form.town == null || form.town === municipalityText) {
+            alert('Indiquez votre municipalité.')
+            return
+        }
+
+        if(form.password !== form.confirmPassword) {
+            alert('Les mots de passe ne sont pas pareils.');
+            return;
+        }
+
+        // If the password does not pass the test, end the procedure.
+        if(!validatePassword(form.password)) {
+            alert("Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial (#$%?&*).")
+            return;
         }
 
 
@@ -44,7 +77,7 @@ function SignUpPage() {
 
     return (
         <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <div className="row">
+            <div className="row px-5">
                 <div className="col">
                     <div className="d-flex justify-content-center">
                         <img width="250" height="100" src="./V2030 transparence.png" alt="" />
@@ -65,6 +98,7 @@ function SignUpPage() {
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' >Municipalité:</label>
                             <select className='col' id="municipalité" onChange={(event) => handleInputChange('town', event.target.value, option => option.value)}>
+                                    <option>{municipalityText}</option>
                                 {municipalities.map((element, index) => (
                                     <option key={index} value={element}>
                                         {element}

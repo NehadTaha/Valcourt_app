@@ -3,7 +3,7 @@ const { client } = require("../database/database");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
-const secret_key = require("../constants");
+const { secret_key, sender_email, sender_email_password } = require("../constants");
 
 const router = express.Router();
 
@@ -38,8 +38,8 @@ const sendMail = (email, uniqueString) => {
   const Transport = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-      user: "d",        // put your gmail username here
-      pass: "password"  // and your password here
+      user: sender_email,        // put your gmail username here
+      pass: sender_email_password  // and your password here
     }
   });
 

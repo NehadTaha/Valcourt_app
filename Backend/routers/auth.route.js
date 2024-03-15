@@ -48,7 +48,7 @@ const sendMail = (email, uniqueString) => {
     from: sender,
     to: email,
     subject: "Email confirmation",
-    html: `Press <a href=http://localhost:3000/auth/verify/${uniqueString}> here</a> to verify your email. Thanks.`
+    html: `Press <a href=http://localhost:8080/auth/verify/${uniqueString}> here</a> to verify your email. Thanks.`
   };
 
   Transport.sendMail(mailOptions, function(error, response) {

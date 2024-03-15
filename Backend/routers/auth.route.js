@@ -2,6 +2,7 @@ const express = require("express");
 const { client } = require("../database/database");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer")
 const secret_key = require("../constants");
 
 const router = express.Router();
@@ -31,6 +32,33 @@ const randString = () => {
   }
 
   return randStr
+}
+
+const sendMail = (email, uniqueString) => {
+  const Transport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: "d",        // put your gmail username here
+      pass: "password"  // and your password here
+    }
+  });
+
+  let sender = "your_name";
+  const mailOptions = {
+    from: sender,
+    to: email,
+    subject: "Email confirmation",
+    html: `Press <a href=http://localhost:3000/auth/verify/${uniqueString}> here</a> to verify your email. Thanks.`
+  };
+
+  Transport.sendMail(mailOptions, function(error, response) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Message sent");
+    }
+  })
+
 }
 
 

@@ -141,8 +141,12 @@ router.post("/register", async (req, res) => {
   const passwordHash = await bcrypt.hash(body.password, salt)
 
 
-  // Add user to DB
   try {
+
+    // Send email confirmation
+    sendMail(body.email, uniqueString)
+
+    // Add user to DB
     const result = await users.insertOne({
       email: body.email,
       password: passwordHash,

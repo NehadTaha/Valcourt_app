@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Logo from "../Components/Logo";
 import bcrypt from "bcryptjs";
 import updateUserInformation from "../Middleware/UpdatingDB";
+import validatePassword from "../Middleware/validatePassword";
 
 const ChangePassword = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -28,6 +29,15 @@ const ChangePassword = () => {
     if (newPassword !== confirmPassword) {
       setAlertVariant("danger");
       setAlertMessage("Passwords do not match");
+      setShowAlert(true);
+      return;
+    }
+    // If the password does not pass the test, end the procedure.
+    if (!validatePassword(newPassword)) {
+      setAlertVariant("danger");
+      setAlertMessage(
+        "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial (#$%?&*)."
+      );
       setShowAlert(true);
       return;
     }

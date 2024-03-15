@@ -12,10 +12,10 @@ router.post("/webhook", (req, res) => {
   console.log("Received webhook payload:", post);
 
   // You can perform any actions with the post data here
+  const postTitle = post.title.rendered;
+  console.log("Post title:", postTitle);
 
   res.status(200).send(post);
 });
-
-
 
 module.exports = router;

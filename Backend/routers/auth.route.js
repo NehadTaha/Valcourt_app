@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 require('dotenv').config();
-const { secret_key } = require("../constants");
+const secret_key = require("../constants");
+console.log('secret_key: ', secret_key);
 
 const router = express.Router();
 

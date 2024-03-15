@@ -9,15 +9,21 @@ import updateUserInformation from "../Middleware/UpdatingDB";
 import { municipalities } from "../constants";
 import { Link } from "react-router-dom";
 
-const Profile = ({ handleChange }) => {
+const Profile = ({ isLoggedIn }) => {
   const [user, setUser] = useState(null);
   const [showTags, setShowTags] = useState(false);
   const [tags, setTags] = useState([]);
   const [editMode, setEditMode] = useState(false);
+
   // Inside the Profile component
   const [selectedCity, setSelectedCity] = useState(user ? user.town : "");
+
   const handleListEdit = () => {
     setShowTags(!showTags);
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
   };
 
   const handleChangeTags = async (data) => {
@@ -171,9 +177,15 @@ const Profile = ({ handleChange }) => {
                         type="text"
                         className="form-control"
                         id="fullName"
-                        placeholder={
-                          user ? `${user.firstName} ${user.lastName}` : ""
-                        }
+                        {...(editMode
+                          ? {
+                              placeholder: user ? `Nom et prénom` : "",
+                            }
+                          : {
+                              value: user
+                                ? `${user.firstName} ${user.lastName}`
+                                : "",
+                            })}
                         readOnly={!editMode}
                       ></input>
                     </div>
@@ -203,8 +215,8 @@ const Profile = ({ handleChange }) => {
                           type="password"
                           className="form-control"
                           id="inputPassword4"
-                          value={user ? user.password : ""}
-                          readOnly={!editMode} // Add readOnly attribute based on editMode
+                          value="*********" // Display dots instead of the actual password
+                          readOnly // Add readOnly attribute based on editMode
                         />
                         {editMode ? ( // Show pen icon only in edit mode
                           <Link to="/change-password">
@@ -224,7 +236,7 @@ const Profile = ({ handleChange }) => {
                         htmlFor="inputCity"
                         className="form-label text-black"
                       >
-                        Ville
+                        Municipalité
                       </label>
                       {editMode ? (
                         <select
@@ -233,7 +245,9 @@ const Profile = ({ handleChange }) => {
                           value={selectedCity}
                           onChange={handleCityChange}
                         >
-                          <option value="">Select a city</option>
+                          <option value={user ? user.town : ""}>
+                            {user ? user.town : ""}
+                          </option>
                           {municipalities.map((city, index) => (
                             <option key={index} value={city}>
                               {city}
@@ -245,7 +259,7 @@ const Profile = ({ handleChange }) => {
                           type="text"
                           className="form-control"
                           id="inputCity"
-                          placeholder={user ? user.town : ""}
+                          value={user ? user.town : ""}
                           readOnly={!editMode}
                         />
                       )}
@@ -269,7 +283,10 @@ const Profile = ({ handleChange }) => {
           <div className="row p-3">
             <div className="col-12">
               <i className="bi bi-box-arrow-right fs-4 mx-1"></i>
-              <button className="btn fs-2 mb-2 rounded-pill">
+              <button
+                className="btn fs-2 mb-2 rounded-pill"
+                onClick={handleLogout}
+              >
                 Se déconnecter
               </button>
             </div>

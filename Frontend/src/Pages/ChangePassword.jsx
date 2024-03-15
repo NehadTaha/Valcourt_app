@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logo from "../Components/Logo";
+import bcrypt from "bcryptjs";
 import updateUserInformation from "../Middleware/UpdatingDB";
 
 const ChangePassword = () => {
@@ -10,7 +11,16 @@ const ChangePassword = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVariant, setAlertVariant] = useState("");
-
+  const hashPassword = async (password) => {
+    try {
+      // Call backend or use bcrypt to hash the password
+      // Example using bcrypt
+      const hashedPassword = await bcrypt.hash(password, 10);
+      return hashedPassword;
+    } catch (error) {
+      throw error;
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -24,9 +34,11 @@ const ChangePassword = () => {
 
     try {
       const password = newPassword;
+      // Hash the password
+      const hashedPassword = await hashPassword(password);
       // Call API to update password
       const responseData = await updateUserInformation({
-        password: password,
+        password: hashedPassword,
       });
       console.log("data: ", responseData);
 
@@ -46,19 +58,26 @@ const ChangePassword = () => {
       setShowAlert(true);
     }
   };
+  // Function to hash password
 
   return (
     <div className="container min-vh-100 ">
       <Logo />
 
-      <h1>Changer le mot de passe</h1>
+      <h1
+        style={{
+          color: "#164d8e",
+        }}
+      >
+        Changer le mot de passe
+      </h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Couriel</Form.Label>
-          <Form.Control type="email" placeholder="Entrer votre couriel" />
+          <Form.Label className="pt-3 ">Couriel</Form.Label>
+          <Form.Control type="email" placeholder="Entrez votre couriel" />
         </Form.Group>
         <Form.Group controlId="formBasicNewPassword">
-          <Form.Label>Nouveau mot de passe</Form.Label>
+          <Form.Label className="pt-3">Nouveau mot de passe</Form.Label>
           <Form.Control
             type="password"
             placeholder="Nouveau mot de passe"
@@ -67,15 +86,15 @@ const ChangePassword = () => {
           />
         </Form.Group>
         <Form.Group controlId="formBasicConfirmPassword">
-          <Form.Label>Confirmer votre mot de passe</Form.Label>
+          <Form.Label className="pt-3">Confirmez votre mot de passe</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Confirmer votre mot de passe"
+            placeholder="Confirmez votre mot de passe"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
-        <Button className="btn m-2 " variant="primary" type="submit">
+        <Button className="btn m-2 mt-4 " variant="primary" type="submit">
           Changer le mot de passe
         </Button>
       </Form>

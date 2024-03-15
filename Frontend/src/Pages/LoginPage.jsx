@@ -31,7 +31,7 @@ function LoginPage() {
       console.log("data: ", data);
       if (response.status === 200) {
         localStorage.setItem("token", data.token);
-        navigate("/profile");
+        navigate("/");
       } else {
         alert(data.message); // Show error message if login fails
       }
@@ -53,7 +53,12 @@ function LoginPage() {
       <div className="row px-5">
         <div className="col">
           <div className="d-flex justify-content-center">
-            <img width="250" height="100" src="./V2030 transparence.png" alt="" />
+            <img
+              width="250"
+              height="100"
+              src="./V2030 transparence.png"
+              alt=""
+            />
           </div>
           <div className="d-flex justify-content-center">
             <h1>Se connecter</h1>

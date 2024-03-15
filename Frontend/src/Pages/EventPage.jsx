@@ -6,11 +6,65 @@ import { faXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
-import DropDown from "../Components/Dropdown";
-import { topics } from "../constants";
-
 function EventPage() {
-  const [selectedTags, setSelectedTags] = useState();
+  const topicList =  ["Arts", "Cuisine", "Concertation et partenariats", "Développement local",
+   "Éducation", "Environnement", "Entrepreunariat", "Formation", "Implication citoyenne",
+    "Interculturel", "Intergénérationnel", "Musique",
+   "Rencontre sociale", "Sports et plein air"]
+  const [selectedTags, setSelectedTags] = useState(topicList);
+  const [isUser, setIUser] = useState('')
+
+  const removeOneTopic = async (topicToRemove, userId) =>{
+    const removeTopicUrl = `http://localhost:8080/userInfo/topics/remove/${userId}/${topicToRemove}`
+    try{
+      const response = await fetch(
+        removeTopicUrl,{
+          method: "POST",
+          credentials: "same-origin",
+          headers: {"Content-Type":"application/json",},
+          body: JSON.stringify({"Hello":"world"}),
+        }
+        )
+
+        const data = await response.json()
+      setSelectedTags(data.message)
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  const addOneTopic = async (topicToRemove, userId) =>{
+    const removeTopicUrl = `http://localhost:8080/userInfo/topics/add/${userId}/${topicToRemove}`
+    try{
+      const response = await fetch(
+        removeTopicUrl,{
+          method: "POST",
+          credentials: "same-origin",
+          headers: {"Content-Type":"application/json",},
+          body: JSON.stringify({"Hello":"world"}),
+        }
+        )
+
+        const data = await response.json()
+      setSelectedTags(data.message)
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  const handleTagClick = (e) =>{
+    if(isUser !== ""){
+      const t = e.target.id.toString()
+      removeOneTopic(t,isUser)
+    }
+  }
+
+  const handleDropDownClick = (e)=>{
+    if(isUser !== ""){
+      const t = e.target.id.toString()
+      addOneTopic(t,isUser)
+    }
+  }
 
 
   useEffect(() => {
@@ -23,19 +77,28 @@ function EventPage() {
         },
       };
 
+      const hideIfNoUser = document.getElementById("content-tag")
+
       try {
         const response = await fetch(userInfoUrl, options);
         const data = await response.json();
+        
 
         if (response.ok) {
           setSelectedTags(data.topics);
+          setIUser(data._id.toString())
+          hideIfNoUser.classList.remove('hide-dis')
+          hideIfNoUser.classList.add('dis')
         } else {
           console.error("Error fetching user info:", data.message);
-          setSelectedTags(topics)
+          hideIfNoUser.classList.remove('dis')
+          hideIfNoUser.classList.add('hide-dis')
         }
       } catch (error) {
         console.error("Error fetching user info:", error);
-        setSelectedTags(topics)
+        setIUser("")
+        hideIfNoUser.classList.remove('dis')
+        hideIfNoUser.classList.add('hide-dis')
       }
     };
 
@@ -53,7 +116,7 @@ function EventPage() {
   function fillTags(listOfTags) {
     const tags = listOfTags.map((tag, index) => (
       <div key={index} class="tag-node">
-        <p className="noSpace">{tag}</p>
+        <p className="noSpace" id={tag} onClick={handleTagClick} >{tag}</p>
         <FontAwesomeIcon icon={faXmark} className="x-icon" />
       </div>
     ));
@@ -62,21 +125,23 @@ function EventPage() {
   }
 
   function filldropDown(listOfTags){
-    let notUsed = topics;
-    if(listOfTags!=undefined){
+    let notUsed = topicList;
+    if(listOfTags!=undefined && notUsed !== listOfTags){
       for(let i =0; i<listOfTags.length; i++){
-        notUsed = removeItemOnce(notUsed,listOfTags[i])
+        notUsed = removeItemOnce(notUsed, listOfTags[i])
       }
       
+      console.log("not used", notUsed)
       const dropDownTags = notUsed.map((tag,index)=>(
-        <p className="cDText" key={index}>{tag}</p>
+        <p className="cDText" key={index} id={tag} onClick={handleDropDownClick}>{tag}</p>
       ))
   
       return(
         dropDownTags
       )
+
     }else{
-      return(<p className="cDText">No tags Currently Selected</p>)
+      return(<p className="cDText">All tags Currently Selected</p>)
     }
    
   }
@@ -103,7 +168,8 @@ function EventPage() {
         }}
       />
       <section class="content-container">
-        <div class="content-tag">
+        <div class="content-tag dis">
+          <div id="content-tag" class="dis">
           <p class="tags-title"> Select Your Interests </p>
           <div class="tags">
             <div class="cluster">
@@ -122,6 +188,8 @@ function EventPage() {
               <button>Save</button>
             </div>
           </div>
+          </div>
+          
         </div>
 
         <div class="content-card">

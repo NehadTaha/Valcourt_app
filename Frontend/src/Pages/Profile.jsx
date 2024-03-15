@@ -3,10 +3,69 @@ import Navbar from "../Components/Navbar";
 import "../Styles/style.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../Components/Footer";
+import Tags from "../Components/Tags";
 import { useState, useEffect } from "react";
+import updateUserInformation from "../Middleware/UpdatingDB";
+import { municipalities } from "../constants";
+import { Link } from "react-router-dom";
 
-const Profile = () => {
+const Profile = ({ isLoggedIn }) => {
   const [user, setUser] = useState(null);
+  const [showTags, setShowTags] = useState(false);
+  const [tags, setTags] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+
+  // Inside the Profile component
+  const [selectedCity, setSelectedCity] = useState(user ? user.town : "");
+
+  const handleListEdit = () => {
+    setShowTags(!showTags);
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+
+  const handleChangeTags = async (data) => {
+    try {
+      const responseData = await updateUserInformation({ topics: data });
+      console.log("data: ", responseData);
+      setTags(data);
+      setShowTags(false);
+      setUser((prevUser) => ({
+        ...prevUser,
+        topics: data,
+      }));
+    } catch (error) {
+      console.error("Error updating user info:", error);
+    }
+  };
+
+  const handleEditClick = () => {
+    console.log("Edit button clicked");
+    setEditMode(!editMode);
+  };
+  const saveFormChanges = async () => {
+    try {
+      const updatedUserInfo = {
+        firstName: document.getElementById("fullName").value.split(" ")[0],
+        lastName: document.getElementById("fullName").value.split(" ")[1],
+        email: document.getElementById("inputEmail4").value,
+        password: document.getElementById("inputPassword4").value,
+        town: document.getElementById("inputCity").value,
+      };
+
+      const responseData = await updateUserInformation(updatedUserInfo);
+      console.log("data: ", responseData);
+      setUser(updatedUserInfo);
+    } catch (error) {
+      console.error("Error updating user info:", error);
+    }
+  };
+  const handleCityChange = (e) => {
+    setSelectedCity(e.target.value);
+  };
+  // Assuming that `data` contains the updated tags array directly
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -62,6 +121,15 @@ const Profile = () => {
               </button>
               <div className="collapse" id="preferedList">
                 <div className="card card-body">
+                  <div className="d-flex justify-content-end">
+                    <span className="d-flex justify-content-right">
+                      <i
+                        className="bi bi-pencil-square fs-4 mx-1"
+                        type="button"
+                        onClick={handleListEdit}
+                      ></i>{" "}
+                    </span>
+                  </div>
                   <ul>
                     {user &&
                       user.topics &&
@@ -70,6 +138,11 @@ const Profile = () => {
                       ))}
                   </ul>
                 </div>
+                {showTags && (
+                  <div className="card card-body">
+                    <Tags handleChange={handleChangeTags} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -86,8 +159,12 @@ const Profile = () => {
               >
                 Modifier mon profil
               </button>
+
               <div className="collapse" id="editProfile">
                 <div className="">
+                  <button className="btn btn-primary" onClick={handleEditClick}>
+                    Modifier
+                  </button>
                   <form className="row g-3">
                     <div className="col-md-6">
                       <label
@@ -97,10 +174,19 @@ const Profile = () => {
                         Nom et prénom
                       </label>
                       <input
-                        type="fullname"
+                        type="text"
                         className="form-control"
                         id="fullName"
-                        value={user ? `${user.firstName} ${user.lastName}` : ""}
+                        {...(editMode
+                          ? {
+                              placeholder: user ? `Nom et prénom` : "",
+                            }
+                          : {
+                              value: user
+                                ? `${user.firstName} ${user.lastName}`
+                                : "",
+                            })}
+                        readOnly={!editMode}
                       ></input>
                     </div>
                     <div className="col-md-6">
@@ -124,12 +210,25 @@ const Profile = () => {
                       >
                         Mots de passe
                       </label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="inputPassword4"
-                        value={user ? user.password : ""}
-                      ></input>
+                      <div className="input-group">
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="inputPassword4"
+                          value="*********" // Display dots instead of the actual password
+                          readOnly // Add readOnly attribute based on editMode
+                        />
+                        {editMode ? ( // Show pen icon only in edit mode
+                          <Link to="/change-password">
+                            <button
+                              className="btn btn-outline-secondary"
+                              type="button"
+                            >
+                              <i className="bi bi-pencil-fill"></i>
+                            </button>
+                          </Link>
+                        ) : null}
+                      </div>
                     </div>
 
                     <div className="col-md-6">
@@ -137,24 +236,45 @@ const Profile = () => {
                         htmlFor="inputCity"
                         className="form-label text-black"
                       >
-                        Ville
+                        Municipalité
                       </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="inputCity"
-                        value={user ? user.town : ""}
-                      ></input>
+                      {editMode ? (
+                        <select
+                          className="form-select"
+                          id="inputCity"
+                          value={selectedCity}
+                          onChange={handleCityChange}
+                        >
+                          <option value={user ? user.town : ""}>
+                            {user ? user.town : ""}
+                          </option>
+                          {municipalities.map((city, index) => (
+                            <option key={index} value={city}>
+                              {city}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="inputCity"
+                          value={user ? user.town : ""}
+                          readOnly={!editMode}
+                        />
+                      )}
                     </div>
-
-                    <div className="col-12">
-                      <button
-                        type="submit"
-                        className="btn btn-primary rounded-pill"
-                      >
-                        sauvegarder
-                      </button>
-                    </div>
+                    {editMode && (
+                      <div className="col-12">
+                        <button
+                          type="submit"
+                          className="btn btn-primary rounded-pill"
+                          onClick={saveFormChanges}
+                        >
+                          sauvegarder
+                        </button>
+                      </div>
+                    )}
                   </form>
                 </div>
               </div>
@@ -163,13 +283,17 @@ const Profile = () => {
           <div className="row p-3">
             <div className="col-12">
               <i className="bi bi-box-arrow-right fs-4 mx-1"></i>
-              <button className="btn fs-2 mb-2 rounded-pill">
+              <button
+                className="btn fs-2 mb-2 rounded-pill"
+                onClick={handleLogout}
+              >
                 Se déconnecter
               </button>
             </div>
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   );

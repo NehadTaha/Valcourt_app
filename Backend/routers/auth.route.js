@@ -3,7 +3,8 @@ const { client } = require("../database/database");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
-const { secret_key, sender_email, sender_email_password } = require("../constants");
+require('dotenv').config();
+const { secret_key } = require("../constants");
 
 const router = express.Router();
 
@@ -38,12 +39,12 @@ const sendMail = (email, uniqueString) => {
   const Transport = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-      user: sender_email,        // put your gmail username here
-      pass: sender_email_password  // and your password here
+      user: process.env.SENDER_EMAIL,        // put your gmail username here
+      pass: process.env.SENDER_EMAIL_PASSWORD  // and your password here
     }
   });
 
-  let sender = "your_name";
+  let sender = "Valcourt_App";
   const mailOptions = {
     from: sender,
     to: email,

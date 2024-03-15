@@ -2,7 +2,9 @@ const express = require("express");
 const { client } = require("../database/database");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const secret_key = require("../constants");
+const nodemailer = require("nodemailer")
+require('dotenv').config();
+const { secret_key } = require("../constants");
 
 const router = express.Router();
 
@@ -17,6 +19,49 @@ router.get("/", (req, res) => {
     message: "Auth router is working.",
   });
 });
+
+
+// Generates a random string (copied function)
+const randString = () => {
+  // a 8 length
+  const len = 8
+  let randStr = ''
+  for (let i=0; i<len; i++) {
+    //ch = a number between 1 to 10
+    const ch = Math.floor((Math.random() * 10) + 1)
+    randStr += ch
+  }
+
+  return randStr
+}
+
+const sendMail = (email, uniqueString) => {
+  const Transport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: process.env.SENDER_EMAIL,        // put your gmail username here
+      pass: process.env.SENDER_EMAIL_PASSWORD  // and your password here
+    }
+  });
+
+  let sender = "Valcourt_App";
+  const mailOptions = {
+    from: sender,
+    to: email,
+    subject: "Email confirmation",
+    html: `Press <a href=http://localhost:8080/auth/verify/${uniqueString}> here</a> to verify your email. Thanks.`
+  };
+
+  Transport.sendMail(mailOptions, function(error, response) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Message sent");
+    }
+  })
+
+}
+
 
 // Login route
 router.post("/login", async (req, res) => {
@@ -90,16 +135,24 @@ router.post("/register", async (req, res) => {
     return;
   }
 
+  const uniqueString = randString()
+
   // Hash the password
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash(body.password, salt)
 
 
-  // Add user to DB
   try {
+
+    // Send email confirmation
+    sendMail(body.email, uniqueString)
+
+    // Add user to DB
     const result = await users.insertOne({
       email: body.email,
       password: passwordHash,
+      uniqueString: uniqueString,
+      isValid: false,
 
       firstName: body.firstName,
       lastName: body.lastName,
@@ -122,5 +175,23 @@ router.post("/register", async (req, res) => {
     message: "User registered.",
   });
 });
+
+// Temporary verify route
+router.get('/verify/:uniqueString', async (req, res) => {
+  // getting the string
+  const { uniqueString } = req.params
+  // checks if there is anyone with this string
+  const user = await users.findOne({ uniqueString: uniqueString })
+  if (user) {
+    // if there is anyone, mark them verified
+    await users.updateOne(
+      {email: user.email}, 
+      { $set: {"isValid": true} })
+    res.redirect('/')
+  } else {
+    // else send an error
+    res.json('User not found')
+  }
+})
 
 module.exports = router;

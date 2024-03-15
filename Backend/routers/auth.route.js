@@ -18,6 +18,22 @@ router.get("/", (req, res) => {
   });
 });
 
+
+// Generates a random string (copied function)
+const randString = () => {
+  // a 8 length
+  const len = 8
+  let randStr = ''
+  for (let i=0; i<len; i++) {
+    //ch = a number between 1 to 10
+    const ch = Math.floor((Math.random() * 10) + 1)
+    randStr += ch
+  }
+
+  return randStr
+}
+
+
 // Login route
 router.post("/login", async (req, res) => {
   const body = req.body;
@@ -90,6 +106,8 @@ router.post("/register", async (req, res) => {
     return;
   }
 
+  const uniqueString = randString()
+
   // Hash the password
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash(body.password, salt)
@@ -100,6 +118,8 @@ router.post("/register", async (req, res) => {
     const result = await users.insertOne({
       email: body.email,
       password: passwordHash,
+      uniqueString: uniqueString,
+      isValid: false,
 
       firstName: body.firstName,
       lastName: body.lastName,
@@ -122,5 +142,23 @@ router.post("/register", async (req, res) => {
     message: "User registered.",
   });
 });
+
+// Temporary verify route
+router.get('/verify/:uniqueString', async (req, res) => {
+  // getting the string
+  const { uniqueString } = req.params
+  // checks if there is anyone with this string
+  const user = await users.findOne({ uniqueString: uniqueString })
+  if (user) {
+    // if there is anyone, mark them verified
+    await users.updateOne(
+      {email: user.email}, 
+      { $set: {"isValid": true} })
+    res.redirect('/')
+  } else {
+    // else send an error
+    res.json('User not found')
+  }
+})
 
 module.exports = router;

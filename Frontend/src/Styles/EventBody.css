@@ -156,8 +156,16 @@ body{
   background-color: var(--mauve);
 }
 
-.content-tag {
+.dis{
   display: flex;
+  flex-direction: column;
+}
+
+.hide-dis{
+  display: none;
+}
+
+.content-tag {
   flex-direction: column;
   margin-top: 5%;
 

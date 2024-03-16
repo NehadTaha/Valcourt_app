@@ -32,13 +32,11 @@ function SignUpPage() {
       return;
     }
 
-    // If the password does not pass the test, end the procedure.
-    if (!validatePassword(form.password)) {
-      alert(
-        "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial (#$%?&*)."
-      );
-      return;
-    }
+        // If the password does not pass the test, end the procedure.
+        if(!validatePassword(form.password)) {
+            alert("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial (#$%?&*).")
+            return;
+        }
 
     const registerUrl = "http://localhost:8080/auth/register";
     const options = {

@@ -10,7 +10,7 @@ import {
 import { useState,useEffect } from "react";
 import ProfileImgSmall from "../Components/ProfileImgSmall";
 import { useNavigate } from "react-router-dom";
-function Navbar({ isLoggedIn, user }) {
+function Navbar({ isLoggedIn, user}) {
 
   const [logTest,setLogTest]= useState(isLoggedIn)
 
@@ -18,7 +18,7 @@ function Navbar({ isLoggedIn, user }) {
 
   const [isMenuOpen,setIsMenuopen] = useState(false)
 
-
+  
 
   useEffect(()=>{
 
@@ -26,7 +26,6 @@ function Navbar({ isLoggedIn, user }) {
     
     function getUser(){ 
       if(localStorage.getItem("token")){
-        setLogTest(true)
         token = localStorage.getItem('token')
       }
     }
@@ -45,27 +44,20 @@ function Navbar({ isLoggedIn, user }) {
 
         if (response.ok) {
           setVUser(data); // Set user info state
+          setLogTest(true)
         } else {
-          console.error("Error fetching user info:", data.message);
+          //console.error("Error fetching user info:", data.message);
+          setVUser(false)
+          setLogTest(false)
         }
       } catch (error) {
-        console.error("Error fetching user info:", error);
+        //console.error("Error fetching user info:", error);
         setVUser(false)
-      }
-    };
-
-    getUser()
-    if(token !== ""){
-      if(vUser == false){
         setLogTest(false)
       }
-      else{
-        fetchUserInfo()
-      }
-    }
-    else{
-      setLogTest(false)
-    }
+    };
+    getUser()
+    fetchUserInfo()
   },[])
 
   function closeMenu() {

@@ -16,6 +16,7 @@ app.get("/", function (req, res) {
   res.send("Hello World");
 });
 
+
 // Login routes
 app.use("/auth", authRouter);
 app.use("/userInfo", userInfoRouter);

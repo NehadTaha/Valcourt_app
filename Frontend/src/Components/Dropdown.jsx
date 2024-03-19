@@ -2,14 +2,7 @@ import { faXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
-const Dropdown = ({ isUser, selectedTags, setSelectedTags }) => { 
-
-
-
-    useEffect(()=>{
-        console.log("reload")
-    },[])
-
+const Dropdown = () => { 
 
   const topicList = [
     "Arts",
@@ -27,6 +20,55 @@ const Dropdown = ({ isUser, selectedTags, setSelectedTags }) => {
     "Rencontre sociale",
     "Sports et plein air",
   ];
+
+  const [selectedTags, setSelectedTags] = useState(topicList);
+  const [isUser, setIsUser] = useState();
+
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    const fetchUserInfo = async () => {
+      const userInfoUrl = "http://localhost:8080/userInfo/profile";
+      const options = {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      };
+
+      const hideIfNoUser = document.getElementById("content-tag");
+
+      try {
+        const response = await fetch(userInfoUrl, options);
+        const data = await response.json();
+
+        if (response.ok) {
+          setSelectedTags(data.topics);
+          setIsUser(data._id.toString());
+          if (hideIfNoUser != null) {
+            hideIfNoUser.classList.remove("hide-dis");
+            hideIfNoUser.classList.add("dis");
+          }
+        } else {
+          console.error("Error fetching user info:", data.message);
+          if (hideIfNoUser != null) {
+            hideIfNoUser.classList.remove("dis");
+            hideIfNoUser.classList.add("hide-dis");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+        setIsUser("");
+        if (hideIfNoUser != null) {
+          hideIfNoUser.classList.remove("dis");
+          hideIfNoUser.classList.add("hide-dis");
+        }
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+
+ 
 
   function addTagsMenuToggle() {
     if (

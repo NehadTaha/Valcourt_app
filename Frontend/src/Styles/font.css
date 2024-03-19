@@ -1,5 +1,18 @@
 @font-face {
-    font-family: 'Bebas Neue';
-    src: local('BebasNeueBold'),
-         url('./Fonts/BebasNeue Bold.ttf') format('ttf');
+    font-family: 'BebasNeue';
+    src: url('../Fonts/BebasNeue-Regular.ttf ') format('truetype');
+    font-weight: 900;
+    font-style:normal;
+}
+
+@font-face {
+    font-family: 'BebasNeue-bold';
+    src: url('../Fonts/BebasNeue-Bold.otf') format('opentype');
+}
+  
+
+@font-face {
+    font-family: 'BebasNeue-book';
+    src: url('../Fonts/BebasNeue-Book.otf') format('opentype');
+    font-weight: 900;
 }

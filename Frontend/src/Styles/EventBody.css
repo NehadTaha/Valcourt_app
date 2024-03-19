@@ -1,11 +1,15 @@
+@import url(./font.css);
+
+
+body{
+  font-family: 'BebasNeue-book', sans-serif;
+  letter-spacing: 0.1mm;
+}
+
 :root {
   --paleBlue: #0098d9;
   --darkBlue: #164d8e;
   --mauve: #232f62;
-}
-
-* {
-  font-family: BebasNeueBold;
 }
 
 body{
@@ -42,7 +46,6 @@ body{
   box-shadow: 5px 5px 7px black;
   z-index: 1;
 
-  font-family: BebasNeueBold;
 }
 
 .customCard:hover {
@@ -110,6 +113,8 @@ body{
   margin: 2px;
 
   text-transform: uppercase;
+
+  font-family: 'BebasNeue-bold' , sans-serif;
 }
 
 .customCard .content {
@@ -126,6 +131,8 @@ body{
   font-weight: lighter;
   line-height: 1.5;
   
+  font-family: 'BebasNeue-book', sans-serif;
+  word-spacing: 1mm;
 }
 
 .customCard button {
@@ -173,7 +180,7 @@ body{
   justify-items: center;
   align-items: center;
 
-  font-family: BebasNeueBold;
+  font-family: 'BebasNeue-book', sans-serif;
 
   z-index: 1;
 }

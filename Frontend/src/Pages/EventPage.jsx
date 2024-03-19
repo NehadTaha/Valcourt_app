@@ -1,37 +1,17 @@
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Card from "../Components/Card";
+import "../Styles/font.css"
 import "../Styles/EventBody.css";
-
-import { useEffect, useState } from "react";
 import Dropdown from "../Components/Dropdown";
 
-function EventPage() {
-  const topicList = [
-    "Arts",
-    "Cuisine",
-    "Concertation et partenariats",
-    "Développement local",
-    "Éducation",
-    "Environnement",
-    "Entrepreunariat",
-    "Formation",
-    "Implication citoyenne",
-    "Interculturel",
-    "Intergénérationnel",
-    "Musique",
-    "Rencontre sociale",
-    "Sports et plein air",
-  ];
 
+function EventPage() {
   
 
   return (
     <>
       <Navbar
-        props={{
-          isLoggedIn: false,
-        }}
       />
       <section class="content-container">
         

@@ -12,7 +12,6 @@ router.post("/webhook", (req, res) => {
   console.log("Received webhook payload:", post);
 
   // You can perform any actions with the post data here
-
   res.status(200).send(post);
 });
 

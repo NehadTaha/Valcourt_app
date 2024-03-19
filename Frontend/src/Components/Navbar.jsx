@@ -10,11 +10,11 @@ import {
 import { useState,useEffect } from "react";
 import ProfileImgSmall from "../Components/ProfileImgSmall";
 import { useNavigate } from "react-router-dom";
-function Navbar({ isLoggedIn, user}) {
+function Navbar() {
 
-  const [logTest,setLogTest]= useState(isLoggedIn)
+  const [logTest,setLogTest]= useState(false)
 
-  const [vUser,setVUser] = useState(user)
+  const [vUser,setVUser] = useState()
 
   const [isMenuOpen,setIsMenuopen] = useState(false)
 

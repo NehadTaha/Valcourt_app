@@ -20,10 +20,10 @@
   margin-bottom: 10px;
 }
 .smallTxt{
-  font-size: 10px;
+  font-size: 15px;
   height: fit-content ;
   width: 50%;
-  margin: 0;
+  margin: 0 0 0 0;
   text-align: center;
 }
 
@@ -39,6 +39,8 @@
   align-items: center;
   text-align: center;
   justify-content: center;
+
+  font-family: 'BebasNeue', sans-serif;
 }
 
 .profile-img-small:hover{

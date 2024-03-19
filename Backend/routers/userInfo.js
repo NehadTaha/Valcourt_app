@@ -18,45 +18,19 @@ router.get("/", (req, res) => {
   });
 });
 
-//remove a topic from user
-router.post("/topics/remove/:userId/:topic" ,async (req,res)=>{
+
+//update topic list 
+router.post("/topics/update/:userId/" ,async (req,res)=>{
   try{
     
     const id = new ObjectId(req.params.userId)
-    const user = await users.findOne({_id:id})
-    const topicArray = user.topics
-    const updatedArray = removeItemOnce(topicArray,req.params.topic)
 
-    const result =  await users.updateOne({_id:id},{$set:{topics:updatedArray}})
+    const list = req.body.topicList
 
-    res.status(200)
-    res.send({message: updatedArray})
-
-  }catch(e){
-    console.log(e)
-    res.status(500)
-    res.send({message: e}) 
-  }
- 
-})
-
-//add a topic to user
-router.post("/topics/add/:userId/:topic" ,async (req,res)=>{
-  try{
-    
-    const id = new ObjectId(req.params.userId)
-    const user = await users.findOne({_id:id})
-    const topicArray = user.topics
-    topicArray.push(req.params.topic.toString())
-    console.log(topicArray)
-    const updatedArray = topicArray
-    console.log(req.params.topic)
-    console.log(updatedArray)
-
-    const result =  await users.updateOne({_id:id},{$set:{topics:updatedArray}})
+    const result =  await users.updateOne({_id:id},{$set:{topics:list}})
 
     res.status(200)
-    res.send({message: updatedArray})
+    res.send({message: result})
 
   }catch(e){
     console.log(e)

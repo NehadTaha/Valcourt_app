@@ -1,0 +1,111 @@
+.detailBlock{
+
+  display: flex;
+  flex-direction: column;
+  
+  flex-grow: 1;
+
+  height: 100vh;
+
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.backButton{
+  background-color: var(--paleBlue);
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  color: white;
+}
+
+.backButton:hover{
+  background-color: var(--darkBlue);
+  color: white;
+}
+
+.backButton:active{
+  background-color: var(--mauve);
+}
+
+.detailBlock h1{
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 35px;
+  text-align: center;
+
+  font-family: 'BebasNeue',sans-serif;
+}
+
+.detailBlock h1::first-letter{
+  text-transform: capitalize;
+}
+
+.datetime{
+  display: flex;  
+  justify-content: flex-end;
+  margin-right:10vw;
+}
+
+.datetime h3{
+  font-size: 16px;
+  color: gray;
+}
+
+.dFooter{
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 5px;
+}
+
+.dFooter div{
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+
+}
+
+.dFooter div h1{
+  font-size: 20px;
+  text-align: center;
+  font-family: 'BebasNeue',sans-serif;
+}
+
+.imageContainer{
+
+  width:90vw;
+  height: 60%;
+
+  
+  
+  background-image: none;
+  background-size:contain;
+  background-repeat: no-repeat;
+  background-position-x: center;
+}
+
+.pDesc{
+
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  margin-left: 10px;
+  margin-right: 10px;
+
+  text-align: center;
+  font-size: 15px;
+}
+

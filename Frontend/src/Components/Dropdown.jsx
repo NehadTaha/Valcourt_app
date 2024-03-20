@@ -1,6 +1,7 @@
 import { faXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import SmallToast from "./SmallToast";
 
 const Dropdown = () => { 
 
@@ -23,6 +24,7 @@ const Dropdown = () => {
 
   const [selectedTags, setSelectedTags] = useState(topicList);
   const [isUser, setIsUser] = useState();
+  const [command,setCommand]=useState(false)
 
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -171,6 +173,8 @@ const Dropdown = () => {
           body: JSON.stringify({"topicList":selectedTags}),
         }
         )
+        setCommand(true)
+        
 
         const data = await response.json()
 
@@ -181,7 +185,7 @@ const Dropdown = () => {
 
   }
 
-  
+
 
   return (
     
@@ -201,7 +205,9 @@ const Dropdown = () => {
           </div>
           <div>
             <button onClick={saveTopicList}>Save</button>
+            
           </div>
+          <SmallToast command={command} setCommand={setCommand}></SmallToast>
         </div>
       </div>
     </div>

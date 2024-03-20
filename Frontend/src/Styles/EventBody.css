@@ -19,9 +19,19 @@ body{
 
 .content-container {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 50% 50%;
 }
+
+.detailsContainerGrid{
+  grid-template-columns: 100%;
+}
+
+.detailsContent-Card{
+  width: 100%;
+}
+
 .content-card {
+  margin-right: 40px;
   display: flex;
   flex-direction: column;
   justify-self: center;
@@ -29,7 +39,30 @@ body{
 
   text-align: center;
 }
+
+.imageTile{
+  position: relative;
+
+  background-color: red;
+  padding: 0;
+
+  height: 0;
+  width: 0;
+}
+
+.testing{
+  position: absolute;
+  right: -19vw;
+  top: 1vh;
+  height: 100px;
+  width: 100px;
+  background-color: red;
+  border-radius: 15px;
+}
+
 .customCard {
+  position: relative;
+
   display: flex;
   flex-direction: column;
 
@@ -45,6 +78,7 @@ body{
 
   box-shadow: 5px 5px 7px black;
   z-index: 1;
+
 
 }
 
@@ -69,7 +103,9 @@ body{
   margin-right: 500px;
   border-radius: 10px;
   box-shadow: 2px 4px 3px black;
-  font-family: BebasNeueBold;
+
+  font-family: 'BebasNeue-bold', sans-serif;
+  user-select: none;
 }
 
 .example-date .year {
@@ -120,6 +156,8 @@ body{
 .customCard .content {
   background-color: #3a3b3b;
   border-radius: 0px 0px 10px 10px;
+
+  cursor: pointer;
   
 }
 
@@ -150,6 +188,8 @@ body{
   background-color: var(--paleBlue);
   text-align: center;
 
+
+  user-select: none;
   color: white;
   font-size: large;
   text-transform: uppercase;
@@ -181,7 +221,7 @@ body{
   align-items: center;
 
   font-family: 'BebasNeue-book', sans-serif;
-
+  user-select: none;
   z-index: 1;
 }
 
@@ -243,6 +283,38 @@ body{
   top: -4px;
   left: unset;
 }
+
+.customToast{
+  position: relative;
+}
+
+.slideIn {
+  animation: slideInAnimation 0.5s forwards;
+}
+
+.slideOut {
+  animation: slideOutAnimation 0.5s forwards;
+}
+
+@keyframes slideInAnimation {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutAnimation {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform:scale(0);
+  }
+}
+
+
 
 .customDropdown{
   position: relative;
@@ -416,6 +488,7 @@ body{
     grid-template-columns: 100%;
   }
 
+
   .content-card,
   .customCard,
   .example-date,
@@ -482,9 +555,6 @@ body{
 
 /* Media queries for large screens */
 @media (min-width: 1025px) {
-  .content-container {
-    grid-template-columns: 33% 33% 33%;
-  }
 
   .content-card,
   .customCard,

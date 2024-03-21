@@ -9,11 +9,12 @@ import updateUserInformation from "../Middleware/UpdatingDB";
 import { municipalities } from "../constants";
 import { Link } from "react-router-dom";
 
-const Profile = ({ isLoggedIn }) => {
+const Profile = () => {
   const [user, setUser] = useState(null);
   const [showTags, setShowTags] = useState(false);
   const [tags, setTags] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [isLoggedIn,setIsLoggedIn] = useState(true)
 
   // Inside the Profile component
   const [selectedCity, setSelectedCity] = useState(user ? user.town : "");
@@ -103,7 +104,7 @@ const Profile = ({ isLoggedIn }) => {
     <>
       <div className="d-flex flex-column min-vh-100">
         <div>
-          <Navbar isLoggedIn={true} user={user} />
+          <Navbar setIsLoggedIn={setIsLoggedIn} />
         </div>
         <div className="container-flex p-2 bg-gradient bg-light flex-grow-1">
           <div className="row p-3">

@@ -1,6 +1,6 @@
 import "../Styles/EventBody.css";
 
-const Card = ({ prop }) => {
+const Card = ({ prop, isLoggedIn, setIsDetail }) => {
   const months = {
     "01": "January",
     "02": "Febuary",
@@ -20,6 +20,7 @@ const Card = ({ prop }) => {
   let month = "January";
   let year = "2024";
 
+
   const setDate = () => {
     const token = prop.date.split("/");
     day = token[0];
@@ -31,18 +32,38 @@ const Card = ({ prop }) => {
     year = token[2];
   };
 
+  function scrollToTop() {
+    let scrollStep = 30
+    
+    function scrollAnimation() {
+      if (window.scrollY !== 0) {
+
+        window.scrollBy(0, -scrollStep);
+        requestAnimationFrame(scrollAnimation);
+      }
+    }
+    
+    scrollAnimation();
+  }
+
+  const handleClick = ()=>{
+    setIsDetail(true)
+
+   scrollToTop()
+  }
+
   setDate();
 
   return (
-    <div class="customCard">
-      <p class="title">{prop.title}</p>
-      <p class="content">{prop.description}</p>
-      <div class="example-date">
-        <span class="day">{day}</span>
-        <span class="month">{month}</span>
-        <span class="year">{year}</span>
+    <div className="customCard">
+      <p className="title" onClick={handleClick}>{prop.title}</p>
+      <p className="content" onClick={handleClick}>{prop.description}</p>
+      <div className="example-date" onClick={handleClick}>
+        <span className="day">{day}</span>
+        <span className="month">{month}</span>
+        <span className="year">{year}</span>
       </div>
-      <button>subscribe</button>
+      {isLoggedIn?<button>Subscribe</button>: <button>Login to Subscribe</button>}
     </div>
   );
 };

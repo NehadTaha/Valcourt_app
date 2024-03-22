@@ -185,7 +185,7 @@ router.post("/register", async (req, res) => {
   });
 });
 
-// Temporary verify route
+// Verify route
 router.get('/verify/:uniqueString', async (req, res) => {
   // getting the string
   const { uniqueString } = req.params
@@ -199,8 +199,8 @@ router.get('/verify/:uniqueString', async (req, res) => {
     res.json('Verified.')
   } else {
     // else send an error
-    res.status(201)
-    res.json('User not found')
+    res.status(404)
+    res.json('Not found')
   }
 })
 

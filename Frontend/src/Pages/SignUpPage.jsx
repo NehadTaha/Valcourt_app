@@ -117,7 +117,7 @@ function SignUpPage() {
                             <label className='col-4 form-label' htmlFor="password">Mot de passe:</label>
                             <input className="col" type="password" id="password" required onChange={(event) => handleInputChange('password', event.target.value)} />
                         </div>
-                        <div className="row align-items-center mb-3">
+                        <div className="row align-items-center">
                             <label className='col-4 form-label' htmlFor="password">Confirmez votre mot de passe:</label>
                             <input className="col" type="password" id="password" required onChange={(event) => handleInputChange('confirmPassword', event.target.value)} />
                         </div>

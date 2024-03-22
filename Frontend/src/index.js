@@ -22,7 +22,7 @@ root.render(
           path="/change-password"
           element={<ChangePassword></ChangePassword>}
         ></Route>
-        <Route path="/verify" element={<VerifyPage/>}/>
+        <Route path="/verify/:uniqueString" element={<VerifyPage/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

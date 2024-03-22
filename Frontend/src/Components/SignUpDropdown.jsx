@@ -104,6 +104,7 @@ const SignUpDropdown = (props) => {
 
   const addOneTopic = (topicToAdd) => {
     setSelectedTags(prevTags => [...prevTags, topicToAdd]);
+
   };
 
   return (
@@ -120,11 +121,7 @@ const SignUpDropdown = (props) => {
             <FontAwesomeIcon icon={faPlus} className="x-icon" />
           </div>
           <div className="addTags-menu-hide" id="addTagsMenu">
-            <div className="customDropdown">{filldropDown(selectedTags)}</div>
-          </div>
-          <div>
-            <button onClick={props.onSave('topics', selectedTags)}>Save</button>
-            
+            <div onClick={props.onSave('topics', selectedTags)} className="customDropdown">{filldropDown(selectedTags)}</div>
           </div>
           <SmallToast command={command} setCommand={setCommand}></SmallToast>
         </div>

@@ -11,9 +11,8 @@ function SignUpPage() {
     const navigate = useNavigate()
     
     const [form, setForm] = useState({});
-    const [selectedInterests, setSelectedInterests] = useState([]);
 
-    const interests = topics;
+
     const municipalityText = 'Choisissez votre municipalité'
 
     // Updates the form
@@ -80,7 +79,7 @@ function SignUpPage() {
     }
 
     return (
-        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div className="row px-5">
                 <div className="col">
                     <div className="d-flex justify-content-center">
@@ -124,7 +123,7 @@ function SignUpPage() {
                         </div>
 
                         <div className="row align-items-center mb-3">
-                            <SignUpDropdown onSave={handleInputChange}></SignUpDropdown>
+                            <SignUpDropdown onSave={handleInputChange}/>
                         </div>
                         
                         <div className="col d-flex justify-content-center">

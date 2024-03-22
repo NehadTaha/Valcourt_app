@@ -95,7 +95,15 @@ router.post("/login", async (req, res) => {
     });
 
     return
-}
+  }
+
+  if(!user.isValid) {
+    res.status(401).send({
+      message: 'Unverified.'
+    });
+
+    return
+  }
 
 
   // Generate token

@@ -26,7 +26,7 @@ function VerifyPage() {
         const data = await response.json();
         console.log("data: ", data);
         if (response.status === 200) {
-          //navigate("/login");
+          navigate("/login");
         } else {
           setDisplayMessage(data) // Show error message if verification fails
         }

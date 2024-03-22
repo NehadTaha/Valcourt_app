@@ -196,9 +196,10 @@ router.get('/verify/:uniqueString', async (req, res) => {
     await users.updateOne(
       {email: user.email}, 
       { $set: {"isValid": true} })
-    res.redirect('/')
+    res.json('Verified.')
   } else {
     // else send an error
+    res.status(201)
     res.json('User not found')
   }
 })

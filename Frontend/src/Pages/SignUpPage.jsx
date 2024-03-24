@@ -2,14 +2,17 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { topics, municipalities } from "../constants";
 
+import "../Styles/font.css";
+import "../Styles/EventBody.css";
+import SignUpDropdown from "../Components/SignUpDropdown";
+
 function SignUpPage() {
 
     const navigate = useNavigate()
     
     const [form, setForm] = useState({});
-    const [selectedInterests, setSelectedInterests] = useState([]);
 
-    const interests = topics;
+
     const municipalityText = 'Choisissez votre municipalité'
 
     // Updates the form
@@ -76,7 +79,7 @@ function SignUpPage() {
     }
 
     return (
-        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div className="row px-5">
                 <div className="col">
                     <div className="d-flex justify-content-center">
@@ -114,20 +117,13 @@ function SignUpPage() {
                             <label className='col-4 form-label' htmlFor="password">Mot de passe:</label>
                             <input className="col" type="password" id="password" required onChange={(event) => handleInputChange('password', event.target.value)} />
                         </div>
-                        <div className="row align-items-center mb-3">
+                        <div className="row align-items-center">
                             <label className='col-4 form-label' htmlFor="password">Confirmez votre mot de passe:</label>
                             <input className="col" type="password" id="password" required onChange={(event) => handleInputChange('confirmPassword', event.target.value)} />
                         </div>
 
                         <div className="row align-items-center mb-3">
-                            <label className='form-label col-4' htmlFor="listbox">Intérets:</label>
-                            <select multiple defaultValue={selectedInterests} onChange={(event) => handleInputChange('topics', Array.from(event.target.selectedOptions, option => option.value))}>
-                                {interests.map((interest, index) => (
-                                    <option key={index} value={interest}>
-                                        {interest}
-                                    </option>
-                                ))}
-                            </select>
+                            <SignUpDropdown onSave={handleInputChange}/>
                         </div>
                         
                         <div className="col d-flex justify-content-center">

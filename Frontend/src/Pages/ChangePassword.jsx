@@ -72,55 +72,64 @@ const ChangePassword = () => {
 
   return (
     <div className="container min-vh-100 ">
-      <Logo />
+      <div className="row">
+        <div className="col-12">
+          <button className="btn btn-primary mt-5">Retour</button>
+        </div>
+        <Logo />
 
-      <h1
-        style={{
-          color: "#164d8e",
-        }}
-      >
-        Changer le mot de passe
-      </h1>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label className="pt-3 ">Couriel</Form.Label>
-          <Form.Control type="email" placeholder="Entrez votre couriel" />
-        </Form.Group>
-        <Form.Group controlId="formBasicNewPassword">
-          <Form.Label className="pt-3">Nouveau mot de passe</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Nouveau mot de passe"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="formBasicConfirmPassword">
-          <Form.Label className="pt-3">Confirmez votre mot de passe</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirmez votre mot de passe"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </Form.Group>
-        <Button className="btn m-2 mt-4 " variant="primary" type="submit">
-          Changer le mot de passe
-        </Button>
-      </Form>
-      <br />
-      {showAlert && (
-        <Alert
-          variant={alertVariant}
-          onClose={() => setShowAlert(false)}
-          dismissible
+        <h1
+          style={{
+            color: "#164d8e",
+          }}
         >
-          {alertMessage}
-        </Alert>
-      )}
-      <Alert variant="primary">
-        <Link to="/login">Connectez-vous</Link> à votre compte
-      </Alert>
+          Changer le mot de passe
+        </h1>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label className="pt-3 ">Couriel</Form.Label>
+            <Form.Control type="email" placeholder="Entrez votre couriel" />
+          </Form.Group>
+          <Form.Group controlId="formBasicNewPassword">
+            <Form.Label className="pt-3">Nouveau mot de passe</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Nouveau mot de passe"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicConfirmPassword">
+            <Form.Label className="pt-3">
+              Confirmez votre mot de passe
+            </Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Confirmez votre mot de passe"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </Form.Group>
+          <Button className="btn m-2 mt-4 " variant="primary" type="submit">
+            Changer le mot de passe
+          </Button>
+        </Form>
+        <br />
+        {showAlert && (
+          <Alert
+            variant={alertVariant}
+            onClose={() => setShowAlert(false)}
+            dismissible
+          >
+            {alertMessage}
+          </Alert>
+        )}
+        <div className="d-fluid p-3">
+          <Alert variant="primary ">
+            <Link to="/login">Connectez-vous</Link> à votre compte
+          </Alert>
+        </div>
+      </div>
     </div>
   );
 };

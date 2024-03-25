@@ -76,6 +76,14 @@ function SignUpPage() {
         console.log('response.status: ', response.status);
         const data = await response.json();
         console.log('data: ', data);
+
+        if(response.status === 201) {
+            // TODO: Put a redirect here.
+            alert(data.message)
+        } else {
+            alert(data.message)
+        }
+
     }
 
     return (

@@ -11,12 +11,15 @@ const SmallToast = ({ command, setCommand }) => {
     return () => clearTimeout(timeout);
   }, [command, setCommand]);
 
-
-  return <>{command ? (
-    <div className="customToast slideIn">Saved!</div>
-  ) : (
-    <div className="customToast slideOut">Saved!</div>
-  )}</>;
+  return (
+    <>
+      {command ? (
+        <div className="customToast slideIn">Enregistré!</div>
+      ) : (
+        <div className="customToast slideOut">Enregistré!</div>
+      )}
+    </>
+  );
 };
 
 export default SmallToast;

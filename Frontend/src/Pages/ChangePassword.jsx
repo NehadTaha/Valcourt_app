@@ -22,6 +22,9 @@ const ChangePassword = () => {
       throw error;
     }
   };
+  const handleOnClickReturn = () => {
+    window.location.href = "/profile";
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -74,7 +77,12 @@ const ChangePassword = () => {
     <div className="container min-vh-100 ">
       <div className="row">
         <div className="col-12">
-          <button className="btn btn-primary mt-5">Retour</button>
+          <button
+            className="btn btn-primary mt-5"
+            onClick={handleOnClickReturn}
+          >
+            Retour
+          </button>
         </div>
         <Logo />
 

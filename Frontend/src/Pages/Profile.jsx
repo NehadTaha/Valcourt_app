@@ -8,20 +8,18 @@ import { useState, useEffect } from "react";
 import updateUserInformation from "../Middleware/UpdatingDB";
 import { municipalities } from "../constants";
 import { Link } from "react-router-dom";
+import DropdownProfile from "../Components/DropDownProfile.jsx";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [showTags, setShowTags] = useState(false);
   const [tags, setTags] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [isLoggedIn,setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // Inside the Profile component
   const [selectedCity, setSelectedCity] = useState(user ? user.town : "");
 
-  const handleListEdit = () => {
-    setShowTags(!showTags);
-  };
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
@@ -127,23 +125,17 @@ const Profile = () => {
                       <i
                         className="bi bi-pencil-square fs-4 mx-1"
                         type="button"
-                        onClick={handleListEdit}
+                        onClick={handleEditClick}
                       ></i>{" "}
                     </span>
                   </div>
-                  <ul>
-                    {user &&
-                      user.topics &&
-                      user.topics.map((topic, index) => (
-                        <li key={index}>{topic}</li>
-                      ))}
-                  </ul>
+
+                  <DropdownProfile
+                    editMode={editMode}
+                    setEditMode={setEditMode}
+                    onChangeTags={handleChangeTags}
+                  />
                 </div>
-                {showTags && (
-                  <div className="card card-body">
-                    <Tags handleChange={handleChangeTags} />
-                  </div>
-                )}
               </div>
             </div>
           </div>

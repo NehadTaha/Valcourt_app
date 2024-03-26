@@ -4,10 +4,6 @@
   --darkBlue: #164d8e;
 }
 
-* {
-  font-family: BebasNeueBold;
-}
-
 .main-logo {
   background-image: url('../../public/V2030\ transparence.png');
   background-repeat: no-repeat;
@@ -56,6 +52,7 @@ header {
   display: grid;
   grid-template-columns: auto auto auto;
   line-height: 48px;
+  font-family: 'BebasNeue', sans-serif;
 }
 
 header .start {
@@ -99,7 +96,7 @@ header .end a:active {
   width: fit-content;
   height: 100%;
   background: var(--paleBlue);
-  top: 63px;
+  top: 62px;
   left: -100%;
   text-align: center;
   transition: all 0.5s;

@@ -10,11 +10,11 @@ import {
 import { useState,useEffect } from "react";
 import ProfileImgSmall from "../Components/ProfileImgSmall";
 import { useNavigate } from "react-router-dom";
-function Navbar({ isLoggedIn, user}) {
+function Navbar({setIsLoggedIn}) {
 
-  const [logTest,setLogTest]= useState(isLoggedIn)
+  const [logTest,setLogTest]= useState(false)
 
-  const [vUser,setVUser] = useState(user)
+  const [vUser,setVUser] = useState()
 
   const [isMenuOpen,setIsMenuopen] = useState(false)
 
@@ -45,6 +45,8 @@ function Navbar({ isLoggedIn, user}) {
         if (response.ok) {
           setVUser(data); // Set user info state
           setLogTest(true)
+          //the line below
+          setIsLoggedIn(true)
         } else {
           //console.error("Error fetching user info:", data.message);
           setVUser(false)
@@ -87,6 +89,7 @@ function Navbar({ isLoggedIn, user}) {
   const navigate = useNavigate();
   return (
     <header>
+      {console.log('logtest',logTest)}
       <div className="start">
         <div>
           <input type="checkbox" id="check" onClick={onMenuOpen}/>

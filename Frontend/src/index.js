@@ -7,6 +7,7 @@ import EventPage from "./Pages/EventPage";
 import LoginPage from "./Pages/LoginPage";
 import SignUp from "./Pages/SignUpPage";
 import ChangePassword from "./Pages/ChangePassword";
+import EventDetails from "./Components/EventDetails";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +18,7 @@ root.render(
         <Route path="/" element={<EventPage />}></Route>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
+        <Route path="/event-details" element={<EventDetails></EventDetails>}></Route>
         <Route
           path="/change-password"
           element={<ChangePassword></ChangePassword>}

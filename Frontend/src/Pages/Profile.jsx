@@ -119,7 +119,13 @@ const Profile = () => {
                 Ma liste préférée
               </button>
               <div className="collapse" id="preferedList">
-                <div className="card card-body">
+                <div
+                  className="card card-body"
+                  style={{
+                    width: "20rem",
+                    boxShadow: "2px 2px 4px black",
+                  }}
+                >
                   <div className="d-flex justify-content-end">
                     <span className="d-flex justify-content-right">
                       <i

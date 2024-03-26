@@ -73,10 +73,18 @@ function SignUpPage() {
     };
     const response = await fetch(registerUrl, options);
 
-    console.log("response.status: ", response.status);
-    const data = await response.json();
-    console.log("data: ", data);
-  };
+        console.log('response.status: ', response.status);
+        const data = await response.json();
+        console.log('data: ', data);
+
+        if(response.status === 201) {
+            // TODO: Put a redirect here.
+            alert(data.message)
+        } else {
+            alert(data.message)
+        }
+
+    }
 
     return (
         <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>

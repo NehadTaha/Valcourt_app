@@ -50,7 +50,7 @@ const sendMail = (email, uniqueString) => {
     from: sender,
     to: email,
     subject: "Email confirmation",
-    html: `Press <a href=http://localhost:8080/auth/verify/${uniqueString}> here</a> to verify your email. Thanks.`
+    html: `Press <a href=http://localhost:3000/verify/${uniqueString}> here</a> to verify your email. Thanks.`
   };
 
   Transport.sendMail(mailOptions, function(error, response) {
@@ -95,7 +95,15 @@ router.post("/login", async (req, res) => {
     });
 
     return
-}
+  }
+
+  if(!user.isValid) {
+    res.status(401).send({
+      message: 'Unverified.'
+    });
+
+    return
+  }
 
 
   // Generate token
@@ -177,7 +185,7 @@ router.post("/register", async (req, res) => {
   });
 });
 
-// Temporary verify route
+// Verify route
 router.get('/verify/:uniqueString', async (req, res) => {
   // getting the string
   const { uniqueString } = req.params
@@ -188,10 +196,11 @@ router.get('/verify/:uniqueString', async (req, res) => {
     await users.updateOne(
       {email: user.email}, 
       { $set: {"isValid": true} })
-    res.redirect('/')
+    res.json('Verified.')
   } else {
     // else send an error
-    res.json('User not found')
+    res.status(404)
+    res.json('Not found')
   }
 })
 

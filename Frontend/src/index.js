@@ -7,6 +7,7 @@ import EventPage from "./Pages/EventPage";
 import LoginPage from "./Pages/LoginPage";
 import SignUp from "./Pages/SignUpPage";
 import ChangePassword from "./Pages/ChangePassword";
+import VerifyPage from "./Pages/VerifyPage";
 import EventDetails from "./Components/EventDetails";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -23,6 +24,7 @@ root.render(
           path="/change-password"
           element={<ChangePassword></ChangePassword>}
         ></Route>
+        <Route path="/verify/:uniqueString" element={<VerifyPage/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

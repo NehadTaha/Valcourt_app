@@ -119,28 +119,29 @@ const Profile = () => {
                 Ma liste préférée
               </button>
               <div className="collapse" id="preferedList">
-                <div
-                  className="card card-body"
-                  style={{
-                    width: "20rem",
-                    boxShadow: "2px 2px 4px black",
-                  }}
-                >
-                  <div className="d-flex justify-content-end">
-                    <span className="d-flex justify-content-right">
-                      <i
-                        className="bi bi-pencil-square fs-4 mx-1"
-                        type="button"
-                        onClick={handleEditClick}
-                      ></i>{" "}
-                    </span>
-                  </div>
+                <div className="container">
+                  <div
+                    className="card card-body "
+                    style={{
+                      boxShadow: "2px 2px 4px black",
+                    }}
+                  >
+                    <div className="d-flex justify-content-end">
+                      <span className="d-flex justify-content-right">
+                        <i
+                          className="bi bi-pencil-square fs-4 mx-1"
+                          type="button"
+                          onClick={handleEditClick}
+                        ></i>{" "}
+                      </span>
+                    </div>
 
-                  <DropdownProfile
-                    editMode={editMode}
-                    setEditMode={setEditMode}
-                    onChangeTags={handleChangeTags}
-                  />
+                    <DropdownProfile
+                      editMode={editMode}
+                      setEditMode={setEditMode}
+                      onChangeTags={handleChangeTags}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -160,121 +161,129 @@ const Profile = () => {
               </button>
 
               <div className="collapse" id="editProfile">
-                <div className="">
-                  <button className="btn btn-primary" onClick={handleEditClick}>
-                    Modifier
-                  </button>
-                  <form className="row g-3">
-                    <div className="col-md-6">
-                      <label
-                        htmlFor="inputName"
-                        className="form-label text-black"
+                <div className="container">
+                  <div
+                    className="card card-body "
+                    style={{ boxShadow: "2px 2px 4px black" }}
+                  >
+                    <div className="">
+                      <button
+                        className="btn btn-primary"
+                        onClick={handleEditClick}
                       >
-                        Nom et prénom
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="fullName"
-                        {...(editMode
-                          ? {
-                              placeholder: user ? `Nom et prénom` : "",
-                            }
-                          : {
-                              value: user
-                                ? `${user.firstName} ${user.lastName}`
-                                : "",
-                            })}
-                        readOnly={!editMode}
-                      ></input>
-                    </div>
-                    <div className="col-md-6">
-                      <label
-                        htmlFor="inputEmail4"
-                        className="form-label text-black"
-                      >
-                        Couriel
-                      </label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="inputEmail4"
-                        value={user ? user.email : ""}
-                      ></input>
-                    </div>
-                    <div className="col-md-6">
-                      <label
-                        htmlFor="inputPassword4"
-                        className="form-label text-black"
-                      >
-                        Mots de passe
-                      </label>
-                      <div className="input-group">
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="inputPassword4"
-                          value="*********" // Display dots instead of the actual password
-                          readOnly // Add readOnly attribute based on editMode
-                        />
-                        {editMode ? ( // Show pen icon only in edit mode
-                          <Link to="/change-password">
-                            <button
-                              className="btn btn-outline-secondary"
-                              type="button"
-                            >
-                              <i className="bi bi-pencil-fill"></i>
-                            </button>
-                          </Link>
-                        ) : null}
-                      </div>
-                    </div>
+                        Modifier
+                      </button>
+                      <form className="row g-3">
+                        <div className="col-md-6">
+                          <label
+                            htmlFor="inputName"
+                            className="form-label text-black"
+                          >
+                            Nom et prénom
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="fullName"
+                            {...(editMode
+                              ? { placeholder: user ? `Nom et prénom` : "" }
+                              : {
+                                  value: user
+                                    ? `${user.firstName} ${user.lastName}`
+                                    : "",
+                                })}
+                            readOnly={!editMode}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label
+                            htmlFor="inputEmail4"
+                            className="form-label text-black"
+                          >
+                            Couriel
+                          </label>
+                          <input
+                            type="email"
+                            className="form-control"
+                            id="inputEmail4"
+                            value={user ? user.email : ""}
+                          />
+                        </div>
+                        <div className="col-md-6">
+                          <label
+                            htmlFor="inputPassword4"
+                            className="form-label text-black"
+                          >
+                            Mots de passe
+                          </label>
+                          <div className="input-group">
+                            <input
+                              type="password"
+                              className="form-control"
+                              id="inputPassword4"
+                              value="*********"
+                              readOnly
+                            />
+                            {editMode ? (
+                              <Link to="/change-password">
+                                <button
+                                  className="btn btn-outline-secondary"
+                                  type="button"
+                                >
+                                  <i className="bi bi-pencil-fill"></i>
+                                </button>
+                              </Link>
+                            ) : null}
+                          </div>
+                        </div>
 
-                    <div className="col-md-6">
-                      <label
-                        htmlFor="inputCity"
-                        className="form-label text-black"
-                      >
-                        Municipalité
-                      </label>
-                      {editMode ? (
-                        <select
-                          className="form-select"
-                          id="inputCity"
-                          value={selectedCity}
-                          onChange={handleCityChange}
-                        >
-                          <option value={user ? user.town : ""}>
-                            {user ? user.town : ""}
-                          </option>
-                          {municipalities.map((city, index) => (
-                            <option key={index} value={city}>
-                              {city}
-                            </option>
-                          ))}
-                        </select>
-                      ) : (
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="inputCity"
-                          value={user ? user.town : ""}
-                          readOnly={!editMode}
-                        />
-                      )}
+                        <div className="col-md-6">
+                          <label
+                            htmlFor="inputCity"
+                            className="form-label text-black"
+                          >
+                            Municipalité
+                          </label>
+                          {editMode ? (
+                            <select
+                              className="form-select"
+                              id="inputCity"
+                              value={selectedCity}
+                              onChange={handleCityChange}
+                            >
+                              <option value={user ? user.town : ""}>
+                                {user ? user.town : ""}
+                              </option>
+                              {municipalities.map((city, index) => (
+                                <option key={index} value={city}>
+                                  {city}
+                                </option>
+                              ))}
+                            </select>
+                          ) : (
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="inputCity"
+                              value={user ? user.town : ""}
+                              readOnly={!editMode}
+                            />
+                          )}
+                        </div>
+                        {editMode && (
+                          <div className="col-12">
+                            <button
+                              type="submit"
+                              className="btn btn-primary rounded-pill p-3"
+                              onClick={saveFormChanges}
+                            >
+                              sauvegarder
+                            </button>
+                          </div>
+                        )}
+                      </form>
                     </div>
-                    {editMode && (
-                      <div className="col-12">
-                        <button
-                          type="submit"
-                          className="btn btn-primary rounded-pill"
-                          onClick={saveFormChanges}
-                        >
-                          sauvegarder
-                        </button>
-                      </div>
-                    )}
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>

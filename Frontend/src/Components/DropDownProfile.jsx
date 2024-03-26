@@ -92,8 +92,6 @@ const DropdownProfile = ({ editMode, setEditMode, onChangeTags }) => {
     }
   };
 
-  
-
   const handleDropDownClick = (e) => {
     if (editMode) {
       // Only handle dropdown click when in edit mode
@@ -207,7 +205,7 @@ const DropdownProfile = ({ editMode, setEditMode, onChangeTags }) => {
                 </div>
               </div>
               <div>
-                <button onClick={saveTopicList}>Save</button>
+                <button onClick={saveTopicList}>Sauvegarder</button>
               </div>
             </div>
           )}

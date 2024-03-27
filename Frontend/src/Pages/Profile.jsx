@@ -92,6 +92,7 @@ const Profile = () => {
         console.error("Error fetching user info:", error);
       }
     };
+    
 
     if (token) {
       fetchUserInfo();
@@ -221,7 +222,7 @@ const Profile = () => {
                               type="password"
                               className="form-control"
                               id="inputPassword4"
-                              value="*********"
+                              value={user ? user.password : ""}
                               readOnly
                             />
                             {editMode ? (
@@ -254,11 +255,15 @@ const Profile = () => {
                               <option value={user ? user.town : ""}>
                                 {user ? user.town : ""}
                               </option>
-                              {municipalities.map((city, index) => (
-                                <option key={index} value={city}>
-                                  {city}
-                                </option>
-                              ))}
+                              {municipalities.map(
+                                (city, index) =>
+                                  user &&
+                                  user.town !== city && (
+                                    <option key={index} value={city}>
+                                      {city}
+                                    </option>
+                                  )
+                              )}
                             </select>
                           ) : (
                             <input

@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 require('dotenv').config();
 const secret_key = require("../constants");
-console.log('secret_key: ', secret_key);
+const sendMail = require("../email");
 
 const router = express.Router();
 
@@ -36,7 +36,7 @@ const randString = () => {
   return randStr
 }
 
-const sendMail = (email, uniqueString) => {
+const sendMail1 = (email, uniqueString) => {
   const Transport = nodemailer.createTransport({
     service: "Gmail",
     auth: {
@@ -150,11 +150,15 @@ router.post("/register", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash(body.password, salt)
 
-
   try {
 
     // Send email confirmation
-    sendMail(body.email, uniqueString)
+    const message = `Press <a href=http://localhost:3000/verify/${uniqueString}> here</a> to verify your email. Thanks.`
+    const subject = "Email confirmation"
+    
+    sendMail(body.email, subject, message)
+    //sendMail1(body.email, uniqueString)
+
 
     // Add user to DB
     const result = await users.insertOne({

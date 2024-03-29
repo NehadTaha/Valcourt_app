@@ -42,4 +42,11 @@ const sendConfirmationMail = (email, uniqueString) => {
     sendMail(email, subject, message);
 }
 
+// TODO:
+const sendEventNotification = (email) => {
+  const subject = ""
+  const message = ""
+  sendMail(email, subject, message);
+}
+
 module.exports = {sendMail, sendConfirmationMail}

@@ -111,6 +111,14 @@ function LoginPage() {
               </a>{" "}
               pour vous inscrire.
             </p>
+            <p><a
+                href=""
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Oublié votre mot de passe?
+              </a></p>
           </form>
         </div>
       </div>

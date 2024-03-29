@@ -34,31 +34,12 @@ const sendMail = (email, subject, message) => {
     })
 }
 
+// For account confirmation on registration
 const sendConfirmationMail = (email, uniqueString) => {
-    const Transport = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: process.env.SENDER_EMAIL,        // put your gmail username here
-        pass: process.env.SENDER_EMAIL_PASSWORD  // and your password here
-      }
-    });
-  
-    let sender = "Valcourt_App";
-    const mailOptions = {
-      from: sender,
-      to: email,
-      subject: "Email confirmation",
-      html: `Press <a href=http://localhost:3000/verify/${uniqueString}> here</a> to verify your email. Thanks.`
-    };
-  
-    Transport.sendMail(mailOptions, function(error, response) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Message sent");
-      }
-    })
-  
-  }
+    const subject = "Email confirmation"
+    const message = `Press <a href=http://localhost:3000/verify/${uniqueString}> here</a> to verify your email. Thanks.`
+
+    sendMail(email, subject, message);
+}
 
 module.exports = {sendMail, sendConfirmationMail}

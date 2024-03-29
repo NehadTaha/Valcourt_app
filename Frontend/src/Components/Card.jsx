@@ -1,6 +1,6 @@
 import "../Styles/EventBody.css";
 
-const Card = ({ prop, isLoggedIn, setIsDetail }) => {
+const Card = ({ title, description, date, isLoggedIn, setIsDetail }) => {
   const months = {
     "01": "January",
     "02": "Febuary",
@@ -22,7 +22,7 @@ const Card = ({ prop, isLoggedIn, setIsDetail }) => {
 
 
   const setDate = () => {
-    const token = prop.date.split("/");
+    const token = date.split("/");
     day = token[0];
     for (const key in months) {
       if (key === token[1]) {
@@ -56,8 +56,8 @@ const Card = ({ prop, isLoggedIn, setIsDetail }) => {
 
   return (
     <div className="customCard">
-      <p className="title" onClick={handleClick}>{prop.title}</p>
-      <p className="content" onClick={handleClick}>{prop.description}</p>
+      <p className="title" onClick={handleClick}>{title}</p>
+      <p className="content" onClick={handleClick}>{description}</p>
       <div className="example-date" onClick={handleClick}>
         <span className="day">{day}</span>
         <span className="month">{month}</span>

@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 require('dotenv').config();
 const secret_key = require("../constants");
-const sendMail = require("../email");
+const { sendConfirmationMail, sendMail } = require("../email");
 
 const router = express.Router();
 
@@ -34,33 +34,6 @@ const randString = () => {
   }
 
   return randStr
-}
-
-const sendMail1 = (email, uniqueString) => {
-  const Transport = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-      user: process.env.SENDER_EMAIL,        // put your gmail username here
-      pass: process.env.SENDER_EMAIL_PASSWORD  // and your password here
-    }
-  });
-
-  let sender = "Valcourt_App";
-  const mailOptions = {
-    from: sender,
-    to: email,
-    subject: "Email confirmation",
-    html: `Press <a href=http://localhost:3000/verify/${uniqueString}> here</a> to verify your email. Thanks.`
-  };
-
-  Transport.sendMail(mailOptions, function(error, response) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Message sent");
-    }
-  })
-
 }
 
 
@@ -153,12 +126,7 @@ router.post("/register", async (req, res) => {
   try {
 
     // Send email confirmation
-    const message = `Press <a href=http://localhost:3000/verify/${uniqueString}> here</a> to verify your email. Thanks.`
-    const subject = "Email confirmation"
-    
-    sendMail(body.email, subject, message)
-    //sendMail1(body.email, uniqueString)
-
+    sendConfirmationMail(body.email, uniqueString)
 
     // Add user to DB
     const result = await users.insertOne({

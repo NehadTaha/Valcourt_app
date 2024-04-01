@@ -189,8 +189,8 @@ const Dropdown = () => {
 
   return (
     
-    <div class="content-tag dis">
-      <div id="content-tag" class="dis">
+    <div class="content-tag dis" id="content-tag">
+      <div class="dis">
         <p class="tags-title"> Select Your Interests </p>
         <div class="tags">
           <div class="cluster">

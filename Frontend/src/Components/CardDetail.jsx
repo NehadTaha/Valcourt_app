@@ -3,34 +3,38 @@ import '../Styles/details.css'
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 
-const CardDetail = ({ title, date, time, description, imageUrl, location, phone, setIsDetail }) => {
+const CardDetail = ({ events, eventID, setIsDetail}) => {
 
-  const [img,setImg] = useState()
-  const navigate = useNavigate()
+  const [eventData, setEventData] = useState({
+    title: "",
+    date: "",
+    time: "",
+    imageUrl: "",
+    description: "",
+    phone: "",
+    location: ""
+  });
 
   useEffect(() => {
-    // Fetch image from the internet
-    fetch(imageUrl, {
+    // Find the event with the specified eventID
+    const event = events.find(event => event.eventId === eventID);
 
-    })
-      .then(response => {
-        // Check if response is OK
-        if (!response.ok) {
-          throw new Error('Failed to fetch image');
-        }
-        // Convert response to blob
-        return response.blob();
-      })
-      .then(blob => {
-        // Create object URL from blob
-        const url = URL.createObjectURL(blob);
-        setImg(url);
-      })
-      .catch(error => {
-        console.error('Error fetching image:', error);
+    // If event is found, set the eventData state with its data
+    if (event) {
+      setEventData({
+        title: event.eventTitle,
+        date: event.eventStartDate,
+        imageUrl: event.eventContent.includes("<img") && ( event.eventContent.match(/<img[^>]+src="([^">]+)"/)?.[1] || ""),
+        description: event.eventContent.replace(/<[^>]+>/g,""),
+        phone: event.venue.eventVenuePhone,
+        location: event.venue.eventVenueAddress
+      
       });
-  }, []); // Empty dependency array ensures this effect runs only once
+    }
+  }, [events, eventID]); // Re-run effect when events or eventID changes
 
+
+  const navigate = useNavigate()
 
   const handlePopState = (event)=>{
     if(event.state === null){
@@ -54,15 +58,15 @@ const CardDetail = ({ title, date, time, description, imageUrl, location, phone,
     <>
       <div className="detailBlock">
         <p className="backButton" onClick={handleBack}>back</p>
-        <h1>{title}</h1>
+        <h1>{eventData.title}</h1>
         <div className="datetime">
-          <h3 style={{marginRight:"5px"}}>{date}</h3>
-          <h3>{time}</h3>
+          <h3 style={{marginRight:"5px"}}>{eventData.date}</h3>
+          <h3>{eventData.time}</h3>
         </div>
-        <img className="imageContainer" id="imageContainer" src={img}>
+        <img className="imageContainer" id="imageContainer" src={eventData.imageUrl}>
         </img>
-        <p className="pDesc">{description}</p>
-        <CardDetailFooter location={location} phone={phone}></CardDetailFooter>
+        <p className="pDesc">{eventData.description}</p>
+        <CardDetailFooter location={eventData.location} phone={eventData.phone}></CardDetailFooter>
       </div>
 
     </>

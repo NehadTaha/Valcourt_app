@@ -79,6 +79,7 @@ function SignUpPage() {
 
         if(response.status === 201) {
             // TODO: Put a redirect here.
+            navigate('/login')
             alert(data.message)
         } else {
             alert(data.message)

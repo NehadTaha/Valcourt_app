@@ -5,12 +5,13 @@
 }
 .noWhitespace{
     background-color: var(--paleBlue);
-    height: 100%;
-    padding-bottom: 150px;
+    height: 7vh;
 }
 
 footer{
-background-color: var(--paleBlue);
+    background-color: var(--paleBlue);
+    display: flex;
+    justify-content: center;
 }
 
 .link{

@@ -8,8 +8,14 @@ import { useEffect, useState } from "react";
 import CardDetail from "../Components/CardDetail";
 
 function EventPage() {
-
-
+  /*
+   return isDetail? <CardDetail
+                event={event}
+                eventID={event.eventId}
+                setIsDetail={setIsDetail}
+                ></CardDetail>:
+  */ 
+  const [eventId,setEventId] = useState('')
   const [events, setEvents] = useState([]);
   const [showMoreIndex, setShowMoreIndex] = useState(null);
   const [plainTextContent, setPlainTextContent] = useState([]);
@@ -46,31 +52,34 @@ function EventPage() {
   return (
     <>
       <Navbar setIsLoggedIn={setIsLoggedIn} />
-      {console.log("logged: ", isLoggedIn)}
-      <section class={isDetail?"content-container detailsContainerGrid":"content-container"}>
+      <section class={isDetail?"content-container detailsContainerGrid": isLoggedIn ? "content-container": "content-container-noUser"}>
 
         {isDetail? <div></div>:<Dropdown />}
         
 
-        <div class={isDetail?"content-card detailsContent-Card":"content-card"}>
+        <div class={isDetail?"content-card detailsContent-Card": isLoggedIn ? "content-card":"content-card noUser-justify"}>
+
+          
+
           {
+            isDetail?(
+              <CardDetail
+              events={events} // Assuming you want to display details for the first event
+              eventID={eventId} // Assuming eventId is a property of event object
+              setIsDetail={setIsDetail}
+               />
+            ): events!=[]?
             events.map((event,index) => {
-              isDetail? <CardDetail title={event.eventTitle} time={""} description={plainTextContent[index]} date={event.eventStartDate} imageUrl={event.eventContent.includes("<img") && (
-                <img
-                  src={
-                    event.eventContent.match(/<img[^>]+src="([^">]+)"/)?.[1] || ""
-                  }
-                  alt="Event"
-                />
-              )}
-              location={event.venue.eventVenueAddress} phone={""} setIsDetail={setIsDetail}></CardDetail>:<Card
+             return <Card
               title={event.eventTitle}
-              description={plainTextContent[index].substring(0,200)}
+              description={plainTextContent[index]}
               date={event.eventStartDate}
               isLoggedIn={isLoggedIn}
               setIsDetail={setIsDetail}
+              setEventId={setEventId}
+              cardId={event.eventId}
               ></Card>
-            })
+            }):<h2>No Event At The Moment!</h2>
           }
           
         </div>

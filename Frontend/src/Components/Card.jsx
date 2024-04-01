@@ -1,6 +1,6 @@
 import "../Styles/EventBody.css";
 
-const Card = ({ title, description, date, isLoggedIn, setIsDetail }) => {
+const Card = ({ title, description, date, isLoggedIn, setIsDetail, cardId, setEventId }) => {
   const months = {
     "01": "January",
     "02": "Febuary",
@@ -20,17 +20,26 @@ const Card = ({ title, description, date, isLoggedIn, setIsDetail }) => {
   let month = "January";
   let year = "2024";
 
+  let desc = ''
 
   const setDate = () => {
-    const token = date.split("/");
-    day = token[0];
+    const token = date.split("-");
+    const dayConversion = token[2].split(' ')
+    console.log(dayConversion)
+    day = dayConversion[0]; 
     for (const key in months) {
       if (key === token[1]) {
         month = months[key];
       }
     }
-    year = token[2];
+    year = token[0];
+    console.log(token)
   };
+
+  const setDesc = () =>{
+    const token = description.split('.')
+    desc = token[0]
+  }
 
   function scrollToTop() {
     let scrollStep = 30
@@ -48,16 +57,21 @@ const Card = ({ title, description, date, isLoggedIn, setIsDetail }) => {
 
   const handleClick = ()=>{
     setIsDetail(true)
-
-   scrollToTop()
+    setEventId(cardId)
+    scrollToTop()
   }
 
   setDate();
+  setDesc()
+
+  
+
+  console.log(desc)
 
   return (
     <div className="customCard">
       <p className="title" onClick={handleClick}>{title}</p>
-      <p className="content" onClick={handleClick}>{description}</p>
+      <p className="content" onClick={handleClick}>{desc + '...'}</p>
       <div className="example-date" onClick={handleClick}>
         <span className="day">{day}</span>
         <span className="month">{month}</span>

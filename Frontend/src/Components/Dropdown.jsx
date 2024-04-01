@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import SmallToast from "./SmallToast";
 
-const Dropdown = () => { 
-
+const Dropdown = () => {
   const topicList = [
     "Arts",
     "Cuisine",
@@ -24,7 +23,7 @@ const Dropdown = () => {
 
   const [selectedTags, setSelectedTags] = useState(topicList);
   const [isUser, setIsUser] = useState();
-  const [command,setCommand]=useState(false)
+  const [command, setCommand] = useState(false);
 
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -69,9 +68,6 @@ const Dropdown = () => {
     fetchUserInfo();
   }, []);
 
-
- 
-
   function addTagsMenuToggle() {
     if (
       document
@@ -90,7 +86,7 @@ const Dropdown = () => {
     if (isUser !== "") {
       const t = e.target.id.toString();
       removeOneTopic(t);
-      console.log(selectedTags)
+      console.log(selectedTags);
     }
   };
 
@@ -98,16 +94,16 @@ const Dropdown = () => {
     if (isUser !== "") {
       const t = e.target.id.toString();
       addOneTopic(t);
-      console.log(selectedTags)
+      console.log(selectedTags);
     }
   };
 
   function filldropDown(listOfTags) {
     let notUsed = topicList;
     if (listOfTags != undefined && notUsed != listOfTags) {
-        if(listOfTags.length >= topicList.length){
-            return <p className="cDText">All tags Currently Selected</p>;
-        }
+      if (listOfTags.length >= topicList.length) {
+        return <p className="cDText">All tags Currently Selected</p>;
+      }
       for (let i = 0; i < listOfTags.length; i++) {
         notUsed = removeItemOnce(notUsed, listOfTags[i]);
       }
@@ -151,44 +147,35 @@ const Dropdown = () => {
   }
 
   const removeOneTopic = (topicToRemove) => {
-    const updatedArray = selectedTags.filter(tag => tag !== topicToRemove);
+    const updatedArray = selectedTags.filter((tag) => tag !== topicToRemove);
     setSelectedTags(updatedArray);
   };
 
   const addOneTopic = (topicToAdd) => {
-    setSelectedTags(prevTags => [...prevTags, topicToAdd]);
+    setSelectedTags((prevTags) => [...prevTags, topicToAdd]);
   };
 
-
   const saveTopicList = async () => {
+    const removeTopicUrl = `http://localhost:8080/userInfo/topics/update/${isUser}`;
 
-    const removeTopicUrl = `http://localhost:8080/userInfo/topics/update/${isUser}`
+    try {
+      const response = await fetch(removeTopicUrl, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topicList: selectedTags }),
+      });
+      setCommand(true);
 
-    try{
-      const response = await fetch(
-        removeTopicUrl,{
-          method: "POST",
-          credentials: "same-origin",
-          headers: {"Content-Type":"application/json",},
-          body: JSON.stringify({"topicList":selectedTags}),
-        }
-        )
-        setCommand(true)
-        
+      const data = await response.json();
 
-        const data = await response.json()
-
-        console.log(data)
-    }catch(e){
-      console.log(e)
+      console.log(data);
+    } catch (e) {
+      console.log(e);
     }
-
-  }
-
-
+  };
 
   return (
-    
     <div class="content-tag dis">
       <div id="content-tag" class="dis">
         <p class="tags-title"> Select Your Interests </p>
@@ -205,7 +192,6 @@ const Dropdown = () => {
           </div>
           <div>
             <button onClick={saveTopicList}>Save</button>
-            
           </div>
           <SmallToast command={command} setCommand={setCommand}></SmallToast>
         </div>

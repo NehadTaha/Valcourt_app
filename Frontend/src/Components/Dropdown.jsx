@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import SmallToast from "./SmallToast";
 
-const Dropdown = () => {
+const Dropdown = ({ updateFilteredEvents }) => {
   const topicList = [
     "Arts",
     "Cuisine",
@@ -168,6 +168,7 @@ const Dropdown = () => {
       setCommand(true);
 
       const data = await response.json();
+      updateFilteredEvents();
 
       console.log(data);
     } catch (e) {

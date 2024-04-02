@@ -65,7 +65,7 @@ const Card = ({
 
   const handleClick = () => {
     setIsDetail(true);
-    setEventId(cardId);
+    //setEventId(cardId);
     scrollToTop();
   };
 
@@ -75,7 +75,7 @@ const Card = ({
   console.log(desc);
 
   return (
-    <div key={key} className="customCard">
+    <div className="customCard">
       {" "}
       {/* Add key prop here */}
       <p className="title" onClick={handleClick}>

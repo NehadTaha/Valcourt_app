@@ -68,7 +68,7 @@ function FilteredEvents() {
           isDetail ? "detailsContainerGrid" : "content-container"
         }`}
       >
-        {isDetail ? <div></div> : <Dropdown />}
+        {isDetail ? <div></div> : <Dropdown updateFilteredEvents={fetchData} />}
 
         <div
           className={`content-card ${isDetail ? "detailsContent-Card" : ""}`}

@@ -15,6 +15,7 @@ function EventPage() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDetail, setIsDetail] = useState(false);
+  const [eventId, setEventId] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -22,20 +23,24 @@ function EventPage() {
 
   const fetchData = async () => {
     try {
-      const userTags = await getUserTags(); // Get user tags
+      const url = `http://localhost:8080/posts/combinedData`;
+      const eventsResponse = await fetch(url, {
+        method: "GET",
+      });
+      if (!eventsResponse.ok) {
+        throw new Error("Failed to fetch events");
+      }
+      const eventsData = await eventsResponse.json();
+      console.log("Fetched events data:", eventsData);
+      setEvents(eventsData);
+      setPlainTextContent(
+        eventsData.map((event) => event.eventContent.replace(/<[^>]+>/g, ""))
+      );
+      // Get user tags
+      const userTags = await getUserTags();
       console.log("User tags:", userTags);
-
-      // Check if userTags array is empty
       if (userTags.length === 0) {
-        const url = `http://localhost:8080/posts/combinedData`;
-        const eventsResponse = await fetch(url, {
-          method: "GET",
-        });
-        if (!eventsResponse.ok) {
-          throw new Error("Failed to fetch events");
-        }
-        const eventsData = await eventsResponse.json();
-        console.log("Fetched events data:", eventsData);
+        // User has no tags, show all events
         setEvents(eventsData);
         setPlainTextContent(
           eventsData.map((event) => event.eventContent.replace(/<[^>]+>/g, ""))
@@ -81,13 +86,13 @@ function EventPage() {
     <>
       <div className="d-flex flex-column min-vh-100 text-center content-items-center">
         <Navbar setIsLoggedIn={setIsLoggedIn} />
-        {console.log("logged: ", isLoggedIn)}
-
         <section
           class={
             isDetail
               ? "content-container detailsContainerGrid"
-              : "content-container"
+              : isLoggedIn
+              ? "content-container"
+              : "content-container-noUser"
           }
         >
           {isDetail ? (
@@ -98,42 +103,36 @@ function EventPage() {
 
           <div
             class={
-              isDetail ? "content-card detailsContent-Card" : "content-card"
+              isDetail
+                ? "content-card detailsContent-Card"
+                : isLoggedIn
+                ? "content-card"
+                : "content-card noUser-justify"
             }
           >
-            {events.map((event, index) => {
-              return isDetail ? (
-                <CardDetail
-                  title={event.eventTitle}
-                  time={""}
-                  description={plainTextContent[index]}
-                  date={event.eventStartDate}
-                  imageUrl={
-                    event.eventContent.includes("<img") && (
-                      <img
-                        src={
-                          event.eventContent.match(
-                            /<img[^>]+src="([^">]+)"/
-                          )?.[1] || ""
-                        }
-                        alt="Event"
-                      />
-                    )
-                  }
-                  location={event.venue.eventVenueAddress}
-                  phone={""}
-                  setIsDetail={setIsDetail}
-                ></CardDetail>
-              ) : (
-                <Card
-                  title={event.eventTitle}
-                  description={plainTextContent[index].substring(0, 200)}
-                  date={event.eventStartDate}
-                  isLoggedIn={isLoggedIn}
-                  setIsDetail={setIsDetail}
-                ></Card>
-              );
-            })}
+            {isDetail ? (
+              <CardDetail
+                events={events} // Assuming you want to display details for the first event
+                eventID={eventId} // Assuming eventId is a property of event object
+                setIsDetail={setIsDetail}
+              />
+            ) : events != [] ? (
+              events.map((event, index) => {
+                return (
+                  <Card
+                    title={event.eventTitle}
+                    description={plainTextContent[index]}
+                    date={event.eventStartDate}
+                    isLoggedIn={isLoggedIn}
+                    setIsDetail={setIsDetail}
+                    setEventId={setEventId}
+                    cardId={event.eventId}
+                  ></Card>
+                );
+              })
+            ) : (
+              <h2>No Event At The Moment!</h2>
+            )}
           </div>
         </section>
         <Footer />

@@ -23,6 +23,7 @@ root.render(
           path="/event-details"
           element={<EventDetails></EventDetails>}
         ></Route>
+
         <Route
           path="/change-password"
           element={<ChangePassword></ChangePassword>}

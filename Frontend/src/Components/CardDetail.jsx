@@ -53,7 +53,7 @@ const CardDetail = ({ title, date, time, description, imageUrl, location, phone,
   return (
     <>
       <div className="detailBlock">
-        <p className="backButton" onClick={handleBack}>back</p>
+        <p className="backButton" onClick={handleBack}>Retour</p>
         <h1>{title}</h1>
         <div className="datetime">
           <h3 style={{marginRight:"5px"}}>{date}</h3>

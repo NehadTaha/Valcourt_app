@@ -4,22 +4,26 @@
 body{
   font-family: 'BebasNeue-book', sans-serif;
   letter-spacing: 0.1mm;
+
 }
 
 :root {
   --paleBlue: #0098d9;
   --darkBlue: #164d8e;
   --mauve: #232f62;
+  
 }
 
 body{
   margin: 0;
   padding: 0;
+  
 }
 
 .content-container {
   display: grid;
   grid-template-columns: 50% 50%;
+
 }
 
 .detailsContainerGrid{
@@ -471,6 +475,7 @@ body{
   cursor: pointer;
   border: none;
   z-index: 1;
+  
 }
 
 .content-fbtn .floating-button:hover {
@@ -518,6 +523,9 @@ body{
     margin-right: 10px;
     margin-left: 20px;
   }
+    .customCard p {
+      font-size: 13px;
+    }
 }
 /* Media queries for medium screens */
 @media (min-width: 769px) and (max-width: 1024px) {

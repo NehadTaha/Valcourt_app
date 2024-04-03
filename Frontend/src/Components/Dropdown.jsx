@@ -179,20 +179,20 @@ const Dropdown = ({ updateFilteredEvents }) => {
   return (
     <div class="content-tag dis">
       <div id="content-tag" class="dis">
-        <p class="tags-title"> Select Your Interests </p>
+        <p class="tags-title"> Sélectionnez vos intérêts </p>
         <div class="tags">
           <div class="cluster">
             {selectedTags != null && fillTags(selectedTags)}
           </div>
           <div class="tag-node clickable" onClick={addTagsMenuToggle}>
-            <p className="noSpace">Add new interest</p>
+            <p className="noSpace">Ajoutez un nouvel intérêt</p>
             <FontAwesomeIcon icon={faPlus} className="x-icon" />
           </div>
           <div className="addTags-menu-hide" id="addTagsMenu">
             <div className="customDropdown">{filldropDown(selectedTags)}</div>
           </div>
           <div>
-            <button onClick={saveTopicList}>Save</button>
+            <button onClick={saveTopicList}>Sauvegarder</button>
           </div>
           <SmallToast command={command} setCommand={setCommand}></SmallToast>
         </div>

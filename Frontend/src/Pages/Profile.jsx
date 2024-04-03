@@ -92,7 +92,6 @@ const Profile = () => {
         console.error("Error fetching user info:", error);
       }
     };
-    
 
     if (token) {
       fetchUserInfo();

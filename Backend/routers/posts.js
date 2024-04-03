@@ -14,8 +14,6 @@ router.use(bodyParser.json());
 // Webhook endpoint to receive payloads from WordPress and save them to the database
 router.post("/webhook", async (req, res) => {
   try {
-    // console.log("Received webhook payload:", req.body);
-
     // Extract the desired data from the payload
     const { post, post_meta, taxonomies } = req.body;
     const {
@@ -48,8 +46,6 @@ router.post("/webhook", async (req, res) => {
       },
       { upsert: true }
     );
-
-    // console.log("Post data saved to the database.");
     res.status(200).send("Post data saved to the database.");
   } catch (error) {
     console.error("Error saving post data to the database:", error);
@@ -60,8 +56,6 @@ router.post("/webhook", async (req, res) => {
 // Webhook endpoint to receive payloads for venues and save them to the database
 router.post("/webhook/venues", async (req, res) => {
   try {
-    // console.log("Received webhook payload for venues:", req.body);
-
     const { post, post_meta } = req.body;
     const { ID: venueId, post_title: venueTitle } = post;
     const {
@@ -96,7 +90,6 @@ router.post("/webhook/venues", async (req, res) => {
       { upsert: true }
     );
 
-    //console.log("Venue data saved to the database.");
     res.status(200).send("Venue data saved to the database.");
   } catch (error) {
     console.error("Error saving venue data to the database:", error);
@@ -106,15 +99,10 @@ router.post("/webhook/venues", async (req, res) => {
 // Route to fetch combined data from the combinedData collection
 router.get("/events", async (req, res) => {
   try {
-    console.log("Fetching events data from the database...");
-
     // Fetch events data from the events collection
     const eventsData = await events.find({}).toArray();
-    //console.log("Fetched events data from the database:", eventsData);
-
     res.json(eventsData);
   } catch (error) {
-    //console.error("Error fetching events data from the database:", error);
     res
       .status(500)
       .json({ error: "Error fetching events data from the database" });
@@ -123,13 +111,8 @@ router.get("/events", async (req, res) => {
 
 router.get("/venues", async (req, res) => {
   try {
-    console.log("Fetching venues data from the database...");
-
     // Fetch venues data from the venues collection
     const venuesData = await venues.find({}).toArray();
-    console.log("Fetched venues data from the database:", venuesData);
-    console.log("venuesData", venuesData);
-
     res.json(venuesData);
   } catch (error) {
     console.error("Error fetching venues data from the database:", error);
@@ -142,8 +125,6 @@ router.get("/venues", async (req, res) => {
 // Route to create and save combined data to the eventData collection
 router.post("/combinedData", async (req, res) => {
   try {
-    console.log("Creating and saving combined data...");
-
     // Fetch events and venues data
     const eventsData = await events.find({}).toArray();
     const venuesData = await venues.find({}).toArray();
@@ -153,11 +134,8 @@ router.post("/combinedData", async (req, res) => {
     }
 
     for (let i = 0; i < eventsData.length; i++) {
-      console.log("eventsData", eventsData[i].eventVenueId);
       for (let j = 0; j < venuesData.length; j++) {
-        console.log("venuesData", venuesData[j].venueId);
         if (eventsData[i].eventVenueId == venuesData[j].venueId) {
-          console.log("Match found");
           const combinedData = {
             ...eventsData[i],
             venue: venuesData[j],
@@ -175,8 +153,6 @@ router.post("/combinedData", async (req, res) => {
         }
       }
     }
-
-    console.log("Combined data saved to the eventData collection.");
     res.status(200).send("Combined data saved to the eventData collection.");
   } catch (error) {
     console.error("Error saving combined data:", error);
@@ -186,8 +162,6 @@ router.post("/combinedData", async (req, res) => {
 
 router.get("/combinedData", async (req, res) => {
   try {
-    console.log("Fetching combined data from the eventData collection...");
-
     // Call the POST request to fetch and save combined data
     const postResponse = await fetch(
       "http://localhost:8080/posts/combinedData",
@@ -201,8 +175,6 @@ router.get("/combinedData", async (req, res) => {
     }
 
     const combinedData = await eventData.find({}).toArray();
-    //console.log("Fetched combined data from the database:", combinedData);
-
     // Send the combinedData as the response
     res.json(combinedData);
   } catch (error) {

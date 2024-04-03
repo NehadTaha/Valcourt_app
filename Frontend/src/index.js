@@ -19,12 +19,16 @@ root.render(
         <Route path="/" element={<EventPage />}></Route>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
-        <Route path="/event-details" element={<EventDetails></EventDetails>}></Route>
+        <Route
+          path="/event-details"
+          element={<EventDetails></EventDetails>}
+        ></Route>
+
         <Route
           path="/change-password"
           element={<ChangePassword></ChangePassword>}
         ></Route>
-        <Route path="/verify/:uniqueString" element={<VerifyPage/>}/>
+        <Route path="/verify/:uniqueString" element={<VerifyPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -7,26 +7,22 @@ import {
   faCalendarDays,
   faNewspaper,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProfileImgSmall from "../Components/ProfileImgSmall";
 import { useNavigate } from "react-router-dom";
-function Navbar({setIsLoggedIn}) {
+function Navbar({ setIsLoggedIn }) {
+  const [logTest, setLogTest] = useState(false);
 
-  const [logTest,setLogTest]= useState(false)
+  const [vUser, setVUser] = useState();
 
-  const [vUser,setVUser] = useState()
+  const [isMenuOpen, setIsMenuopen] = useState(false);
 
-  const [isMenuOpen,setIsMenuopen] = useState(false)
+  useEffect(() => {
+    let token = "";
 
-  
-
-  useEffect(()=>{
-
-    let token = ""
-    
-    function getUser(){ 
-      if(localStorage.getItem("token")){
-        token = localStorage.getItem('token')
+    function getUser() {
+      if (localStorage.getItem("token")) {
+        token = localStorage.getItem("token");
       }
     }
 
@@ -44,56 +40,55 @@ function Navbar({setIsLoggedIn}) {
 
         if (response.ok) {
           setVUser(data); // Set user info state
-          setLogTest(true)
+          setLogTest(true);
           //the line below
-          setIsLoggedIn(true)
+          setIsLoggedIn(true);
         } else {
           //console.error("Error fetching user info:", data.message);
-          setVUser(false)
-          setLogTest(false)
+          setVUser(false);
+          setLogTest(false);
         }
       } catch (error) {
         //console.error("Error fetching user info:", error);
-        setVUser(false)
-        setLogTest(false)
+        setVUser(false);
+        setLogTest(false);
       }
     };
-    getUser()
-    fetchUserInfo()
-  },[])
+    getUser();
+    fetchUserInfo();
+  }, []);
 
   function closeMenu() {
     document.getElementById("check").checked = false;
   }
 
-  function menuFlop(){
-    if(!isMenuOpen){
-      setIsMenuopen(true)
-      document.getElementById("check").click()
-    }
-    else{
-      setIsMenuopen(false)
-      document.getElementById("check").click()
+  function menuFlop() {
+    if (!isMenuOpen) {
+      setIsMenuopen(true);
+      document.getElementById("check").click();
+    } else {
+      setIsMenuopen(false);
+      document.getElementById("check").click();
     }
   }
 
-  function onMenuOpen(){
-    menuFlop()
-    if(isMenuOpen){
-      document.body.style.overflow = 'unset';
-    }else{
-      document.body.style.overflow = 'hidden';
+  function onMenuOpen() {
+    menuFlop();
+    if (isMenuOpen) {
+      document.body.style.overflow = "unset";
+    } else {
+      document.body.style.overflow = "hidden";
     }
   }
 
   const navigate = useNavigate();
   return (
     <header>
-      {console.log('logtest',logTest)}
+      {console.log("logtest", logTest)}
       <div className="start">
         <div>
-          <input type="checkbox" id="check" onClick={onMenuOpen}/>
-          <label for="check" className="checkbtn">
+          <input type="checkbox" id="check" onClick={onMenuOpen} />
+          <label htmlFor="check" className="checkbtn">
             <FontAwesomeIcon icon={faStream} />
           </label>
           <ul className="navDrawer">

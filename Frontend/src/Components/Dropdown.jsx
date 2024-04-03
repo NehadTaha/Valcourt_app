@@ -135,7 +135,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
 
   function fillTags(listOfTags) {
     const tags = listOfTags.map((tag, index) => (
-      <div key={index} class="tag-node">
+      <div key={index} className="tag-node">
         <p className="noSpace" id={tag} onClick={handleTagClick}>
           {tag}
         </p>
@@ -177,14 +177,14 @@ const Dropdown = ({ updateFilteredEvents }) => {
   };
 
   return (
-    <div class="content-tag dis">
-      <div id="content-tag" class="dis">
-        <p class="tags-title"> Sélectionnez vos intérêts </p>
-        <div class="tags">
-          <div class="cluster">
+    <div className="content-tag dis">
+      <div id="content-tag" className="dis">
+        <p className="tags-title"> Sélectionnez vos intérêts </p>
+        <div className="tags">
+          <div className="cluster">
             {selectedTags != null && fillTags(selectedTags)}
           </div>
-          <div class="tag-node clickable" onClick={addTagsMenuToggle}>
+          <div className="tag-node clickable" onClick={addTagsMenuToggle}>
             <p className="noSpace">Ajoutez un nouvel intérêt</p>
             <FontAwesomeIcon icon={faPlus} className="x-icon" />
           </div>

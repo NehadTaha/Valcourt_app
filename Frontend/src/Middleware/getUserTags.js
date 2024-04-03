@@ -16,7 +16,6 @@ const getUserTags = async () => {
       throw new Error(responseData.message || "Failed to get user tags");
     }
     const tags = responseData.topics;
-    console.log("User tags:", tags);
     return tags;
   } catch (error) {
     console.error("Error getting user tags:", error);

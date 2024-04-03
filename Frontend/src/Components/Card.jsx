@@ -1,7 +1,7 @@
 import "../Styles/EventBody.css";
 
 const Card = ({
-  key, // Add the key prop
+  cardKey, // Add the key prop
   title,
   description,
   date,

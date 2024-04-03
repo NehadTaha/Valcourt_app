@@ -31,14 +31,12 @@ function EventPage() {
         throw new Error("Failed to fetch events");
       }
       const eventsData = await eventsResponse.json();
-      console.log("Fetched events data:", eventsData);
       setEvents(eventsData);
       setPlainTextContent(
         eventsData.map((event) => event.eventContent.replace(/<[^>]+>/g, ""))
       );
       // Get user tags
       const userTags = await getUserTags();
-      console.log("User tags:", userTags);
       if (userTags.length === 0) {
         // User has no tags, show all events
         setEvents(eventsData);
@@ -55,15 +53,12 @@ function EventPage() {
           throw new Error("Failed to fetch events");
         }
         const eventsData = await eventsResponse.json();
-        console.log("Fetched events data:", eventsData);
         const lowerCaseUserTags = userTags.map((tag) => tag.toLowerCase());
         const filteredEvents = eventsData.filter((event) => {
           const eventCategories = Object.keys(event.categories);
-          console.log("eventCategory:", eventCategories);
           for (let i = 0; i < eventCategories.length; i++) {
             for (let j = 0; j < lowerCaseUserTags.length; j++) {
               if (eventCategories[i] === lowerCaseUserTags[j]) {
-                console.log("lowerCaseUserTags:", lowerCaseUserTags[j]);
                 return true;
               }
             }
@@ -71,7 +66,6 @@ function EventPage() {
           return false;
         });
         setEvents(filteredEvents);
-        console.log("Filtered events:", filteredEvents);
         setPlainTextContent(
           filteredEvents.map((event) =>
             event.eventContent.replace(/<[^>]+>/g, "")
@@ -87,7 +81,7 @@ function EventPage() {
       <div className="d-flex flex-column min-vh-100 text-center content-items-center">
         <Navbar setIsLoggedIn={setIsLoggedIn} />
         <section
-          class={
+          className={
             isDetail
               ? "content-container detailsContainerGrid"
               : isLoggedIn
@@ -102,7 +96,7 @@ function EventPage() {
           )}
 
           <div
-            class={
+            className={
               isDetail
                 ? "content-card detailsContent-Card"
                 : isLoggedIn
@@ -120,6 +114,7 @@ function EventPage() {
               events.map((event, index) => {
                 return (
                   <Card
+                    key={event.eventId}
                     title={event.eventTitle}
                     description={plainTextContent[index]}
                     date={event.eventStartDate}

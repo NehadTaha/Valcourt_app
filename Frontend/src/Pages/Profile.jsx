@@ -3,7 +3,6 @@ import Navbar from "../Components/Navbar";
 import "../Styles/style.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../Components/Footer";
-import Tags from "../Components/Tags";
 import { useState, useEffect } from "react";
 import updateUserInformation from "../Middleware/UpdatingDB";
 import { municipalities } from "../constants";
@@ -28,7 +27,6 @@ const Profile = () => {
   const handleChangeTags = async (data) => {
     try {
       const responseData = await updateUserInformation({ topics: data });
-      console.log("data: ", responseData);
       setTags(data);
       setShowTags(false);
       setUser((prevUser) => ({
@@ -41,7 +39,6 @@ const Profile = () => {
   };
 
   const handleEditClick = () => {
-    console.log("Edit button clicked");
     setEditMode(!editMode);
   };
   const saveFormChanges = async () => {
@@ -68,8 +65,6 @@ const Profile = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("token: ", token);
-
     const fetchUserInfo = async () => {
       const userInfoUrl = "http://localhost:8080/userInfo/profile";
       const options = {
@@ -81,7 +76,6 @@ const Profile = () => {
       try {
         const response = await fetch(userInfoUrl, options);
         const data = await response.json();
-        console.log("data: ", data);
 
         if (response.ok) {
           setUser(data); // Set user info state

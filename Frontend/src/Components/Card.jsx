@@ -1,7 +1,6 @@
 import "../Styles/EventBody.css";
 
 const Card = ({
-  cardKey, // Add the key prop
   title,
   description,
   date,
@@ -65,7 +64,7 @@ const Card = ({
 
   const handleClick = () => {
     setIsDetail(true);
-    //setEventId(cardId);
+    setEventId(cardId);
     scrollToTop();
   };
 
@@ -76,8 +75,6 @@ const Card = ({
 
   return (
     <div className="customCard">
-      {" "}
-      {/* Add key prop here */}
       <p className="title" onClick={handleClick}>
         {title}
       </p>
@@ -90,9 +87,9 @@ const Card = ({
         <span className="year">{year}</span>
       </div>
       {isLoggedIn ? (
-        <button>S'abonnez</button>
+        <button>Subscribe</button>
       ) : (
-        <button>Connectez-vous pour vous abonner</button>
+        <button>Login to Subscribe</button>
       )}
     </div>
   );

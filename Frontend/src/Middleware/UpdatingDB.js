@@ -1,6 +1,12 @@
-const updateUserInformation = async (data) => {
+const updateUserInformation = async (data, shortToken = "") => {
   try {
-    const token = localStorage.getItem("token");
+    let token = localStorage.getItem("token")
+
+    // If there is a shortToken, use that instead of localStorage
+    if(shortToken !== "") {
+      token = shortToken
+    }
+
     const userInfoUrl = "http://localhost:8080/userInfo/profile";
     const options = {
       method: "PUT",

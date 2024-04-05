@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function LoginPage() {
-  const navigate = useNavigate();
+function ForgottenPasswordPage() {
 
   // Holds the login information
   const [form, setForm] = useState({});
@@ -16,7 +15,7 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loginUrl = "http://localhost:8080/auth/login";
+    const loginUrl = "http://localhost:8080/auth/reset";
     const options = {
       method: "POST",
       headers: {
@@ -30,13 +29,12 @@ function LoginPage() {
       const data = await response.json();
       console.log("data: ", data);
       if (response.status === 200) {
-        localStorage.setItem("token", data.token);
-        navigate("/");
+        alert(data)
       } else {
-        alert(data.message); // Show error message if login fails
+        alert(data); // Show error message if login fails
       }
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error("Error sending email:", error);
     }
   };
 
@@ -61,7 +59,7 @@ function LoginPage() {
             />
           </div>
           <div className="d-flex justify-content-center">
-            <h1>Se connecter</h1>
+            <h1>Réinitialiser votre mot de passe</h1>
           </div>
           <br />
           <form onSubmit={handleSubmit}>
@@ -70,7 +68,7 @@ function LoginPage() {
                 Courriel:
               </label>
               <input
-                className="col content-text-font"
+                className="col"
                 type="email"
                 id="email"
                 required
@@ -79,46 +77,12 @@ function LoginPage() {
                 }
               />
             </div>
-            <div className="row align-items-center mb-3">
-              <label className="col-4 form-label" htmlFor="password">
-                Mot de passe:
-              </label>
-              <input
-                className="col content-text-font"
-                type="password"
-                id="password"
-                required
-                onChange={(event) =>
-                  handleInputChange("password", event.target.value)
-                }
-              />
-            </div>
+            
             <div className="col d-flex justify-content-center">
-              <button className="btn btn-primary content-text-font" type="submit">
-                Se connecter
+              <button className="btn btn-primary" type="submit">
+                Envoyer le courriel
               </button>
             </div>
-            <br />
-            <p className="content-text-font">
-              Si vous n'avez pas de compte, veuillez{" "}
-              <a
-                href=""
-                onClick={() => {
-                  navigate("/signup");
-                }}
-              >
-                cliquer ici
-              </a>{" "}
-              pour vous inscrire.
-            </p>
-            <p><a
-                href=""
-                onClick={() => {
-                  navigate("/reset");
-                }}
-              >
-                Oublié votre mot de passe?
-              </a></p>
           </form>
         </div>
       </div>
@@ -126,4 +90,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default ForgottenPasswordPage;

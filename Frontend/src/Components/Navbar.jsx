@@ -83,7 +83,7 @@ function Navbar({ setIsLoggedIn }) {
 
   const navigate = useNavigate();
   return (
-    <header>
+    <header className="no-select">
       {console.log("logtest", logTest)}
       <div className="start">
         <div>
@@ -101,7 +101,7 @@ function Navbar({ setIsLoggedIn }) {
                   navigate("/");
                 }}
               >
-                Event
+                Évenements
               </a>
             </li>
             <li>
@@ -113,7 +113,7 @@ function Navbar({ setIsLoggedIn }) {
                   navigate("/");
                 }}
               >
-                Project
+                Projets
               </a>
             </li>
             <li>
@@ -125,7 +125,7 @@ function Navbar({ setIsLoggedIn }) {
                   navigate("/");
                 }}
               >
-                News
+                Nouvelles
               </a>
             </li>
             <li>
@@ -137,7 +137,7 @@ function Navbar({ setIsLoggedIn }) {
                   navigate("/");
                 }}
               >
-                Main valcourt2030 website
+                Site Principale valcourt2030 
               </a>
             </li>
             <i className="main-logo"></i>
@@ -159,7 +159,7 @@ function Navbar({ setIsLoggedIn }) {
               navigate("/login");
             }}
           >
-            connect
+            se connecter
           </a>
         )}
       </div>

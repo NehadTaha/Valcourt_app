@@ -100,18 +100,18 @@ function SignUpPage() {
                     <form onSubmit={handleSubmit}>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' >Prénom:</label>
-                            <input className='col' type="text" id="prénom" required onChange={(event) => handleInputChange('firstName', event.target.value)} />
+                            <input className='col content-text-font' type="text" id="prénom" required onChange={(event) => handleInputChange('firstName', event.target.value)} />
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' >Nom:</label>
-                            <input className='col' type="text" id="nom" required onChange={(event) => handleInputChange('lastName', event.target.value)} />
+                            <input className='col content-text-font' type="text" id="nom" required onChange={(event) => handleInputChange('lastName', event.target.value)} />
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' >Municipalité:</label>
-                            <select className='col' id="municipalité" onChange={(event) => handleInputChange('town', event.target.value, option => option.value)}>
-                                    <option>{municipalityText}</option>
+                            <select className='col content-text-font' id="municipalité" onChange={(event) => handleInputChange('town', event.target.value, option => option.value)}>
+                                    <option className="content-text-font">{municipalityText}</option>
                                 {municipalities.map((element, index) => (
-                                    <option key={index} value={element}>
+                                    <option key={index} value={element} className="content-text-font">
                                         {element}
                                     </option>
                                 ))}
@@ -119,15 +119,15 @@ function SignUpPage() {
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='form-label col-4' htmlFor="email">Courriel:</label>
-                            <input className='col' type="email" id="email" required onChange={(event) => handleInputChange('email', event.target.value)} />
+                            <input className='col content-text-font' type="email" id="email" required onChange={(event) => handleInputChange('email', event.target.value)} />
                         </div>
                         <div className="row align-items-center mb-3">
                             <label className='col-4 form-label' htmlFor="password">Mot de passe:</label>
-                            <input className="col" type="password" id="password" required onChange={(event) => handleInputChange('password', event.target.value)} />
+                            <input className="col content-text-font" type="password" id="password" required onChange={(event) => handleInputChange('password', event.target.value)} />
                         </div>
                         <div className="row align-items-center">
                             <label className='col-4 form-label' htmlFor="password">Confirmez votre mot de passe:</label>
-                            <input className="col" type="password" id="password" required onChange={(event) => handleInputChange('confirmPassword', event.target.value)} />
+                            <input className="col content-text-font" type="password" id="password" required onChange={(event) => handleInputChange('confirmPassword', event.target.value)} />
                         </div>
 
                         <div className="row align-items-center mb-3">
@@ -138,7 +138,7 @@ function SignUpPage() {
                             <button className="btn btn-primary" type="submit">S'inscrire</button>
                         </div>
                         <br />
-                        <p>Vous avez déjà un compte? Veuillez <a href="" onClick={()=>{navigate('/login')}}>cliquer ici</a> pour vous connecter.</p>
+                        <p className="centent-text-font">Vous avez déjà un compte? Veuillez <a href="" onClick={()=>{navigate('/login')}}>cliquer ici</a> pour vous connecter.</p>
                     </form>
                 </div>
             </div>

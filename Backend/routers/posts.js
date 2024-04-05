@@ -109,7 +109,7 @@ router.get("/events", async (req, res) => {
   }
 });
 
-router.get("/venues", async (req, res) => {
+router.get("/webhook/venues", async (req, res) => {
   try {
     // Fetch venues data from the venues collection
     const venuesData = await venues.find({}).toArray();
@@ -182,6 +182,42 @@ router.get("/combinedData", async (req, res) => {
     res
       .status(500)
       .json({ error: "Error fetching combined data from the database" });
+  }
+});
+//Router to fetch the deleted posts in webhook
+// Router to delete a post/event and update venue and combined data accordingly
+router.post("/webhook/delete", async (req, res) => {
+  try {
+    const { post } = req.body;
+    const { ID: eventId } = post;
+
+    // Delete the event from the events collection
+    await events.deleteOne({ eventId });
+
+    // Find the corresponding venue for the deleted event
+    const deletedEventData = await eventData.findOne({ eventId });
+    if (deletedEventData) {
+      const { venueId } = deletedEventData;
+
+      // Update the combined data collection by removing the deleted event
+      await eventData.deleteOne({ eventId });
+
+      // Check if the venue exists in the venues collection
+      const venue = await venues.findOne({ venueId });
+      if (venue) {
+        // If the venue exists, remove the reference to the deleted event
+        const updatedVenue = { ...venue };
+        delete updatedVenue.events[eventId];
+
+        // Update the venues collection with the modified venue data
+        await venues.updateOne({ venueId }, { $set: updatedVenue });
+      }
+    }
+
+    res.status(200).send("Post data deleted from the database.");
+  } catch (error) {
+    console.error("Error deleting post data from the database:", error);
+    res.status(500).send("Error deleting post data from the database");
   }
 });
 

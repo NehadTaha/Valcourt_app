@@ -110,7 +110,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
 
       const dropDownTags = notUsed.map((tag, index) => (
         <p
-          className="cDText"
+          className="cDText content-text-font"
           key={index}
           id={tag}
           onClick={handleDropDownClick}
@@ -177,8 +177,8 @@ const Dropdown = ({ updateFilteredEvents }) => {
   };
 
   return (
-    <div className="content-tag dis">
-      <div id="content-tag" className="dis">
+    <div className="content-tag dis" id="content-tag">
+      <div  className="dis">
         <p className="tags-title"> Sélectionnez vos intérêts </p>
         <div className="tags">
           <div className="cluster">

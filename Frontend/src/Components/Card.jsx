@@ -1,7 +1,6 @@
 import "../Styles/EventBody.css";
 
 const Card = ({
-  cardKey, // Add the key prop
   title,
   description,
   date,
@@ -11,18 +10,18 @@ const Card = ({
   setEventId,
 }) => {
   const months = {
-    "01": "January",
-    "02": "Febuary",
-    "03": "March",
-    "04": "April",
-    "05": "May",
-    "06": "June",
-    "07": "July",
-    "08": "August",
-    "09": "September",
-    10: "October",
-    11: "November",
-    12: "December",
+    "01": "Janvier",
+    "02": "Février",
+    "03": "Mars",
+    "04": "Avril",
+    "05": "Mai",
+    "06": "Juin",
+    "07": "Juillet",
+    "08": "Août",
+    "09": "Septembre",
+    "10": "Octobre",
+    "11": "Novembre",
+    "12": "Décembre",
   };
 
   let day = "01";
@@ -65,7 +64,7 @@ const Card = ({
 
   const handleClick = () => {
     setIsDetail(true);
-    //setEventId(cardId);
+    setEventId(cardId);
     scrollToTop();
   };
 
@@ -76,8 +75,6 @@ const Card = ({
 
   return (
     <div className="customCard">
-      {" "}
-      {/* Add key prop here */}
       <p className="title" onClick={handleClick}>
         {title}
       </p>

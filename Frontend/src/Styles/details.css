@@ -1,17 +1,17 @@
-.detailBlock{
+.detailBlock {
 
   display: flex;
   flex-direction: column;
-  
+
   flex-grow: 1;
 
-  height: 100vh;
+  height: 100%;
 
   align-items: center;
   justify-content: flex-start;
 }
 
-.backButton{
+.backButton {
   background-color: var(--paleBlue);
   padding: 5px;
   margin: 5px;
@@ -19,43 +19,45 @@
   color: white;
 }
 
-.backButton:hover{
+.backButton:hover {
   background-color: var(--darkBlue);
   color: white;
 }
 
-.backButton:active{
+.backButton:active {
   background-color: var(--mauve);
 }
 
-.detailBlock h1{
+.detailBlock h1 {
   margin-left: 10px;
   margin-right: 10px;
   font-size: 35px;
   text-align: center;
 
-  font-family: 'BebasNeue',sans-serif;
+  font-family: 'BebasNeue', sans-serif;
 }
 
-.detailBlock h1::first-letter{
+.detailBlock h1::first-letter {
   text-transform: capitalize;
 }
 
-.datetime{
-  display: flex;  
+.datetime {
+  display: flex;
   justify-content: flex-end;
-  margin-right:10vw;
+  margin-right: 10vw;
 }
 
-.datetime h3{
+.datetime h3 {
   font-size: 16px;
   color: gray;
 }
 
-.dFooter{
+.dFooter {
   display: flex;
 
   flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
 
   align-items: center;
   justify-content: center;
@@ -63,7 +65,7 @@
   margin-bottom: 5px;
 }
 
-.dFooter div{
+.dFooter div {
   display: flex;
   flex-direction: column;
 
@@ -78,26 +80,26 @@
 
 }
 
-.dFooter div h1{
+.dFooter div h1 {
   font-size: 20px;
   text-align: center;
-  font-family: 'BebasNeue',sans-serif;
+  font-family: 'BebasNeue', sans-serif;
 }
 
-.imageContainer{
+.imageContainer {
 
-  width:90vw;
+  width: 90vw;
   height: 60%;
 
-  
-  
+
+
   background-image: none;
-  background-size:contain;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position-x: center;
 }
 
-.pDesc{
+.pDesc {
 
   margin-top: 50px;
   margin-bottom: 50px;
@@ -108,4 +110,3 @@
   text-align: center;
   font-size: 15px;
 }
-

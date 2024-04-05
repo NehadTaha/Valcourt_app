@@ -1,36 +1,37 @@
 @import url(./font.css);
 
 
-body{
+body {
   font-family: 'BebasNeue-book', sans-serif;
   letter-spacing: 0.1mm;
-
 }
 
 :root {
   --paleBlue: #0098d9;
   --darkBlue: #164d8e;
   --mauve: #232f62;
-  
 }
 
-body{
+body {
   margin: 0;
   padding: 0;
-  
 }
 
 .content-container {
   display: grid;
   grid-template-columns: 50% 50%;
-
 }
 
-.detailsContainerGrid{
+.content-container-noUser {
+  display: grid;
   grid-template-columns: 100%;
 }
 
-.detailsContent-Card{
+.detailsContainerGrid {
+  grid-template-columns: 100%;
+}
+
+.detailsContent-Card {
   width: 100%;
 }
 
@@ -42,9 +43,10 @@ body{
   align-items: center;
 
   text-align: center;
+  justify-self: left;
 }
 
-.imageTile{
+.imageTile {
   position: relative;
 
   background-color: red;
@@ -54,7 +56,7 @@ body{
   width: 0;
 }
 
-.testing{
+.testing {
   position: absolute;
   right: -19vw;
   top: 1vh;
@@ -70,8 +72,8 @@ body{
   display: flex;
   flex-direction: column;
 
-  min-width: fit-content;
-  max-width: fit-content;
+  min-width: 500px;
+  max-width: 500px;
 
   padding: 3px;
   border-radius: 15px;
@@ -83,7 +85,7 @@ body{
   box-shadow: 5px 5px 7px black;
   z-index: 1;
 
-
+  justify-self: center;
 }
 
 .customCard:hover {
@@ -95,12 +97,15 @@ body{
   border-radius: 0;
   transition: all 0.2s;
 }
+
 .customCard:hover p {
   border-radius: 15px 0px 15px 0px;
   transition: all 0.2s;
 }
+
 .example-date {
-  background-color:var(--darkBlue);
+  background-color: var(--darkBlue);
+  min-width: 50px;
   position: relative;
   padding: 45px 5px 0px;
   margin-top: 10px;
@@ -131,8 +136,8 @@ body{
 }
 
 .example-date .day {
-  font-size: 45px;
-  line-height: 45px;
+  font-size: 30px;
+  line-height: 55px;
   position: absolute;
   left: 5px;
   top: 0px;
@@ -154,27 +159,36 @@ body{
 
   text-transform: uppercase;
 
-  font-family: 'BebasNeue-bold' , sans-serif;
+  font-family: 'BebasNeue-bold', sans-serif;
 }
 
 .customCard .content {
   background-color: #3a3b3b;
   border-radius: 0px 0px 10px 10px;
 
+  word-wrap: break-word;
+
+
   cursor: pointer;
-  
+
+}
+
+.content-text-font{
+  font-family: Arial, Helvetica, sans-serif;
+  word-spacing: 0.1mm;
 }
 
 .customCard p {
   padding: 10px;
   text-align: center;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: lighter;
   line-height: 1.5;
-  
-  font-family: 'BebasNeue-book', sans-serif;
-  word-spacing: 1mm;
+
+  font-family: Arial, Helvetica, sans-serif;
+  word-spacing: 0.1mm;
+
 }
 
 .customCard button {
@@ -197,23 +211,31 @@ body{
   color: white;
   font-size: large;
   text-transform: uppercase;
+
+  font-family: Arial, Helvetica, sans-serif;
+  word-spacing: 0.1mm;
 }
 
 .customCard button:hover {
   background-color: var(--darkBlue);
   cursor: pointer;
 }
+
 .customCard button:active {
   background-color: var(--mauve);
 }
 
-.dis{
+.dis {
   display: flex;
   flex-direction: column;
 }
 
-.hide-dis{
+.hide-dis {
   display: none;
+}
+
+.noUser-justify {
+  justify-self: center;
 }
 
 .content-tag {
@@ -242,7 +264,7 @@ body{
   box-shadow: 2px 2px 4px black;
 }
 
-.cluster{
+.cluster {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -252,7 +274,7 @@ body{
 }
 
 
-.tag-node{
+.tag-node {
   display: flex;
   align-items: center;
   justify-items: center;
@@ -260,35 +282,36 @@ body{
   border: 1px solid black;
   border-radius: 15px;
 }
-.clickable{
+
+.clickable {
   cursor: pointer;
   margin-top: 10px;
   user-select: none;
 }
 
-.clickable:hover{
+.clickable:hover {
   box-shadow: 0 0 5px;
 }
 
-.addTags-menu-hide{
+.addTags-menu-hide {
   height: 0;
   width: 0;
   overflow: hidden;
 }
 
-.abs-drop{
+.abs-drop {
   position: absolute;
   top: 109px;
   left: 20px;
 }
 
-.rel-drop{
+.rel-drop {
   position: relative;
   top: -4px;
   left: unset;
 }
 
-.customToast{
+.customToast {
   position: relative;
 }
 
@@ -304,6 +327,7 @@ body{
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(0);
   }
@@ -313,14 +337,15 @@ body{
   from {
     transform: scale(1);
   }
+
   to {
-    transform:scale(0);
+    transform: scale(0);
   }
 }
 
 
 
-.customDropdown{
+.customDropdown {
   position: relative;
   top: -4px;
   left: unset;
@@ -334,7 +359,8 @@ body{
   border-radius: 10px 10px 5px 5px;
   z-index: 1000;
 }
-.cDText{
+
+.cDText {
   padding-left: 1px;
   padding-right: 1px;
   margin: 2px;
@@ -348,20 +374,21 @@ body{
   user-select: none;
 }
 
-.cDText:active{
+.cDText:active {
   box-shadow: 0 0 5px;
 }
 
-.noSpace{
+.noSpace {
   padding: 0;
   margin: 0;
 }
-.x-icon{
+
+.x-icon {
   margin-left: 5px;
   cursor: pointer;
 }
 
-.tags-title{
+.tags-title {
   font-size: large;
   font-weight: bold;
   height: 20px;
@@ -392,7 +419,7 @@ body{
   border: none;
   border-radius: 50px;
   margin: 10px;
-  
+
 }
 
 .tags button:hover {
@@ -475,7 +502,6 @@ body{
   cursor: pointer;
   border: none;
   z-index: 1;
-  
 }
 
 .content-fbtn .floating-button:hover {
@@ -487,10 +513,22 @@ body{
 .content-fbtn .floating-button p {
   font-size: 22px;
 }
+
+
 /* Media queries for small screens */
 @media (max-width: 768px) {
   .content-container {
     grid-template-columns: 100%;
+  }
+
+  .customCard {
+    max-width: 300px;
+    min-width: 300px;
+  }
+
+  .customCard .content {
+    max-width: 300px;
+    min-width: 300px;
   }
 
 
@@ -501,12 +539,13 @@ body{
     justify-self: center;
     margin-right: 10px;
     margin-left: 10px;
-    
-    
+
+
   }
-    .example-date {
-      margin: 5%;
-    }
+
+  .example-date {
+    margin: 5%;
+  }
 
   .content-tag {
     margin-top: 10%;
@@ -515,7 +554,7 @@ body{
   .content-fbtn {
     justify-items: center;
     align-items: center;
-    
+
   }
 
   .content-fbtn .floating-button {
@@ -523,10 +562,8 @@ body{
     margin-right: 10px;
     margin-left: 20px;
   }
-    .customCard p {
-      font-size: 13px;
-    }
 }
+
 /* Media queries for medium screens */
 @media (min-width: 769px) and (max-width: 1024px) {
   .content-container {
@@ -541,6 +578,7 @@ body{
     margin-right: 10px;
     margin-left: 10px;
   }
+
   .example-date {
     margin-bottom: 5%;
   }
@@ -565,12 +603,10 @@ body{
 @media (min-width: 1025px) {
 
   .content-card,
-  .customCard,
-  .example-date{
-    justify-self: left;
-    
+  .example-date {
+    /*justify-self: left;*/
   }
-  
+
 
   .content-tag {
     margin-top: 10%;

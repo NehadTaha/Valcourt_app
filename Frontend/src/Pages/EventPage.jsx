@@ -44,18 +44,11 @@ function EventPage() {
           eventsData.map((event) => event.eventContent.replace(/<[^>]+>/g, ""))
         );
       } else {
-        // User has tags, filter events based on tags
-        const url = `http://localhost:8080/posts/combinedData`;
-        const eventsResponse = await fetch(url, {
-          method: "GET",
-        });
-        if (!eventsResponse.ok) {
-          throw new Error("Failed to fetch events");
-        }
-        const eventsData = await eventsResponse.json();
         const lowerCaseUserTags = userTags.map((tag) => tag.toLowerCase());
         const filteredEvents = eventsData.filter((event) => {
-          const eventCategories = Object.keys(event.categories);
+          const eventCategories = Object.values(event.categories).map(
+            (category) => category.name.toLowerCase()
+          );
           for (let i = 0; i < eventCategories.length; i++) {
             for (let j = 0; j < lowerCaseUserTags.length; j++) {
               if (eventCategories[i] === lowerCaseUserTags[j]) {
@@ -126,12 +119,12 @@ function EventPage() {
                 );
               })
             ) : (
-              <h2>No Event At The Moment!</h2>
+              <h2>Aucun événement pour le moment !</h2>
             )}
           </div>
         </section>
         <Footer />
-      </div>
+        </div>
     </>
   );
 }

@@ -1,8 +1,8 @@
 const updateUserInformation = async (data, shortToken = "") => {
   try {
     let token = localStorage.getItem("token")
-    //const token = shortToken;
 
+    // If there is a shortToken, use that instead of localStorage
     if(shortToken !== "") {
       token = shortToken
     }

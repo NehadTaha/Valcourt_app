@@ -188,7 +188,7 @@ router.post('/reset', async (req, res) => {
 
     // Generate token
     const token = jwt.sign({ userId: user._id }, secret_key, {
-      expiresIn: "1h",
+      expiresIn: "1m",
     }); 
 
     // Send the email

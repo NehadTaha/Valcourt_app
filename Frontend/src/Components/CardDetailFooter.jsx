@@ -4,11 +4,11 @@ const CardDetailFooter = ({location, phone}) => {
         <div className="dFooter">
           <div>
             <h1>lieu</h1>
-            <p>{location}</p>
+            <p className="content-text-font">{location}</p>
           </div>
           <div>
             <h1>phone</h1>
-            <p>{phone}</p>
+            <p className="content-text-font">{phone}</p>
           </div>
         </div>
       </>

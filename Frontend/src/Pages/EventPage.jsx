@@ -124,7 +124,7 @@ function EventPage() {
           </div>
         </section>
         <Footer />
-      </div>
+        </div>
     </>
   );
 }

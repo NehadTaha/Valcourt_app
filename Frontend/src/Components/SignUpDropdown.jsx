@@ -61,7 +61,7 @@ const SignUpDropdown = (props) => {
 
       const dropDownTags = notUsed.map((tag, index) => (
         <p
-          className="cDText"
+          className="cDText content-text-font"
           key={index}
           id={tag}
           onClick={handleDropDownClick}

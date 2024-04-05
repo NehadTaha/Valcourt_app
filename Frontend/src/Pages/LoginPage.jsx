@@ -70,7 +70,7 @@ function LoginPage() {
                 Courriel:
               </label>
               <input
-                className="col"
+                className="col content-text-font"
                 type="email"
                 id="email"
                 required
@@ -84,7 +84,7 @@ function LoginPage() {
                 Mot de passe:
               </label>
               <input
-                className="col"
+                className="col content-text-font"
                 type="password"
                 id="password"
                 required
@@ -94,12 +94,12 @@ function LoginPage() {
               />
             </div>
             <div className="col d-flex justify-content-center">
-              <button className="btn btn-primary" type="submit">
+              <button className="btn btn-primary content-text-font" type="submit">
                 Se connecter
               </button>
             </div>
             <br />
-            <p>
+            <p className="content-text-font">
               Si vous n'avez pas de compte, veuillez{" "}
               <a
                 href=""

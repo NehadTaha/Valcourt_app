@@ -67,7 +67,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
           id="imageContainer"
           src={eventData.imageUrl}
         ></img>
-        <p className="pDesc">{eventData.description}</p>
+        <p className="pDesc content-text-font">{eventData.description}</p>
         <CardDetailFooter
           location={eventData.location}
           phone={eventData.phone}

@@ -10,18 +10,18 @@ const Card = ({
   setEventId,
 }) => {
   const months = {
-    "01": "January",
-    "02": "Febuary",
-    "03": "March",
-    "04": "April",
-    "05": "May",
-    "06": "June",
-    "07": "July",
-    "08": "August",
-    "09": "September",
-    10: "October",
-    11: "November",
-    12: "December",
+    "01": "Janvier",
+    "02": "Février",
+    "03": "Mars",
+    "04": "Avril",
+    "05": "Mai",
+    "06": "Juin",
+    "07": "Juillet",
+    "08": "Août",
+    "09": "Septembre",
+    "10": "Octobre",
+    "11": "Novembre",
+    "12": "Décembre",
   };
 
   let day = "01";
@@ -87,9 +87,9 @@ const Card = ({
         <span className="year">{year}</span>
       </div>
       {isLoggedIn ? (
-        <button>Subscribe</button>
+        <button>S'inscrire à l'évenement</button>
       ) : (
-        <button>Login to Subscribe</button>
+        <button>S'inscrire à Valcourt2030</button>
       )}
     </div>
   );

@@ -184,12 +184,15 @@ router.post('/reset', async (req, res) => {
   
   const user = await users.findOne({ email: email })
   if (user) {
-    // if they exist, send an email
-    await users.updateOne(
-      {email: user.email}, 
-      { $set: {"uniqueString": newString} 
-    })
-    sendForgottenPasswordMail(user.email, newString);
+    // if the user exists...
+
+    // Generate token
+    const token = jwt.sign({ userId: user._id }, secret_key, {
+      expiresIn: "1h",
+    }); 
+
+    // Send the email
+    sendForgottenPasswordMail(user.email, token);
     res.json('Email sent. Please check your inbox.')
   } else {
     // else send an error

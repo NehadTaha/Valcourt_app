@@ -1,4 +1,6 @@
+import { useState } from "react";
 import "../Styles/EventBody.css";
+import {useNavigate} from 'react-router-dom'
 
 const Card = ({
   title,
@@ -8,7 +10,10 @@ const Card = ({
   setIsDetail,
   cardId,
   setEventId,
+  isSubbed
 }) => {
+
+  const [isDisable,setIsDisable] = useState(isSubbed)
   const months = {
     "01": "Janvier",
     "02": "Février",
@@ -30,10 +35,12 @@ const Card = ({
 
   let desc = "";
 
+  const navigate = useNavigate();
+
   const setDate = () => {
     const token = date.split("-");
     const dayConversion = token[2].split(" ");
-    console.log(dayConversion);
+    //console.log(dayConversion);
     day = dayConversion[0];
     for (const key in months) {
       if (key === token[1]) {
@@ -41,7 +48,7 @@ const Card = ({
       }
     }
     year = token[0];
-    console.log(token);
+    //console.log(token);
   };
 
   const setDesc = () => {
@@ -62,34 +69,51 @@ const Card = ({
     scrollAnimation();
   }
 
-  const handleClick = () => {
+  const handleDetailClick = () => {
     setIsDetail(true);
     setEventId(cardId);
     scrollToTop();
   };
 
+  const handleSub = async ()=>{
+ 
+      const sub = `http://localhost:8080/userInfo/subscribe`;
+      try {
+        const token = localStorage.getItem("token");
+        console.log(cardId)
+        const response = await fetch(sub, {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json", Authorization: token ? `Bearer ${token}` : "",},
+          body: JSON.stringify({ eventId: cardId }),
+        });
+        const data = await response.json();
+        //console.log(data);
+        setIsDisable(true)
+      } catch (e) {
+        console.log(e);
+      }
+  }
+
   setDate();
   setDesc();
-
-  console.log(desc);
-
   return (
     <div className="customCard">
-      <p className="title" onClick={handleClick}>
+      <p className="title" onClick={handleDetailClick}>
         {title}
       </p>
-      <p className="content" onClick={handleClick}>
+      <p className="content" onClick={handleDetailClick}>
         {desc + "..."}
       </p>
-      <div className="example-date" onClick={handleClick}>
+      <div className="example-date" onClick={handleDetailClick}>
         <span className="day">{day}</span>
         <span className="month">{month}</span>
         <span className="year">{year}</span>
       </div>
       {isLoggedIn ? (
-        <button>S'abonnez</button>
+        isSubbed || isDisable?<div id={cardId} className="disabled">Abonnez</div>:<button id={cardId} onClick={handleSub}>S'abonnez</button>
       ) : (
-        <button>Connectez-vous pour vous abonner</button>
+        <button onClick={()=>{navigate('/login')}}>Connectez-vous pour vous abonner</button>
       )}
     </div>
   );

@@ -17,9 +17,32 @@ function EventPage() {
   const [isDetail, setIsDetail] = useState(false);
   const [eventId, setEventId] = useState("");
 
+  const [subbedEvents, setSubbedEvents] = useState([]);
+
   useEffect(() => {
+    if (isLoggedIn) {
+      try{
+        let token = localStorage.getItem("token");
+        const fetchSubData = async () => {
+          const url = `http://localhost:8080/userInfo/subbedEvent`;
+          const eventsResponse = await fetch(url, {
+            method: "GET",
+            headers: {
+              Authorization: token ? `Bearer ${token}` : "",
+            },
+          });
+          const eventsData = await eventsResponse.json();
+  
+          setSubbedEvents(eventsData)
+        };
+        fetchSubData()
+      }catch(e){
+        console.log(e)
+      }
+      
+    }
     fetchData();
-  }, []);
+  }, [isLoggedIn]);
 
   const fetchData = async () => {
     try {
@@ -105,6 +128,11 @@ function EventPage() {
               />
             ) : events != [] ? (
               events.map((event, index) => {
+                let isSubbed = subbedEvents.find(subbedEvent => subbedEvent.eventId === event.eventId) !== undefined;
+
+                //console.log({eventId:event.eventId})
+               // console.log(subbedEvents)
+               console.log(isSubbed)
                 return (
                   <Card
                     key={event.eventId}
@@ -115,6 +143,7 @@ function EventPage() {
                     setIsDetail={setIsDetail}
                     setEventId={setEventId}
                     cardId={event.eventId}
+                    isSubbed={isSubbed}
                   ></Card>
                 );
               })
@@ -124,7 +153,7 @@ function EventPage() {
           </div>
         </section>
         <Footer />
-        </div>
+      </div>
     </>
   );
 }

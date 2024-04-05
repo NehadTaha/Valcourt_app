@@ -55,7 +55,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
     <>
       <div className="detailBlock">
         <p className="backButton" onClick={handleBack}>
-          back
+          Retour
         </p>
         <h1>{eventData.title}</h1>
         <div className="datetime">

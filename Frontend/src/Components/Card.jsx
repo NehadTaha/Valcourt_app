@@ -87,9 +87,9 @@ const Card = ({
         <span className="year">{year}</span>
       </div>
       {isLoggedIn ? (
-        <button>S'inscrire à l'évenement</button>
+        <button>S'abonnez</button>
       ) : (
-        <button>S'inscrire à Valcourt2030</button>
+        <button>Connectez-vous pour vous abonner</button>
       )}
     </div>
   );

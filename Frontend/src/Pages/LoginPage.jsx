@@ -114,7 +114,7 @@ function LoginPage() {
             <p><a
                 href=""
                 onClick={() => {
-                  navigate("/");
+                  navigate("/reset");
                 }}
               >
                 Oublié votre mot de passe?

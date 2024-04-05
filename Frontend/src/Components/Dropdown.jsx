@@ -156,10 +156,10 @@ const Dropdown = ({ updateFilteredEvents }) => {
   };
 
   const saveTopicList = async () => {
-    const removeTopicUrl = `http://localhost:8080/userInfo/topics/update/${isUser}`;
+    const modifyTopiURL = `http://localhost:8080/userInfo/topics/update/${isUser}`;
 
     try {
-      const response = await fetch(removeTopicUrl, {
+      const response = await fetch(modifyTopiURL, {
         method: "POST",
         credentials: "same-origin",
         headers: { "Content-Type": "application/json" },

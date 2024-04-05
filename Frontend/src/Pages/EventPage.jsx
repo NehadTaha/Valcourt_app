@@ -119,7 +119,7 @@ function EventPage() {
                 );
               })
             ) : (
-              <h2>No Event At The Moment!</h2>
+              <h2>Aucun événement pour le moment !</h2>
             )}
           </div>
         </section>

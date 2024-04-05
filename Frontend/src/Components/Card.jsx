@@ -87,9 +87,9 @@ const Card = ({
         <span className="year">{year}</span>
       </div>
       {isLoggedIn ? (
-        <button>Subscribe</button>
+        <button>S'abonnez</button>
       ) : (
-        <button>Login to Subscribe</button>
+        <button>Connectez-vous pour vous abonner</button>
       )}
     </div>
   );

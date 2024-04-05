@@ -36,10 +36,17 @@ const sendMail = (email, subject, message) => {
 
 // For account confirmation on registration
 const sendConfirmationMail = (email, uniqueString) => {
-    const subject = "Email confirmation"
-    const message = `Press <a href=http://localhost:3000/verify/${uniqueString}> here</a> to verify your email. Thanks.`
+  const subject = "Email confirmation"
+  const message = `Press <a href=http://localhost:3000/verify/${uniqueString}> here</a> to verify your email. Thanks.`
 
-    sendMail(email, subject, message);
+  sendMail(email, subject, message);
+}
+
+// For forgotten passwords
+const sendForgottenPasswordMail = (email, uniqueString) => {
+  const subject = "Forgotten password"
+  const message = `Press <a href=http://localhost:3000/reset/${uniqueString}> here</a> to reset your password.`
+  sendMail(email, subject, message)
 }
 
 // TODO:
@@ -49,4 +56,4 @@ const sendEventNotification = (email) => {
   sendMail(email, subject, message);
 }
 
-module.exports = {sendMail, sendConfirmationMail}
+module.exports = {sendMail, sendConfirmationMail, sendForgottenPasswordMail}

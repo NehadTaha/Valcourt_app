@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 require('dotenv').config();
 const secret_key = require("../constants");
-const { sendConfirmationMail, sendMail } = require("../email");
+const { sendConfirmationMail, sendMail, sendForgottenPasswordMail } = require("../email");
 
 const router = express.Router();
 
@@ -174,6 +174,29 @@ router.get('/verify/:uniqueString', async (req, res) => {
     res.status(404)
     res.json('Not found')
   }
+})
+
+// Reset password route
+router.post('/reset', async (req, res) => {
+  
+  const email = req.body.email;
+  const  newString = randString();
+  
+  const user = await users.findOne({ email: email })
+  if (user) {
+    // if they exist, send an email
+    await users.updateOne(
+      {email: user.email}, 
+      { $set: {"uniqueString": newString} 
+    })
+    sendForgottenPasswordMail(user.email, newString);
+    res.json('Email sent. Please check your inbox.')
+  } else {
+    // else send an error
+    res.status(404)
+    res.json('Not found')
+  }
+
 })
 
 module.exports = router;

@@ -111,7 +111,7 @@ function LoginPage() {
               </a>{" "}
               pour vous inscrire.
             </p>
-            <p><a
+              <p className="col d-flex justify-content-center"><a
                 href=""
                 onClick={() => {
                   navigate("/reset");

@@ -132,7 +132,7 @@ function EventPage() {
 
                 //console.log({eventId:event.eventId})
                // console.log(subbedEvents)
-               console.log(isSubbed)
+               //console.log(isSubbed)
                 return (
                   <Card
                     key={event.eventId}

@@ -14,6 +14,7 @@ router.use(bodyParser.json());
 // Webhook endpoint to receive payloads from WordPress and save them to the database
 router.post("/webhook", async (req, res) => {
   try {
+    console.log("Received payload:", req.body);
     // Extract the desired data from the payload
     const { post, post_meta, taxonomies } = req.body;
     const {

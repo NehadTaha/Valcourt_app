@@ -13,16 +13,38 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
     phone: "",
     location: "",
   });
+  const formatteDate = (date) => {
+    const dateObj = new Date(date);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return dateObj.toLocaleDateString("fr-FR", options);
+  };
 
   useEffect(() => {
     // Find the event with the specified eventID
     const event = events.find((event) => event.eventId === eventID);
-
+    const date = event.eventStartDate.split(" ")[0];
+    const time = event.eventStartDate.split(" ")[1];
+    const formattedTime = (time) => {
+      const timeObj = new Date(`1970-01-01T${time}`);
+      const options = {
+        hour: "numeric",
+        minute: "numeric",
+      };
+      return timeObj.toLocaleTimeString("fr-FR", options);
+    };
+    console.log("time", time);
+    console.log("formattedTime", formattedTime(time));
     // If event is found, set the eventData state with its data
     if (event) {
       setEventData({
         title: event.eventTitle,
-        date: event.eventStartDate,
+        date: `${formatteDate(date)} @  ${formattedTime(
+          time
+        )} - ${formattedTime(event.eventEndDate.split(" ")[1])}`,
         imageUrl:
           event.eventContent.includes("<img") &&
           (event.eventContent.match(/<img[^>]+src="([^">]+)"/)?.[1] || ""),

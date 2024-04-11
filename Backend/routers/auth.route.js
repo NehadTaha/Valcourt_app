@@ -139,6 +139,7 @@ router.post("/register", async (req, res) => {
       lastName: body.lastName,
       town: body.town,
       topics: body.topics,
+      subbedEvents:[]
     });
 
     console.log("result: ", result);

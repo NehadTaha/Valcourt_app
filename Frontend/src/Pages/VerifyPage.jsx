@@ -5,7 +5,7 @@ function VerifyPage() {
   const navigate = useNavigate();
 
   const {uniqueString} = useParams()
-  console.log('uniqueString: ', uniqueString);
+  //console.log('uniqueString: ', uniqueString);
 
   const [displayMessage, setDisplayMessage] = useState("")
 

@@ -33,7 +33,7 @@ const sendMail = (email, subject, message) => {
       }
     })
 }
-
+//TODO change english txt to French
 // For account confirmation on registration
 const sendConfirmationMail = (email, uniqueString) => {
   const subject = "Email confirmation"

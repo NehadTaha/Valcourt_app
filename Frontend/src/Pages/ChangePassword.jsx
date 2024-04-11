@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logo from "../Components/Logo";
@@ -7,11 +7,20 @@ import updateUserInformation from "../Middleware/UpdatingDB";
 import validatePassword from "../Middleware/validatePassword";
 
 const ChangePassword = () => {
+  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVariant, setAlertVariant] = useState("");
+
+  useEffect(() => {
+    // Clear form fields upon component mounting
+    setOldPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+  }, []);
+
   const hashPassword = async (password) => {
     try {
       // Call backend or use bcrypt to hash the password
@@ -22,11 +31,78 @@ const ChangePassword = () => {
       throw error;
     }
   };
+
   const handleOnClickReturn = () => {
     window.location.href = "/profile";
   };
+
+  //Fet the old password from the database
+  const getOldPassword = async () => {
+    try {
+      //fetch the user information
+      const fetchUserdata = await fetch(
+        "http://localhost:8080/userInfo/profile",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const responseData = await fetchUserdata.json();
+      // Get the password from the response
+      const password = responseData.password;
+      console.log("password: ", password);
+      return password;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const checkOldPassword = async (oldPassword) => {
+    try {
+      // Get the old password from the database
+      const password = await getOldPassword();
+      // Compare the old password with the password from the database
+      const isMatch = await bcrypt.compare(oldPassword, password);
+      return isMatch;
+    } catch (error) {
+      throw error;
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //Check if old password is empty
+    if (oldPassword === "") {
+      setAlertVariant("danger");
+      setAlertMessage("L'ancien mot de passe est requis");
+      setShowAlert(true);
+      return;
+    }
+    //check if the old password is correct
+    const isMatch = await checkOldPassword(oldPassword);
+    if (!isMatch) {
+      setAlertVariant("danger");
+      setAlertMessage("Ancien mot de passe incorrect");
+      setShowAlert(true);
+      return;
+    }
+
+    //check if new password is empty
+    if (newPassword === "") {
+      setAlertVariant("danger");
+      setAlertMessage("Le nouveau mot de passe est requis");
+      setShowAlert(true);
+      return;
+    }
+    //check if confirm password is empty
+    if (confirmPassword === "") {
+      setAlertVariant("danger");
+      setAlertMessage("Confirmez votre mot de passe");
+      setShowAlert(true);
+      return;
+    }
 
     // Check if new password matches confirm password
     if (newPassword !== confirmPassword) {
@@ -57,12 +133,8 @@ const ChangePassword = () => {
 
       // Display success message
       setAlertVariant("success");
-      setAlertMessage("Password changed successfully");
+      setAlertMessage("Le mot de passe a été changé avec succès");
       setShowAlert(true);
-
-      // Reset form fields
-      setNewPassword("");
-      setConfirmPassword("");
     } catch (error) {
       console.error("Error updating password:", error);
       // Display error message
@@ -71,7 +143,6 @@ const ChangePassword = () => {
       setShowAlert(true);
     }
   };
-  // Function to hash password
 
   return (
     <div className="container min-vh-100 ">
@@ -98,6 +169,15 @@ const ChangePassword = () => {
             <Form.Label className="pt-3 ">Couriel</Form.Label>
             <Form.Control type="email" placeholder="Entrez votre couriel" />
           </Form.Group>
+          <Form.Group controlId="formBasicOldPassword">
+            <Form.Label className="pt-3">Ancien mot de passe</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Ancien mot de passe"
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
+          </Form.Group>
+
           <Form.Group controlId="formBasicNewPassword">
             <Form.Label className="pt-3">Nouveau mot de passe</Form.Label>
             <Form.Control

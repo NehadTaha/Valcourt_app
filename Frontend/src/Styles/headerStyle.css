@@ -90,6 +90,10 @@ header .end a:active {
   color: var(--mauve);
 }
 
+.no-select{
+  user-select: none;
+}
+
 .navDrawer {
   list-style: none;
   position: absolute;

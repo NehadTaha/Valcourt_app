@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 require('dotenv').config();
 const secret_key = require("../constants");
-console.log('secret_key: ', secret_key);
+const { sendConfirmationMail, sendMail, sendForgottenPasswordMail } = require("../email");
 
 const router = express.Router();
 
@@ -34,33 +34,6 @@ const randString = () => {
   }
 
   return randStr
-}
-
-const sendMail = (email, uniqueString) => {
-  const Transport = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-      user: process.env.SENDER_EMAIL,        // put your gmail username here
-      pass: process.env.SENDER_EMAIL_PASSWORD  // and your password here
-    }
-  });
-
-  let sender = "Valcourt_App";
-  const mailOptions = {
-    from: sender,
-    to: email,
-    subject: "Email confirmation",
-    html: `Press <a href=http://localhost:3000/verify/${uniqueString}> here</a> to verify your email. Thanks.`
-  };
-
-  Transport.sendMail(mailOptions, function(error, response) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Message sent");
-    }
-  })
-
 }
 
 
@@ -150,11 +123,10 @@ router.post("/register", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash(body.password, salt)
 
-
   try {
 
     // Send email confirmation
-    sendMail(body.email, uniqueString)
+    sendConfirmationMail(body.email, uniqueString)
 
     // Add user to DB
     const result = await users.insertOne({
@@ -167,6 +139,7 @@ router.post("/register", async (req, res) => {
       lastName: body.lastName,
       town: body.town,
       topics: body.topics,
+      subbedEvents:[]
     });
 
     console.log("result: ", result);
@@ -202,6 +175,32 @@ router.get('/verify/:uniqueString', async (req, res) => {
     res.status(404)
     res.json('Not found')
   }
+})
+
+// Reset password route
+router.post('/reset', async (req, res) => {
+  
+  const email = req.body.email;
+  const  newString = randString();
+  
+  const user = await users.findOne({ email: email })
+  if (user) {
+    // if the user exists...
+
+    // Generate token
+    const token = jwt.sign({ userId: user._id }, secret_key, {
+      expiresIn: "10m",
+    }); 
+
+    // Send the email
+    sendForgottenPasswordMail(user.email, token);
+    res.json('Email sent. Please check your inbox.')
+  } else {
+    // else send an error
+    res.status(404)
+    res.json('Not found')
+  }
+
 })
 
 module.exports = router;

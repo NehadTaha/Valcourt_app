@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container-flex text-white text-center p-3 mt-auto align-items-center justify-content-center">
         <h2>Coordonnées</h2>
-        <p>
+        <p className="content-text-font">
           950, rue Saint-Joseph
           <br />
           Valcourt, Québec
@@ -17,7 +17,7 @@ const Footer = () => {
           Kevin Bombardier, directeur général
           <br />
           <a
-            className="link"
+            className="link content-text-font"
             href="mailto:valcourt2030@outlook.com?subject=Info Valcourt 2030"
           >
             valcourt2030@outlook.com

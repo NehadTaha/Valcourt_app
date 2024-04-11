@@ -36,8 +36,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
       };
       return timeObj.toLocaleTimeString("fr-FR", options);
     };
-    console.log("time", time);
-    console.log("formattedTime", formattedTime(time));
+
     // If event is found, set the eventData state with its data
     if (event) {
       setEventData({
@@ -51,7 +50,9 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
         description: event.eventContent.replace(/<[^>]+>/g, ""),
         phone: event.venue.eventVenuePhone,
         location: event.venue.eventVenueAddress,
+        websiteURL: event.eventURL,
       });
+      console.log("event", event);
     }
   }, [events, eventID]); // Re-run effect when events or eventID changes
 
@@ -92,6 +93,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
         <p className="pDesc content-text-font">{eventData.description}</p>
         <CardDetailFooter
           location={eventData.location}
+          websiteURL={eventData.websiteURL}
           phone={eventData.phone}
         ></CardDetailFooter>
       </div>

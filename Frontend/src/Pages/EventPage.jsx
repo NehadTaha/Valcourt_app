@@ -21,7 +21,7 @@ function EventPage() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      try{
+      try {
         let token = localStorage.getItem("token");
         const fetchSubData = async () => {
           const url = `http://localhost:8080/userInfo/subbedEvent`;
@@ -32,20 +32,19 @@ function EventPage() {
             },
           });
           const eventsData = await eventsResponse.json();
-  
-          setSubbedEvents(eventsData)
+
+          setSubbedEvents(eventsData);
         };
-        fetchSubData()
-      }catch(e){
-        console.log(e)
+        fetchSubData();
+      } catch (e) {
+        console.log(e);
       }
-      
     }
     fetchData();
   }, [isLoggedIn]);
 
   const fetchData = async () => {
-    try {
+    try{
       const url = `http://localhost:8080/posts/combinedData`;
       const eventsResponse = await fetch(url, {
         method: "GET",
@@ -69,12 +68,12 @@ function EventPage() {
       } else {
         const lowerCaseUserTags = userTags.map((tag) => tag.toLowerCase());
         const filteredEvents = eventsData.filter((event) => {
-          const eventCategories = Object.values(event.categories).map(
-            (category) => category.name.toLowerCase()
+          const eventTgas = Object.values(event.eventTag).map((event_tag) =>
+            event_tag.name.toLowerCase()
           );
-          for (let i = 0; i < eventCategories.length; i++) {
+          for (let i = 0; i < eventTgas.length; i++) {
             for (let j = 0; j < lowerCaseUserTags.length; j++) {
-              if (eventCategories[i] === lowerCaseUserTags[j]) {
+              if (eventTgas[i] === lowerCaseUserTags[j]) {
                 return true;
               }
             }
@@ -128,11 +127,14 @@ function EventPage() {
               />
             ) : events != [] ? (
               events.map((event, index) => {
-                let isSubbed = subbedEvents.find(subbedEvent => subbedEvent.eventId === event.eventId) !== undefined;
+                let isSubbed =
+                  subbedEvents.find(
+                    (subbedEvent) => subbedEvent.eventId === event.eventId
+                  ) !== undefined;
 
                 //console.log({eventId:event.eventId})
-               // console.log(subbedEvents)
-               //console.log(isSubbed)
+                // console.log(subbedEvents)
+                //console.log(isSubbed)
                 return (
                   <Card
                     key={event.eventId}

@@ -107,10 +107,10 @@ function Navbar({ setIsLoggedIn }) {
             <li>
               <FontAwesomeIcon icon={faBriefcase} />
               <a
-                href="/"
+                href="/projets"
                 onClick={() => {
                   closeMenu();
-                  navigate("/");
+                  navigate("/projets");
                 }}
               >
                 Projets
@@ -137,7 +137,7 @@ function Navbar({ setIsLoggedIn }) {
                   navigate("/");
                 }}
               >
-                Site Principale valcourt2030 
+                Site Principale valcourt2030
               </a>
             </li>
             <i className="main-logo"></i>

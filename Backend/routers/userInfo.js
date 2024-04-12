@@ -9,19 +9,19 @@ const { json } = require("body-parser");
 const router = express.Router();
 
 // Database access
-const database = client.db("valcourtApp");
-const users = database.collection("users");
+const database = client.db('valcourtApp');
+const users = database.collection('users');
 
 router.get("/", (req, res) => {
   res.status(200);
   res.send({
-    message: "Auth router is working.",
+    message: 'Auth router is working.',
   });
 });
 
 
 //update topic list 
-router.post("/topics/update/:userId/" ,async (req,res)=>{
+router.post('/topics/update/:userId/' ,async (req,res)=>{
   try{
     
     const id = new ObjectId(req.params.userId)
@@ -44,14 +44,14 @@ router.post("/topics/update/:userId/" ,async (req,res)=>{
 
 
 // Profile route
-router.get("/profile", async (req, res) => {
+router.get('/profile', async (req, res) => {
   try {
     // Extract the token from the request headers
     const token = req.headers.authorization.split(" ")[1];
-    console.log("token: ", token);
+    console.log('token: ', token);
 
     if(token == undefined){
-      return res.status(404).json({message:"Token not found"})
+      return res.status(404).json({message:'Token not found'})
     }else{
       // Verify the token
       const decodedToken = jwt.verify(token, secret_key);
@@ -65,7 +65,7 @@ router.get("/profile", async (req, res) => {
 
       // Check if the user exists
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: 'User not found' });
       }
 
       // If the user exists, send the user's information as a response
@@ -76,10 +76,10 @@ router.get("/profile", async (req, res) => {
   } catch (error) {
     // Handle any errors (e.g., invalid token, database error)
     //console.error("Error fetching user info:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Internal server error' });
   }
   // Profile route to update user profile
-  router.put("/profile", async (req, res) => {
+  router.put('/profile', async (req, res) => {
     try {
       // Extract the token from the request headers
       const token = req.headers.authorization.split(" ")[1];
@@ -104,11 +104,11 @@ router.get("/profile", async (req, res) => {
 
       // Check if the user exists
       if (result.modifiedCount === 0) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: 'User not found' });
       }
 
       // If the user is updated successfully, send a success response
-      res.status(200).json({ message: "User profile updated successfully" });
+      res.status(200).json({ message: 'User profile updated successfully' });
     } catch (error) {
       // Handle any errors (e.g., invalid token, database error)
       console.error("Error updating user info:", error);

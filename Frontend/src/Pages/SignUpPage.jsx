@@ -45,11 +45,13 @@ function SignUpPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // If there is no town, end the procedure
     if (form.town == null || form.town === municipalityText) {
       alert("Indiquez votre municipalité.");
       return;
     }
 
+    // If the passwords are not identical, end the procedure
     if (form.password !== form.confirmPassword) {
       alert("Les mots de passe ne sont pas pareils.");
       return;

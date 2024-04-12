@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import SmallToast from "./SmallToast";
 
 const SignUpDropdown = (props) => { 
-
+  //for more information refer to DropDownComponent
   const topicList = [
     "Arts",
     "Cuisine",

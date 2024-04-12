@@ -73,7 +73,7 @@ const ResetPasswordPage = () => {
     }
   };
   // Function to hash password
-
+  // JSX returned by ResetPasswordPage component
   return (
     <div className="container min-vh-100 ">
       <div className="row">

@@ -17,32 +17,45 @@ const Profile = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // Inside the Profile component
+   // State for selected city
   const [selectedCity, setSelectedCity] = useState(user ? user.town : "");
 
+  // Function to handle logout, navigate to event page
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
   };
 
+  // Function to handle changes in user-selected tags
   const handleChangeTags = async (data) => {
     try {
+       // Update user information in the database with the new tags data
       const responseData = await updateUserInformation({ topics: data });
+      // Update the local state with the new tags
       setTags(data);
+      // Hide the tag selection interface
       setShowTags(false);
+      // Update the user state with the new tags
       setUser((prevUser) => ({
         ...prevUser,
         topics: data,
       }));
     } catch (error) {
+      // Log any errors that occur during the update process
       console.error("Error updating user info:", error);
     }
   };
 
+// Function to toggle between edit mode and view mode
   const handleEditClick = () => {
+     // Toggle the edit mode state
     setEditMode(!editMode);
   };
+
+  // Function to save changes made to the user profile
   const saveFormChanges = async () => {
     try {
+      // Extract the updated user information from the form fields
       const updatedUserInfo = {
         firstName: document.getElementById("fullName").value.split(" ")[0],
         lastName: document.getElementById("fullName").value.split(" ")[1],
@@ -50,23 +63,32 @@ const Profile = () => {
         password: document.getElementById("inputPassword4").value,
         town: document.getElementById("inputCity").value,
       };
-
+      // Update the user information in the database
       const responseData = await updateUserInformation(updatedUserInfo);
-      console.log("data: ", responseData);
+      //console.log("data: ", responseData);
+      // Update the local user state with the new information
       setUser(updatedUserInfo);
     } catch (error) {
+       // Log any errors that occur during the update process
       console.error("Error updating user info:", error);
     }
   };
+
+  // Function to handle changes in the selected city
   const handleCityChange = (e) => {
+    // Update the selected city in the local state
     setSelectedCity(e.target.value);
   };
   // Assuming that `data` contains the updated tags array directly
-
+// Function to fetch user information from the server when the component mounts
   useEffect(() => {
+    // Retrieve the authentication token from local storage
     const token = localStorage.getItem("token");
+    // Function to fetch user information from the server
     const fetchUserInfo = async () => {
+      // Endpoint for fetching user information
       const userInfoUrl = "http://localhost:8080/userInfo/profile";
+       // Options for the fetch request, including the authorization token
       const options = {
         headers: {
           Authorization: token ? `Bearer ${token}` : "",
@@ -74,24 +96,30 @@ const Profile = () => {
       };
 
       try {
+        // Send a GET request to the server to fetch user information
         const response = await fetch(userInfoUrl, options);
+        // Parse the JSON response
         const data = await response.json();
-
+         // If the request is successful, update the user state with the fetched information
         if (response.ok) {
           setUser(data); // Set user info state
         } else {
+          // If there's an error, log the error message
           console.error("Error fetching user info:", data.message);
         }
       } catch (error) {
+        // If there's an error, log the error message
         console.error("Error fetching user info:", error);
       }
     };
-
+     // If a token exists, fetch user information from the server
     if (token) {
       fetchUserInfo();
     }
   }, []);
 
+
+  // JSX returned by Profile component
   return (
     <>
       <div className="d-flex flex-column min-vh-100">

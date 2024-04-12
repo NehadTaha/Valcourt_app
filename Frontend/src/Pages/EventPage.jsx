@@ -9,16 +9,16 @@ import CardDetail from "../Components/CardDetail";
 import getUserTags from "../Middleware/getUserTags";
 
 function EventPage() {
-  const [events, setEvents] = useState([]);
-  const [showMoreIndex, setShowMoreIndex] = useState(null);
-  const [plainTextContent, setPlainTextContent] = useState([]);
+  const [events, setEvents] = useState([]); // State for storing event data
+  const [plainTextContent, setPlainTextContent] = useState([]);// State for plain text content of events
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isDetail, setIsDetail] = useState(false);
-  const [eventId, setEventId] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);// State for user login status
+  const [isDetail, setIsDetail] = useState(false);// State for displaying event detail view
+  const [eventId, setEventId] = useState("");// State for storing selected event ID
 
-  const [subbedEvents, setSubbedEvents] = useState([]);
+  const [subbedEvents, setSubbedEvents] = useState([]);// State for storing subscribed events
 
+  // Effect hook to fetch subscribed events and event data on component mount or login state change
   useEffect(() => {
     if (isLoggedIn) {
       try {
@@ -43,6 +43,7 @@ function EventPage() {
     fetchData();
   }, [isLoggedIn]);
 
+  // Function to fetch event data
   const fetchData = async () => {
     try{
       const url = `http://localhost:8080/posts/combinedData`;
@@ -91,6 +92,7 @@ function EventPage() {
       console.error("Error fetching data:", error);
     }
   };
+  // JSX returned by EventPage component
   return (
     <>
       <div className="d-flex flex-column min-vh-100 text-center content-items-center">
@@ -125,7 +127,7 @@ function EventPage() {
                 eventID={eventId} // Assuming eventId is a property of event object
                 setIsDetail={setIsDetail}
               />
-            ) : events != [] ? (
+            ) : events.length >= 1 ? (
               events.map((event, index) => {
                 let isSubbed =
                   subbedEvents.find(

@@ -78,7 +78,8 @@ function SignUpPage() {
         console.log('data: ', data);
 
         if(response.status === 201) {
-            // TODO: Put a redirect here.
+            
+            navigate('/')
             alert(data.message)
         } else {
             alert(data.message)

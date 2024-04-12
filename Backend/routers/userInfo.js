@@ -145,6 +145,7 @@ router.post("/Subscribe", async (req, res) => {
     console.log(e);
   }
 });
+//get subbed events for db
 router.get("/subbedEvent", async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];

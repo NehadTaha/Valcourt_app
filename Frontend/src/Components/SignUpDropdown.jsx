@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import SmallToast from "./SmallToast";
 
 const SignUpDropdown = (props) => { 
-
+  //for more information refer to DropDownComponent
   const topicList = [
     "Arts",
     "Cuisine",
@@ -53,7 +53,7 @@ const SignUpDropdown = (props) => {
     let notUsed = topicList;
     if (listOfTags != undefined && notUsed != listOfTags) {
         if(listOfTags.length >= topicList.length){
-            return <p className="cDText">All tags Currently Selected</p>;
+            return <p className="cDText content-text-font">Toutes les catégories actuellement sélectionnées</p>;
         }
       for (let i = 0; i < listOfTags.length; i++) {
         notUsed = removeItemOnce(notUsed, listOfTags[i]);
@@ -72,7 +72,7 @@ const SignUpDropdown = (props) => {
 
       return dropDownTags;
     } else {
-      return <p className="cDText">All tags Currently Selected</p>;
+      return <p className="cDText content-text-font">Toutes les catégories actuellement sélectionnées</p>;
     }
   }
 
@@ -87,7 +87,7 @@ const SignUpDropdown = (props) => {
   function fillTags(listOfTags) {
     const tags = listOfTags.map((tag, index) => (
       <div key={index} class="tag-node">
-        <p className="noSpace" id={tag} onClick={handleTagClick}>
+        <p className="noSpace content-text-font" id={tag} onClick={handleTagClick}>
           {tag}
         </p>
         <FontAwesomeIcon icon={faXmark} className="x-icon" />
@@ -111,13 +111,13 @@ const SignUpDropdown = (props) => {
     
     <div class="content-tag dis">
       <div id="content-tag" class="dis">
-        <p class="tags-title"> Select Your Interests </p>
+        <p class="tags-title"> Sélectionnez vos intérêts </p>
         <div class="tags">
           <div class="cluster">
             {selectedTags != null && fillTags(selectedTags)}
           </div>
           <div class="tag-node clickable" onClick={addTagsMenuToggle}>
-            <p className="noSpace">Add new interest</p>
+            <p className="noSpace">Ajoutez un nouvel intérêt</p>
             <FontAwesomeIcon icon={faPlus} className="x-icon" />
           </div>
           <div className="addTags-menu-hide" id="addTagsMenu">

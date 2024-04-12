@@ -1,3 +1,4 @@
+//remove one item from array wqith value
 function RemoveItemOnce(arr, value) {
     var index = arr.indexOf(value);
     if (index > -1) {

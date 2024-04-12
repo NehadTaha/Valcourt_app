@@ -7,18 +7,19 @@ import Dropdown from "../Components/Dropdown";
 import { useEffect, useState } from "react";
 import CardDetail from "../Components/CardDetail";
 import getUserTags from "../Middleware/getUserTags";
+import ProjetCard from "../Components/projetCard";
 
-function EventPage() {
-  const [events, setEvents] = useState([]); // State for storing event data
-  const [plainTextContent, setPlainTextContent] = useState([]);// State for plain text content of events
+function Projets() {
+  const [events, setEvents] = useState([]);
+  const [showMoreIndex, setShowMoreIndex] = useState(null);
+  const [plainTextContent, setPlainTextContent] = useState([]);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);// State for user login status
-  const [isDetail, setIsDetail] = useState(false);// State for displaying event detail view
-  const [eventId, setEventId] = useState("");// State for storing selected event ID
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isDetail, setIsDetail] = useState(false);
+  const [eventId, setEventId] = useState("");
 
-  const [subbedEvents, setSubbedEvents] = useState([]);// State for storing subscribed events
+  const [subbedEvents, setSubbedEvents] = useState([]);
 
-  // Effect hook to fetch subscribed events and event data on component mount or login state change
   useEffect(() => {
     if (isLoggedIn) {
       try {
@@ -43,9 +44,8 @@ function EventPage() {
     fetchData();
   }, [isLoggedIn]);
 
-  // Function to fetch event data
   const fetchData = async () => {
-    try{
+    try {
       const url = `http://localhost:8080/posts/combinedData`;
       const eventsResponse = await fetch(url, {
         method: "GET",
@@ -92,7 +92,6 @@ function EventPage() {
       console.error("Error fetching data:", error);
     }
   };
-  // JSX returned by EventPage component
   return (
     <>
       <div className="d-flex flex-column min-vh-100 text-center content-items-center">
@@ -106,12 +105,6 @@ function EventPage() {
               : "content-container-noUser"
           }
         >
-          {isDetail ? (
-            <div></div>
-          ) : (
-            <Dropdown updateFilteredEvents={fetchData} />
-          )}
-
           <div
             className={
               isDetail
@@ -127,7 +120,7 @@ function EventPage() {
                 eventID={eventId} // Assuming eventId is a property of event object
                 setIsDetail={setIsDetail}
               />
-            ) : events.length >= 1 ? (
+            ) : events != [] ? (
               events.map((event, index) => {
                 let isSubbed =
                   subbedEvents.find(
@@ -138,7 +131,7 @@ function EventPage() {
                 // console.log(subbedEvents)
                 //console.log(isSubbed)
                 return (
-                  <Card
+                  <ProjetCard
                     key={event.eventId}
                     title={event.eventTitle}
                     description={plainTextContent[index]}
@@ -148,7 +141,7 @@ function EventPage() {
                     setEventId={setEventId}
                     cardId={event.eventId}
                     isSubbed={isSubbed}
-                  ></Card>
+                  ></ProjetCard>
                 );
               })
             ) : (
@@ -162,4 +155,4 @@ function EventPage() {
   );
 }
 
-export default EventPage;
+export default Projets;

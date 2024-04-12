@@ -19,7 +19,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.9.12",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.0.3",
     "parser": "^0.1.4",
     "webhook": "^0.0.2"

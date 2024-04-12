@@ -28,9 +28,11 @@ router.post("/webhook", async (req, res) => {
       _EventStartDate: eventStartDate,
       _EventEndDate: eventEndDate,
       _EventVenueID: eventVenueId,
+      _EventURL: eventURL,
     } = post_meta;
-    const { tribe_events_cat: tribeEventsCat } = taxonomies;
-    const categories = tribeEventsCat || {};
+    const { post_tag: postEventTag } = taxonomies;
+    const eventTag = postEventTag || {};
+    console.log("tag", eventTag);
 
     // Update or insert the post data to the events collection
     await events.updateOne(
@@ -42,7 +44,8 @@ router.post("/webhook", async (req, res) => {
           eventStartDate: eventStartDate ? eventStartDate[0] : null,
           eventEndDate: eventEndDate ? eventEndDate[0] : null,
           eventVenueId: eventVenueId ? eventVenueId[0] : null,
-          categories,
+          eventTag: eventTag ? eventTag : null,
+          eventURL: eventURL ? eventURL[0] : null,
         },
       },
       { upsert: true }

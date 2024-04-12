@@ -1,3 +1,4 @@
+//use regex to check password
 const validatePassword = (password) => {
   const lengthRegex =
     /[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]{8}[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]*/;

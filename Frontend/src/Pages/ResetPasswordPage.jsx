@@ -73,7 +73,7 @@ const ResetPasswordPage = () => {
     }
   };
   // Function to hash password
-
+  // JSX returned by ResetPasswordPage component
   return (
     <div className="container min-vh-100 ">
       <div className="row">
@@ -108,7 +108,7 @@ const ResetPasswordPage = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </Form.Group>
-          <Button className="btn m-2 mt-4 " variant="primary" type="submit">
+          <Button className="btn m-2 mt-4 content-text-font" variant="primary" type="submit">
             Changer le mot de passe
           </Button>
         </Form>

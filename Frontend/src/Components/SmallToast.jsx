@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 
 const SmallToast = ({ command, setCommand }) => {
+
+  // Effect hook to handle timeout for hiding the component
   useEffect(() => {
     // Hide the component after 3 seconds
     const timeout = setTimeout(() => {
@@ -8,9 +10,9 @@ const SmallToast = ({ command, setCommand }) => {
     }, 3000);
 
     // Clean up the timeout to avoid memory leaks
-    return () => clearTimeout(timeout);
-  }, [command, setCommand]);
-
+    return () => clearTimeout(timeout); // Clear the timeout when the component unmounts or re-renders
+  }, [command, setCommand]);// Dependency array with command and setCommand
+ // JSX markup for rendering the component
   return (
     <>
       {command ? (

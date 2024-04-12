@@ -11,6 +11,7 @@ import VerifyPage from "./Pages/VerifyPage";
 import EventDetails from "./Components/EventDetails";
 import ForgottenPasswordPage from "./Pages/ForgottenPasswordPage";
 import ResetPasswordPage from "./Pages/ResetPasswordPage";
+import Projets from "./Pages/Projets";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -30,9 +31,10 @@ root.render(
           path="/change-password"
           element={<ChangePassword></ChangePassword>}
         ></Route>
-        <Route path="/verify/:uniqueString" element={<VerifyPage />}/>
-        <Route path="/reset" element={<ForgottenPasswordPage />}/>
-        <Route path="/reset/:token" element={<ResetPasswordPage />}/>
+        <Route path="/verify/:uniqueString" element={<VerifyPage />} />
+        <Route path="/reset" element={<ForgottenPasswordPage />} />
+        <Route path="/reset/:token" element={<ResetPasswordPage />} />
+        <Route path="/projets" element={<Projets />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

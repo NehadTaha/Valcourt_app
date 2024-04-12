@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CardDetail = ({ events, eventID, setIsDetail }) => {
+
+  //state variable of details content
   const [eventData, setEventData] = useState({
     title: "",
     date: "",
@@ -13,6 +15,8 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
     phone: "",
     location: "",
   });
+
+  //convert date format in a more traditional format
   const formatteDate = (date) => {
     const dateObj = new Date(date);
     const options = {
@@ -36,8 +40,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
       };
       return timeObj.toLocaleTimeString("fr-FR", options);
     };
-    console.log("time", time);
-    console.log("formattedTime", formattedTime(time));
+
     // If event is found, set the eventData state with its data
     if (event) {
       setEventData({
@@ -51,12 +54,15 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
         description: event.eventContent.replace(/<[^>]+>/g, ""),
         phone: event.venue.eventVenuePhone,
         location: event.venue.eventVenueAddress,
+        websiteURL: event.eventURL,
       });
+      console.log("event", event);
     }
   }, [events, eventID]); // Re-run effect when events or eventID changes
 
   const navigate = useNavigate();
 
+  //makes the page stack on "back" work for desktop
   const handlePopState = (event) => {
     if (event.state === null) {
     } else {
@@ -68,6 +74,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
 
   window.addEventListener("popstate", handlePopState);
 
+  //make the back button go to event page
   const handleBack = () => {
     setIsDetail(false);
     navigate("/");
@@ -92,6 +99,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
         <p className="pDesc content-text-font">{eventData.description}</p>
         <CardDetailFooter
           location={eventData.location}
+          websiteURL={eventData.websiteURL}
           phone={eventData.phone}
         ></CardDetailFooter>
       </div>

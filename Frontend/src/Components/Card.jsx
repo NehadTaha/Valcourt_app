@@ -12,8 +12,9 @@ const Card = ({
   setEventId,
   isSubbed
 }) => {
-
+  //state variable to see the subscribe button disable onClick
   const [isDisable,setIsDisable] = useState(isSubbed)
+
   const months = {
     "01": "Janvier",
     "02": "Février",
@@ -29,14 +30,15 @@ const Card = ({
     "12": "Décembre",
   };
 
+  //set default values before page gets hydrated
   let day = "01";
   let month = "January";
   let year = "2024";
-
   let desc = "";
 
   const navigate = useNavigate();
 
+  //separate date string to asign to variables
   const setDate = () => {
     const token = date.split("-");
     const dayConversion = token[2].split(" ");
@@ -51,11 +53,13 @@ const Card = ({
     //console.log(token);
   };
 
+  //take the first sentence from the event content
   const setDesc = () => {
     const token = description.split(".");
     desc = token[0];
   };
 
+  //make the page srcoll to the top of the page
   function scrollToTop() {
     let scrollStep = 30;
 
@@ -68,13 +72,14 @@ const Card = ({
 
     scrollAnimation();
   }
-
+  //on card click
   const handleDetailClick = () => {
     setIsDetail(true);
     setEventId(cardId);
     scrollToTop();
   };
 
+  //update the subbedEvents for user in database and disable subscribe button click
   const handleSub = async ()=>{
  
       const sub = `http://localhost:8080/userInfo/subscribe`;
@@ -95,8 +100,11 @@ const Card = ({
       }
   }
 
+  //set date and content on page load
   setDate();
   setDesc();
+
+  //component content
   return (
     <div className="customCard">
       <p className="title" onClick={handleDetailClick}>

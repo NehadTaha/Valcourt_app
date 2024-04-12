@@ -3,6 +3,7 @@ import { topics } from "../constants.js";
 import { useState } from "react";
 import { useEffect } from "react";
 
+//deprecated
 const Tags = ({ handleChange }) => {
   const [checkedTags, setCheckedTags] = useState([]);
 

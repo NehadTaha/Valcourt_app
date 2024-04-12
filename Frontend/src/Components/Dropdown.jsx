@@ -20,11 +20,15 @@ const Dropdown = ({ updateFilteredEvents }) => {
     "Rencontre sociale",
     "Sports et plein air",
   ];
-
+  //set tags currently in db for user
   const [selectedTags, setSelectedTags] = useState(topicList);
+  //set if a user is connected
   const [isUser, setIsUser] = useState();
+  //used for smallToast as a toggle
   const [command, setCommand] = useState(false);
 
+
+  //get user info from db with token
   useEffect(() => {
     let token = localStorage.getItem("token");
     const fetchUserInfo = async () => {
@@ -34,7 +38,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
           Authorization: token ? `Bearer ${token}` : "",
         },
       };
-
+      //get element to hide if no user
       const hideIfNoUser = document.getElementById("content-tag");
 
       try {
@@ -42,13 +46,16 @@ const Dropdown = ({ updateFilteredEvents }) => {
         const data = await response.json();
 
         if (response.ok) {
+          //user found
           setSelectedTags(data.topics);
           setIsUser(data._id.toString());
+          //if the element exist (should always be true) then show element 
           if (hideIfNoUser != null) {
             hideIfNoUser.classList.remove("hide-dis");
             hideIfNoUser.classList.add("dis");
           }
         } else {
+          //user not found, hide element
           console.error("Error fetching user info:", data.message);
           if (hideIfNoUser != null) {
             hideIfNoUser.classList.remove("dis");
@@ -56,6 +63,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
           }
         }
       } catch (error) {
+        //server error, hide element
         console.error("Error fetching user info:", error);
         setIsUser("");
         if (hideIfNoUser != null) {
@@ -69,6 +77,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
   }, []);
 
   function addTagsMenuToggle() {
+    //hide or show the tags drawer on toggle, if hidden then show...
     if (
       document
         .getElementById("addTagsMenu")
@@ -82,6 +91,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
     }
   }
 
+  //remove tags from array on click
   const handleTagClick = (e) => {
     if (isUser !== "") {
       const t = e.target.id.toString();
@@ -90,6 +100,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
     }
   };
 
+  //add tags in array on click
   const handleDropDownClick = (e) => {
     if (isUser !== "") {
       const t = e.target.id.toString();
@@ -100,14 +111,18 @@ const Dropdown = ({ updateFilteredEvents }) => {
 
   function filldropDown(listOfTags) {
     let notUsed = topicList;
+    //if the list of tags of user form db is not undefiend and does not equal all tags
     if (listOfTags != undefined && notUsed != listOfTags) {
+      //if listoftags is greater or equal in length then all tags display message and end operation
       if (listOfTags.length >= topicList.length) {
         return <p className="cDText content-text-font">Toutes les catégories actuellement sélectionnées</p>;
       }
+      //else remove tags already selected form full tag list, and save the rest
       for (let i = 0; i < listOfTags.length; i++) {
         notUsed = removeItemOnce(notUsed, listOfTags[i]);
       }
 
+      //create list of tag component with list od unused tags
       const dropDownTags = notUsed.map((tag, index) => (
         <p
           className="cDText content-text-font"
@@ -118,13 +133,14 @@ const Dropdown = ({ updateFilteredEvents }) => {
           {tag}
         </p>
       ));
-
+      //display unused tags
       return dropDownTags;
     } else {
       return <p className="cDText content-text-font">Toutes les catégories actuellement sélectionnées</p>;
     }
   }
 
+  //remove a specific item from array using value of item
   function removeItemOnce(arr, value) {
     var index = arr.indexOf(value);
     if (index > -1) {
@@ -132,7 +148,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
     }
     return arr;
   }
-
+  //fill the used tags space
   function fillTags(listOfTags) {
     const tags = listOfTags.map((tag, index) => (
       <div key={index} className="tag-node">
@@ -145,7 +161,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
 
     return tags;
   }
-
+  //update list of tags (not only one..)
   const removeOneTopic = (topicToRemove) => {
     const updatedArray = selectedTags.filter((tag) => tag !== topicToRemove);
     setSelectedTags(updatedArray);
@@ -155,6 +171,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
     setSelectedTags((prevTags) => [...prevTags, topicToAdd]);
   };
 
+  //update user tags in db on button click
   const saveTopicList = async () => {
     const modifyTopiURL = `http://localhost:8080/userInfo/topics/update/${isUser}`;
 

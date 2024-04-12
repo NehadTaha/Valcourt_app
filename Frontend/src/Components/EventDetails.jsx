@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 const EventDetails = () => {
-  const [events, setEvents] = useState([]);
-  const [showMoreIndex, setShowMoreIndex] = useState(null);
-  const [plainTextContent, setPlainTextContent] = useState([]);
+  const [events, setEvents] = useState([]);// Stores event data fetched from API
+  const [showMoreIndex, setShowMoreIndex] = useState(null);// Tracks which event's content should be expanded
+  const [plainTextContent, setPlainTextContent] = useState([]);// Stores plain text content of events
 
   useEffect(() => {
     fetchData();
@@ -15,25 +15,30 @@ const EventDetails = () => {
       const eventsResponse = await fetch(url, {
         method: "GET",
       });
+      // Check if response is ok
       if (!eventsResponse.ok) {
         throw new Error("Failed to fetch events");
       }
+      // Parse response data to JSON
       const eventsData = await eventsResponse.json();
-      console.log("Fetched events data:", eventsData);
+      //console.log("Fetched events data:", eventsData);
 
+      // Update state with fetched events data
       setEvents(eventsData);
+      // Extract plain text content from HTML and update state
       setPlainTextContent(
         eventsData.map((event) => event.eventContent.replace(/<[^>]+>/g, ""))
       );
     } catch (error) {
+       // Log error if fetching data fails
       console.error("Error fetching data:", error);
     }
   };
-
+  // Function to toggle show more/less for event content
   const toggleShowMore = (index) => {
     setShowMoreIndex((prevIndex) => (prevIndex === index ? null : index));
   };
-
+ // JSX markup to render event details
   return (
     <div>
       <h1>Event List</h1>

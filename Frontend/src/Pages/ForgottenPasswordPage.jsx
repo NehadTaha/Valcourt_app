@@ -68,7 +68,7 @@ function ForgottenPasswordPage() {
                 Courriel:
               </label>
               <input
-                className="col"
+                className="col content-text-font"
                 type="email"
                 id="email"
                 required
@@ -79,7 +79,7 @@ function ForgottenPasswordPage() {
             </div>
             
             <div className="col d-flex justify-content-center">
-              <button className="btn btn-primary" type="submit">
+              <button className="btn btn-primary content-text-font" type="submit">
                 Envoyer le courriel
               </button>
             </div>

@@ -102,7 +102,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
     let notUsed = topicList;
     if (listOfTags != undefined && notUsed != listOfTags) {
       if (listOfTags.length >= topicList.length) {
-        return <p className="cDText">All tags Currently Selected</p>;
+        return <p className="cDText content-text-font">Toutes les catégories actuellement sélectionnées</p>;
       }
       for (let i = 0; i < listOfTags.length; i++) {
         notUsed = removeItemOnce(notUsed, listOfTags[i]);
@@ -121,7 +121,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
 
       return dropDownTags;
     } else {
-      return <p className="cDText">All tags Currently Selected</p>;
+      return <p className="cDText content-text-font">Toutes les catégories actuellement sélectionnées</p>;
     }
   }
 
@@ -136,7 +136,7 @@ const Dropdown = ({ updateFilteredEvents }) => {
   function fillTags(listOfTags) {
     const tags = listOfTags.map((tag, index) => (
       <div key={index} className="tag-node">
-        <p className="noSpace" id={tag} onClick={handleTagClick}>
+        <p className="noSpace content-text-font" id={tag} onClick={handleTagClick}>
           {tag}
         </p>
         <FontAwesomeIcon icon={faXmark} className="x-icon" />

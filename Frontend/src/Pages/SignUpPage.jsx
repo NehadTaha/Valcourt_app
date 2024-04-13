@@ -87,7 +87,7 @@ function SignUpPage() {
         }
 
     }
-  };
+  
 
   return (
     <div

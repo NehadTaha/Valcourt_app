@@ -172,6 +172,7 @@ const ChangePassword = () => {
           <Form.Group controlId="formBasicOldPassword">
             <Form.Label className="pt-3">Ancien mot de passe</Form.Label>
             <Form.Control
+              className="content-text-font"
               type="password"
               placeholder="Ancien mot de passe"
               onChange={(e) => setOldPassword(e.target.value)}
@@ -181,6 +182,7 @@ const ChangePassword = () => {
           <Form.Group controlId="formBasicNewPassword">
             <Form.Label className="pt-3">Nouveau mot de passe</Form.Label>
             <Form.Control
+              className="content-text-font"
               type="password"
               placeholder="Nouveau mot de passe"
               value={newPassword}
@@ -192,6 +194,7 @@ const ChangePassword = () => {
               Confirmez votre mot de passe
             </Form.Label>
             <Form.Control
+              className="content-text-font"
               type="password"
               placeholder="Confirmez votre mot de passe"
               value={confirmPassword}

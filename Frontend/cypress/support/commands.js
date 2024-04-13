@@ -23,16 +23,3 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-// Cypress.Commands.add("deleteUser", (userId) => {
-//   // Make an HTTP request to your backend API to delete the user
-//   cy.request({
-//     method: "DELETE",
-//     url: `http://localhost:8080/userInfo/${userId}`, // Replace with your actual endpoint
-//     headers: {
-//       Authorization: "Bearer your_access_token", // If authentication is required
-//     },
-//   }).then((response) => {
-//     // Check if the deletion was successful
-//     expect(response.status).to.eq(200); // Adjust the status code based on your API response
-//   });
-// });

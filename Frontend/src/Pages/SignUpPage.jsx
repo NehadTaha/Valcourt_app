@@ -44,11 +44,13 @@ function SignUpPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // If there is no town, end the procedure
     if (form.town == null || form.town === municipalityText) {
       alert("Indiquez votre municipalité.");
       return;
     }
 
+    // If the passwords are not identical, end the procedure
     if (form.password !== form.confirmPassword) {
       alert("Les mots de passe ne sont pas pareils.");
       return;
@@ -76,11 +78,14 @@ function SignUpPage() {
     const data = await response.json();
     console.log("data: ", data);
 
-    if (response.status === 201) {
-      // TODO: Put a redirect here.
-      alert(data.message);
-    } else {
-      alert(data.message);
+        if(response.status === 201) {
+            
+            navigate('/')
+            alert(data.message)
+        } else {
+            alert(data.message)
+        }
+
     }
   };
 

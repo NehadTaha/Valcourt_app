@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CardDetail = ({ events, eventID, setIsDetail }) => {
+
+  //state variable of details content
   const [eventData, setEventData] = useState({
     title: "",
     date: "",
@@ -13,6 +15,8 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
     phone: "",
     location: "",
   });
+
+  //convert date format in a more traditional format
   const formatteDate = (date) => {
     const dateObj = new Date(date);
     const options = {
@@ -58,6 +62,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
 
   const navigate = useNavigate();
 
+  //makes the page stack on "back" work for desktop
   const handlePopState = (event) => {
     if (event.state === null) {
     } else {
@@ -69,6 +74,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
 
   window.addEventListener("popstate", handlePopState);
 
+  //make the back button go to event page
   const handleBack = () => {
     setIsDetail(false);
     navigate("/");

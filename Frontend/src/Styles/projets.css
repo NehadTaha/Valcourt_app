@@ -1,0 +1,117 @@
+/* General Styling */
+
+@import url(./font.css);
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'BebasNeue-book', sans-serif;
+    letter-spacing: 0.1mm;
+}
+
+:root {
+    --paleBlue: #0098d9;
+    --darkBlue: #164d8e;
+    --mauve: #232f62;
+}
+
+/* Container Styles */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navbar Styles */
+
+.navbar {
+    background-color: var(--darkBlue);
+    color: white;
+    padding: 10px 0;
+}
+
+.navbar-brand {
+    font-size: 24px;
+}
+
+/* Footer Styles */
+
+.footer {
+    background-color: var(--darkBlue);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Main Content Styles */
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* Card Styles */
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.card {
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #535353;
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.card-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--paleBlue);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card-button:hover {
+    background-color: var(--darkBlue);
+}
+
+/* Media Queries */
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        max-width: 100%;
+    }
+}

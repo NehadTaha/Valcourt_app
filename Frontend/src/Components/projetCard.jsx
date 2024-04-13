@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "../Styles/EventBody.css";
 import { useNavigate } from "react-router-dom";
+import images from "../Img/R.jpg";
 
 const ProjetCard = ({
   title,
   description,
+  image, // New prop for image URL
 
   isLoggedIn,
   setIsDetail,
@@ -67,19 +69,15 @@ const ProjetCard = ({
   setDesc();
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-6">
-          <img className="imageContainer" id="imageContainer" src=""></img>
-        </div>
-        <div className="col-6">
-          <div className="customCard">
-            <p className="title" onClick={handleDetailClick}>
-              {title}
-            </p>
-            <p className="content" onClick={handleDetailClick}>
-              {desc + "..."}
-            </p>
-          </div>
+      <div className="customCard">
+        <img src={images} alt="image" className="card-image img-thumbnail" />
+        <div>
+          <p className="title" onClick={handleDetailClick}>
+            {title}
+          </p>
+          <p className="content" onClick={handleDetailClick}>
+            {desc + "..."}
+          </p>
         </div>
       </div>
     </div>

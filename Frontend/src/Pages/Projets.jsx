@@ -1,23 +1,20 @@
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import Card from "../Components/Card";
 import "../Styles/font.css";
 import "../Styles/EventBody.css";
-import Dropdown from "../Components/Dropdown";
 import { useEffect, useState } from "react";
 import CardDetail from "../Components/CardDetail";
 import getUserTags from "../Middleware/getUserTags";
+import thumbnailImage from "../Img/R.jpg"; // Import the thumbnail image
 import ProjetCard from "../Components/projetCard";
+import ProjetCardDetail from "../Components/ProjetCardDetail";
 
-function Projets() {
+function EventPage() {
   const [events, setEvents] = useState([]);
-  const [showMoreIndex, setShowMoreIndex] = useState(null);
   const [plainTextContent, setPlainTextContent] = useState([]);
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDetail, setIsDetail] = useState(false);
   const [eventId, setEventId] = useState("");
-
   const [subbedEvents, setSubbedEvents] = useState([]);
 
   useEffect(() => {
@@ -92,67 +89,58 @@ function Projets() {
       console.error("Error fetching data:", error);
     }
   };
+
   return (
     <>
       <div className="d-flex flex-column min-vh-100 text-center content-items-center">
         <Navbar setIsLoggedIn={setIsLoggedIn} />
-        <section
+
+        <div
           className={
             isDetail
-              ? "content-container detailsContainerGrid"
+              ? "content-card detailsContent-Card"
               : isLoggedIn
-              ? "content-container"
-              : "content-container-noUser"
+              ? "content-card"
+              : "content-card noUser-justify"
           }
         >
-          <div
-            className={
-              isDetail
-                ? "content-card detailsContent-Card"
-                : isLoggedIn
-                ? "content-card"
-                : "content-card noUser-justify"
-            }
-          >
-            {isDetail ? (
-              <CardDetail
-                events={events} // Assuming you want to display details for the first event
-                eventID={eventId} // Assuming eventId is a property of event object
-                setIsDetail={setIsDetail}
-              />
-            ) : events != [] ? (
-              events.map((event, index) => {
-                let isSubbed =
-                  subbedEvents.find(
-                    (subbedEvent) => subbedEvent.eventId === event.eventId
-                  ) !== undefined;
+          {isDetail ? (
+            <ProjetCardDetail
+              events={events} // Assuming you want to display details for the first event
+              eventID={eventId} // Assuming eventId is a property of event object
+              setIsDetail={setIsDetail}
+            />
+          ) : events != [] ? (
+            events.map((event, index) => {
+              let isSubbed =
+                subbedEvents.find(
+                  (subbedEvent) => subbedEvent.eventId === event.eventId
+                ) !== undefined;
 
-                //console.log({eventId:event.eventId})
-                // console.log(subbedEvents)
-                //console.log(isSubbed)
-                return (
+              return (
+                <div className="">
                   <ProjetCard
                     key={event.eventId}
                     title={event.eventTitle}
                     description={plainTextContent[index]}
-                    date={event.eventStartDate}
                     isLoggedIn={isLoggedIn}
                     setIsDetail={setIsDetail}
                     setEventId={setEventId}
                     cardId={event.eventId}
                     isSubbed={isSubbed}
                   ></ProjetCard>
-                );
-              })
-            ) : (
-              <h2>Aucun événement pour le moment !</h2>
-            )}
-          </div>
-        </section>
+                </div>
+              );
+            })
+          ) : (
+            <h2>Aucun événement pour le moment !</h2>
+          )}
+        </div>
+
         <Footer />
       </div>
     </>
   );
 }
 
-export default Projets;
+export default EventPage;

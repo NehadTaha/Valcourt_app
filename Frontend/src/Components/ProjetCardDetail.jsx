@@ -3,7 +3,7 @@ import "../Styles/details.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CardDetail = ({ events, eventID, setIsDetail }) => {
+const ProjetCardDetail = ({ events, eventID, setIsDetail }) => {
   //state variable of details content
   const [eventData, setEventData] = useState({
     title: "",
@@ -106,4 +106,4 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
   );
 };
 
-export default CardDetail;
+export default ProjetCardDetail;

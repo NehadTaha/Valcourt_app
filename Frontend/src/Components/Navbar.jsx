@@ -130,10 +130,10 @@ function Navbar({ setIsLoggedIn }) {
             <li>
               <FontAwesomeIcon icon={faNewspaper} />
               <a
-                href="/"
+                href="/nouvelles"
                 onClick={() => {
                   closeMenu();
-                  navigate("/");
+                  navigate("/nouvelles");
                 }}
               >
                 Nouvelles

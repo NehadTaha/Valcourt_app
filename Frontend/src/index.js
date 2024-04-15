@@ -12,6 +12,7 @@ import EventDetails from "./Components/EventDetails";
 import ForgottenPasswordPage from "./Pages/ForgottenPasswordPage";
 import ResetPasswordPage from "./Pages/ResetPasswordPage";
 import Projets from "./Pages/Projets";
+import NouvellesPage from "./Pages/NouvellesPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,6 +23,7 @@ root.render(
         <Route path="/" element={<EventPage />}></Route>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
+        <Route path="/nouvelles" element={<NouvellesPage></NouvellesPage>}></Route>
         <Route
           path="/event-details"
           element={<EventDetails></EventDetails>}

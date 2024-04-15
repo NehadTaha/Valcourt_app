@@ -5,6 +5,7 @@ import Logo from "../Components/Logo";
 import bcrypt from "bcryptjs";
 import updateUserInformation from "../Middleware/UpdatingDB";
 import validatePassword from "../Middleware/validatePassword";
+import "../Styles/style.css";
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -167,12 +168,16 @@ const ChangePassword = () => {
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label className="pt-3 ">Couriel</Form.Label>
-            <Form.Control type="email" placeholder="Entrez votre couriel" />
+            <Form.Control
+              className="input-text"
+              type="email"
+              placeholder="Entrez votre couriel"
+            />
           </Form.Group>
           <Form.Group controlId="formBasicOldPassword">
             <Form.Label className="pt-3">Ancien mot de passe</Form.Label>
             <Form.Control
-              className="content-text-font"
+              className="content-text-font input-text "
               type="password"
               placeholder="Ancien mot de passe"
               onChange={(e) => setOldPassword(e.target.value)}
@@ -182,7 +187,7 @@ const ChangePassword = () => {
           <Form.Group controlId="formBasicNewPassword">
             <Form.Label className="pt-3">Nouveau mot de passe</Form.Label>
             <Form.Control
-              className="content-text-font"
+              className="content-text-font input-text"
               type="password"
               placeholder="Nouveau mot de passe"
               value={newPassword}
@@ -194,7 +199,7 @@ const ChangePassword = () => {
               Confirmez votre mot de passe
             </Form.Label>
             <Form.Control
-              className="content-text-font"
+              className="content-text-font input-text"
               type="password"
               placeholder="Confirmez votre mot de passe"
               value={confirmPassword}

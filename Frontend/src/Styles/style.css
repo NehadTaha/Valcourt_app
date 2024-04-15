@@ -68,5 +68,8 @@
   color: green;
   /* Set text color to green */
 }
+.input-text{
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 

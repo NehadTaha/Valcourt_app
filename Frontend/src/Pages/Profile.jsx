@@ -8,6 +8,7 @@ import updateUserInformation from "../Middleware/UpdatingDB";
 import { municipalities } from "../constants";
 import { Link } from "react-router-dom";
 import DropdownProfile from "../Components/DropDownProfile.jsx";
+import "../Styles/style.css";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -17,7 +18,7 @@ const Profile = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // Inside the Profile component
-   // State for selected city
+  // State for selected city
   const [selectedCity, setSelectedCity] = useState(user ? user.town : "");
 
   // Function to handle logout, navigate to event page
@@ -29,7 +30,7 @@ const Profile = () => {
   // Function to handle changes in user-selected tags
   const handleChangeTags = async (data) => {
     try {
-       // Update user information in the database with the new tags data
+      // Update user information in the database with the new tags data
       const responseData = await updateUserInformation({ topics: data });
       // Update the local state with the new tags
       setTags(data);
@@ -46,9 +47,9 @@ const Profile = () => {
     }
   };
 
-// Function to toggle between edit mode and view mode
+  // Function to toggle between edit mode and view mode
   const handleEditClick = () => {
-     // Toggle the edit mode state
+    // Toggle the edit mode state
     setEditMode(!editMode);
   };
 
@@ -69,7 +70,7 @@ const Profile = () => {
       // Update the local user state with the new information
       setUser(updatedUserInfo);
     } catch (error) {
-       // Log any errors that occur during the update process
+      // Log any errors that occur during the update process
       console.error("Error updating user info:", error);
     }
   };
@@ -80,7 +81,7 @@ const Profile = () => {
     setSelectedCity(e.target.value);
   };
   // Assuming that `data` contains the updated tags array directly
-// Function to fetch user information from the server when the component mounts
+  // Function to fetch user information from the server when the component mounts
   useEffect(() => {
     // Retrieve the authentication token from local storage
     const token = localStorage.getItem("token");
@@ -88,7 +89,7 @@ const Profile = () => {
     const fetchUserInfo = async () => {
       // Endpoint for fetching user information
       const userInfoUrl = "http://localhost:8080/userInfo/profile";
-       // Options for the fetch request, including the authorization token
+      // Options for the fetch request, including the authorization token
       const options = {
         headers: {
           Authorization: token ? `Bearer ${token}` : "",
@@ -100,7 +101,7 @@ const Profile = () => {
         const response = await fetch(userInfoUrl, options);
         // Parse the JSON response
         const data = await response.json();
-         // If the request is successful, update the user state with the fetched information
+        // If the request is successful, update the user state with the fetched information
         if (response.ok) {
           setUser(data); // Set user info state
         } else {
@@ -112,12 +113,11 @@ const Profile = () => {
         console.error("Error fetching user info:", error);
       }
     };
-     // If a token exists, fetch user information from the server
+    // If a token exists, fetch user information from the server
     if (token) {
       fetchUserInfo();
     }
   }, []);
-
 
   // JSX returned by Profile component
   return (
@@ -205,7 +205,7 @@ const Profile = () => {
                           </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control input-text"
                             id="fullName"
                             {...(editMode
                               ? { placeholder: user ? `Nom et prénom` : "" }
@@ -226,7 +226,7 @@ const Profile = () => {
                           </label>
                           <input
                             type="email"
-                            className="form-control"
+                            className="form-control input-text"
                             id="inputEmail4"
                             value={user ? user.email : ""}
                           />
@@ -268,7 +268,7 @@ const Profile = () => {
                           </label>
                           {editMode ? (
                             <select
-                              className="form-select"
+                              className="form-select input-text"
                               id="inputCity"
                               value={selectedCity}
                               onChange={handleCityChange}
@@ -289,7 +289,7 @@ const Profile = () => {
                           ) : (
                             <input
                               type="text"
-                              className="form-control"
+                              className="form-control input-text"
                               id="inputCity"
                               value={user ? user.town : ""}
                               readOnly={!editMode}

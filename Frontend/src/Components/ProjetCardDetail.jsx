@@ -11,8 +11,6 @@ const ProjetCardDetail = ({ events, eventID, setIsDetail }) => {
     time: "",
     imageUrl: "",
     description: "",
-    phone: "",
-    location: "",
   });
 
   //convert date format in a more traditional format
@@ -82,25 +80,26 @@ const ProjetCardDetail = ({ events, eventID, setIsDetail }) => {
   return (
     <>
       <div className="detailBlock">
-        <p className="backButton" onClick={handleBack}>
+        <p className="backButton mt-4" onClick={handleBack}>
           Retour
         </p>
-        <h1>{eventData.title}</h1>
+        <h1 className="m-4">{eventData.title}</h1>
         <div className="datetime">
-          <h3 style={{ marginRight: "5px" }}>{eventData.date}</h3>
+          <h3 style={{ marginRight: "5px" }}>Posté le : {eventData.date}</h3>
           <h3>{eventData.time}</h3>
         </div>
         <img
-          className="imageContainer"
+          className="imageContainer pt-3"
           id="imageContainer"
           src={eventData.imageUrl}
+          alt=""
         ></img>
         <p className="pDesc content-text-font">{eventData.description}</p>
-        <CardDetailFooter
+        {/* <CardDetailFooter
           location={eventData.location}
           websiteURL={eventData.websiteURL}
           phone={eventData.phone}
-        ></CardDetailFooter>
+        ></CardDetailFooter> */}
       </div>
     </>
   );

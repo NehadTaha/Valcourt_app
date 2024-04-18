@@ -35,4 +35,28 @@ router.get("/test", (req, res) => {
 });
 
 
+router.post("/adminEventMail", async (req, res) => {
+
+  const body = req.body;
+  
+  const userList = await users.find(
+    { subbedEvents: { $elemMatch: { $eq: body.eventId } } },
+    { projection :{ "email": 1, "_id": 0 }}
+  ).toArray()
+  
+  const emailList = userList.map((element) => {
+    return element.email
+  })
+
+  console.log('emailList: ', emailList);
+
+  sendMultiMail(emailList, body.subject, body.message)
+
+  res.status(200);
+  res.send({
+    message: "Multi-mail sent.",
+  });
+});
+
+
 module.exports = router;

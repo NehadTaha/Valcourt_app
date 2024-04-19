@@ -43,6 +43,16 @@ router.post("/adminEventMail", async (req, res) => {
     { subbedEvents: { $elemMatch: { $eq: body.eventId } } },
     { projection :{ "email": 1, "_id": 0 }}
   ).toArray()
+
+  if(userList.length === 0) {
+
+    res.status(404);
+    res.send({
+    message: "No users found.",
+    });
+
+    return
+  }
   
   const emailList = userList.map((element) => {
     return element.email

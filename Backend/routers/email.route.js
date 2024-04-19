@@ -34,7 +34,7 @@ router.get("/test", (req, res) => {
   });
 });
 
-
+// Route for admin to send an email to all users subscribed to specific event.
 router.post("/adminEventMail", async (req, res) => {
 
   const body = req.body;
@@ -44,6 +44,7 @@ router.post("/adminEventMail", async (req, res) => {
     { projection :{ "email": 1, "_id": 0 }}
   ).toArray()
 
+  // If no users are found, end the procedure.
   if(userList.length === 0) {
 
     res.status(404);
@@ -60,6 +61,7 @@ router.post("/adminEventMail", async (req, res) => {
 
   console.log('emailList: ', emailList);
 
+  // Send the email
   sendMultiMail(emailList, body.subject, body.message)
 
   res.status(200);

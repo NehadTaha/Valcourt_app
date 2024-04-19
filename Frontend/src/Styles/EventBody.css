@@ -609,6 +609,14 @@ body {
 
 /* Media queries for small screens */
 @media (max-width: 768px) {
+
+  .admin-main,
+  .admin-form{
+    max-width: 290px;
+  }
+  .admin-grouping{
+    max-width: 280px;
+  }
   .content-container {
     grid-template-columns: 100%;
   }

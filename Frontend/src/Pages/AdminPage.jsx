@@ -105,9 +105,6 @@ function AdminPage() {
               <h2>Aucun événement pour le moment !</h2>
             )}
           </div>
-          <div>
-            hello
-          </div>
         </section>
         <Footer />
       </div>

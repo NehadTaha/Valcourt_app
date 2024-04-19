@@ -43,7 +43,6 @@ body {
   align-items: center;
 
   text-align: center;
-  justify-self: left;
 }
 
 .imageTile {
@@ -117,7 +116,20 @@ body {
   user-select: none;
 }
 
-.example-date .year {
+.admin-example-date{
+  background-color: var(--darkBlue);
+  min-width: 50px;
+  position: relative;
+  padding: 45px 5px 0px;
+  margin-top: 0;
+  border-radius: 10px;
+  box-shadow: 2px 4px 3px black;
+
+  font-family: 'BebasNeue-bold', sans-serif;
+  user-select: none;
+}
+
+.year {
   display: block;
   position: absolute;
   right: -5px;
@@ -129,13 +141,13 @@ body {
   color: white;
 }
 
-.example-date .month {
+.month {
   text-transform: uppercase;
   font-size: 18px;
   color: white;
 }
 
-.example-date .day {
+.day {
   font-size: 30px;
   line-height: 55px;
   position: absolute;
@@ -533,8 +545,78 @@ body {
 }
 
 
+.admin-back{
+  background-image: url();
+}
+
+.admin-form{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: center;
+  background-color: var(--paleBlue);
+  padding: 10px 5px 10px 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.admin-form h1{
+  color: var(--mauve);
+  border-bottom: 1px solid var(--mauve);
+  user-select: none;
+}
+
+.admin-input{
+  color: white;
+}
+
+.admin-grouping{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.admin-button{
+  background-color: var(--darkBlue);
+  width: 100px;
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 10px;
+  user-select: none;
+  cursor: pointer;
+}
+.admin-button-disabled{
+  user-select: none;
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 10px;
+  width: 100px;
+  background-color: gray;
+  cursor:default;
+}
+
+.admin-button:active{
+  background-color: var(--mauve);
+}
+
+.admin-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* Media queries for small screens */
 @media (max-width: 768px) {
+
+  .admin-main,
+  .admin-form{
+    max-width: 290px;
+  }
+  .admin-grouping{
+    max-width: 280px;
+  }
   .content-container {
     grid-template-columns: 100%;
   }

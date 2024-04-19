@@ -1,21 +1,15 @@
 import { useState } from "react";
 import "../Styles/EventBody.css";
 import { useNavigate } from "react-router-dom";
-import images from "../Img/R.jpg";
 
 const ProjetCard = ({
   title,
   description,
-  image, // New prop for image URL
-
-  isLoggedIn,
+  imageUrl, // Corrected prop name
   setIsDetail,
   cardId,
-  setEventId,
-  isSubbed,
+  setProjectId,
 }) => {
-  const [isDisable, setIsDisable] = useState(isSubbed);
-
   let desc = "";
 
   const navigate = useNavigate();
@@ -40,7 +34,7 @@ const ProjetCard = ({
 
   const handleDetailClick = () => {
     setIsDetail(true);
-    setEventId(cardId);
+    setProjectId(cardId);
     scrollToTop();
   };
 
@@ -52,7 +46,12 @@ const ProjetCard = ({
           <p className="title" onClick={handleDetailClick}>
             {title}
           </p>
-          <img src={images} alt="image" className="card-image img-thumbnail" />
+          {/* Access imageUrl prop directly */}
+          <img
+            src={imageUrl}
+            alt="image"
+            className="card-image img-thumbnail"
+          />
           <p className="content" onClick={handleDetailClick}>
             {desc + "..."}
           </p>

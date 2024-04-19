@@ -7,6 +7,7 @@ const database = client.db("valcourtApp");
 const events = database.collection("events");
 const venues = database.collection("venues");
 const eventData = database.collection("combinedData");
+const projects = database.collection("projects");
 
 const router = express.Router();
 router.use(bodyParser.json());
@@ -222,6 +223,51 @@ router.post("/webhook/delete", async (req, res) => {
   } catch (error) {
     console.error("Error deleting post data from the database:", error);
     res.status(500).send("Error deleting post data from the database");
+  }
+});
+//Router to get posts from word-press
+router.post("/webhook/projets", async (req, res) => {
+  try {
+    console.log("Received payload:", req.body);
+    const data = req.body;
+    console.log(data);
+
+    const { post, post_meta, taxonomies } = data;
+    const {
+      ID: projectId,
+      post_title: projectTitle,
+      post_content: projectContent,
+      post_date: projectDate,
+    } = post;
+
+    const { post_category: postProjectCategory } = taxonomies;
+    const projectCategory = postProjectCategory || {};
+    await projects.updateOne(
+      { projectId: projectId },
+      {
+        $set: {
+          projectTitle,
+          projectContent,
+          projectDate: projectDate ? projectDate : null,
+          projectCategory: projectCategory ? projectCategory : null,
+        },
+      },
+      { upsert: true }
+    );
+    res.status(200).send("Post data saved to the database.");
+  } catch (error) {
+    console.error("Error getting posts from wordpress:", error);
+    res.status(500).send("Error getting posts from wordpress");
+  }
+});
+router.get("/projets", async (req, res) => {
+  try {
+    const projectsData = await projects.find({}).toArray();
+    res.json(projectsData);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Error fetching projects data from the database" });
   }
 });
 

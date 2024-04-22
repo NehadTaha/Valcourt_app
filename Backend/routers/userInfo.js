@@ -119,9 +119,9 @@ router.post("/Subscribe", async (req, res) => {
     const decodedToken = jwt.verify(token, secret_key);
     const userId = new ObjectId(decodedToken.userId);
 
-    const user = users.findOneAndUpdate(
-      { _id: userId, "subbedEvents.eventId": { $ne: eventId } }, // Check if the user has the event already
-      { $addToSet: { subbedEvents: { eventId: eventId } } }, // Add event to subbedEvents list if it doesn't exist
+    const user = await users.findOneAndUpdate(
+      { _id: userId, subbedEvents: { $not: { $elemMatch: { $eq: eventId } } } }, // Check if the user has the event already
+      { $addToSet: { subbedEvents: eventId } }, // Add event to subbedEvents list if it doesn't exist
       { new: true } // Return the updated document
     );
 

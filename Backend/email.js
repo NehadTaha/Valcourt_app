@@ -33,7 +33,34 @@ const sendMail = (email, subject, message) => {
       }
     })
 }
-//TODO change english txt to French
+
+// Send an email to multiple recipients
+const sendMultiMail = (emails, subject, message) => {
+  const Transport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: process.env.SENDER_EMAIL,        // put your gmail username here
+      pass: process.env.SENDER_EMAIL_PASSWORD  // and your password here
+    }
+  });
+
+  let sender = "Valcourt_App";
+  const mailOptions = {
+    from: sender,
+    cc: emails,
+    subject: subject,
+    html: message
+  };
+
+  Transport.sendMail(mailOptions, function(error, response) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Message sent");
+    }
+  })
+}
+
 // For account confirmation on registration
 const sendConfirmationMail = (email, uniqueString) => {
   const subject = "Confirmation de l'émail"
@@ -56,4 +83,4 @@ const sendEventNotification = (email) => {
   sendMail(email, subject, message);
 }
 
-module.exports = {sendMail, sendConfirmationMail, sendForgottenPasswordMail}
+module.exports = {sendMail, sendMultiMail, sendConfirmationMail, sendForgottenPasswordMail}

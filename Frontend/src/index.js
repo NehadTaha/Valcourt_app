@@ -12,6 +12,7 @@ import EventDetails from "./Components/EventDetails";
 import ForgottenPasswordPage from "./Pages/ForgottenPasswordPage";
 import ResetPasswordPage from "./Pages/ResetPasswordPage";
 import Projets from "./Pages/Projets";
+import AdminPage from "./Pages/AdminPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,11 +23,14 @@ root.render(
         <Route path="/" element={<EventPage />}></Route>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
-        <Route
+        <Route //this is a test route it should be deleted
           path="/event-details"
           element={<EventDetails></EventDetails>}
         ></Route>
-
+        <Route
+        path="/admin"
+        element={<AdminPage></AdminPage>}
+        ></Route>
         <Route
           path="/change-password"
           element={<ChangePassword></ChangePassword>}

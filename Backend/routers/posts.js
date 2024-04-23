@@ -15,7 +15,6 @@ router.use(bodyParser.json());
 // Webhook endpoint to receive payloads from WordPress and save them to the database
 router.post("/webhook", async (req, res) => {
   try {
-    console.log("Received payload:", req.body);
     // Extract the desired data from the payload
     const { post, post_meta, taxonomies } = req.body;
     const {
@@ -33,7 +32,6 @@ router.post("/webhook", async (req, res) => {
     } = post_meta;
     const { post_tag: postEventTag } = taxonomies;
     const eventTag = postEventTag || {};
-    console.log("tag", eventTag);
 
     // Update or insert the post data to the events collection
     await events.updateOne(
@@ -245,10 +243,7 @@ router.post("/webhook/delete", async (req, res) => {
 //Router to get posts from word-press
 router.post("/webhook/projets", async (req, res) => {
   try {
-    console.log("Received payload:", req.body);
     const data = req.body;
-    console.log(data);
-
     const { post, post_meta, taxonomies } = data;
     const {
       ID: projectId,
@@ -257,7 +252,7 @@ router.post("/webhook/projets", async (req, res) => {
       post_date: projectDate,
     } = post;
 
-    const { post_category: postProjectCategory } = taxonomies;
+    const { category: postProjectCategory } = taxonomies;
     const projectCategory = postProjectCategory || {};
 
     // Check if the project with the given projectId already exists in the database
@@ -276,7 +271,6 @@ router.post("/webhook/projets", async (req, res) => {
           },
         }
       );
-      console.log("Project updated successfully");
     } else {
       // If the project does not exist, create a new one
       await projects.insertOne({
@@ -286,7 +280,6 @@ router.post("/webhook/projets", async (req, res) => {
         projectDate: projectDate ? projectDate : null,
         projectCategory: projectCategory ? projectCategory : null,
       });
-      console.log("New project created successfully");
     }
     // Apply sorting after updating or inserting the data
     const sortedProjects = await projects

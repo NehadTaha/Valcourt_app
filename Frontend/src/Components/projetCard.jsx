@@ -9,9 +9,7 @@ const ProjetCard = ({
   cardId,
   setProjectId,
 }) => {
-  //state variable to see the subscribe button disable onClick
-  // const [isDisable,setIsDisable] = useState(isSubbed)
-
+ 
   const months = {
     "01": "Janvier",
     "02": "Février",
@@ -36,7 +34,7 @@ const ProjetCard = ({
   const setDate = () => {
     const token = date.split("-");
     const dayConversion = token[2].split(" ");
-    //console.log(dayConversion);
+    
     day = dayConversion[0];
     for (const key in months) {
       if (key === token[1]) {
@@ -44,7 +42,7 @@ const ProjetCard = ({
       }
     }
     year = token[0];
-    //console.log(token);
+   
   };
 
   const setDesc = () => {

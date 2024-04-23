@@ -15,20 +15,16 @@ const ProjetCardDetail = ({ projects, projectID, setIsDetail, imageURL }) => {
   useEffect(() => {
     // Find the project with the specified eventID
     const project = projects.find((project) => project.projectId === projectID);
-    console.log("project", project);
-    // const date = project.projectDate.split(" ")[0];
-
+   
     // If project is found, set the eventData state with its data
     if (project) {
       setProjectData({
         title: project.projectTitle,
-        // date: `${formatteDate(date)}`,
         imageUrl:
           project.projectContent.includes("<img") &&
           (project.projectContent.match(/<img[^>]+src="([^">]+)"/)?.[1] || ""),
         description: project.projectContent.replace(/<[^>]+>/g, ""),
       });
-      console.log("project", project);
     }
   }, [projects, projectID, imageURL]); // Re-run effect when events or eventID changes
 
@@ -60,7 +56,6 @@ const ProjetCardDetail = ({ projects, projectID, setIsDetail, imageURL }) => {
         </p>
         <h1 className="m-4">{projectData.title}</h1>
         <div className="datetime">
-          {/* <h3 style={{ marginRight: "5px" }}>Posté le : {projectData.date}</h3> */}
         </div>
         <img
           className="imageContainer pt-3"

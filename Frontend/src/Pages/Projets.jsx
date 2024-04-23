@@ -23,17 +23,10 @@ function ProjectPage() {
       const projectsRespond = await fetch(url, {
         method: "GET",
       });
-      console.log(projectsRespond);
       if (!projectsRespond.ok) {
         throw new Error("Failed to fetch projects");
       }
       const projectsData = await projectsRespond.json();
-      console.log(projectsData);
-      const imageUrl = projectsData.map(
-        (project) =>
-          project.projectContent.match(/<img[^>]+src="([^">]+)"/)?.[1] || ""
-      );
-
       setProjects(projectsData);
 
       setPlainTextContent(
@@ -41,7 +34,6 @@ function ProjectPage() {
           project.projectContent.replace(/<[^>]+>/g, "")
         )
       );
-      console.log("plainTextContent", plainTextContent);
       // Get user tags
     } catch (error) {
       console.error("Error fetching data:", error);

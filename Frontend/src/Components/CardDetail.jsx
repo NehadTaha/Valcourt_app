@@ -2,6 +2,8 @@ import CardDetailFooter from "./CardDetailFooter";
 import "../Styles/details.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
+import "moment/locale/fr";
 
 const CardDetail = ({ events, eventID, setIsDetail }) => {
   //state variable of details content
@@ -17,13 +19,8 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
 
   //convert date format in a more traditional format
   const formatteDate = (date) => {
-    const dateObj = new Date(date);
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return dateObj.toLocaleDateString("fr-FR", options);
+    moment.locale("fr");
+    return moment(date).format("LL");
   };
 
   useEffect(() => {
@@ -31,6 +28,7 @@ const CardDetail = ({ events, eventID, setIsDetail }) => {
     const event = events.find((event) => event.eventId === eventID);
     const date = event.eventStartDate.split(" ")[0];
     const time = event.eventStartDate.split(" ")[1];
+    console.log("startdate", event.eventStartDate.split(" ")[0]);
     const formattedTime = (time) => {
       const timeObj = new Date(`1970-01-01T${time}`);
       const options = {

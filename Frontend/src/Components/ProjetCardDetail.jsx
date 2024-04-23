@@ -14,38 +14,27 @@ const ProjetCardDetail = ({ projects, projectID, setIsDetail, imageURL }) => {
   });
 
   //convert date format in a more traditional format
-  const formatteDate = (date) => {
-    const dateObj = new Date(date);
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return dateObj.toLocaleDateString("fr-FR", options);
-  };
+  // const formatteDate = (date) => {
+  //   const dateObj = new Date(date);
+  //   const options = {
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //   };
+  //   return dateObj.toLocaleDateString("fr-FR", options);
+  // };
 
   useEffect(() => {
     // Find the project with the specified eventID
     const project = projects.find((project) => project.projectId === projectID);
     console.log("project", project);
-    const date = project.projectDate.split(" ")[0];
-
-    const formattedTime = (time) => {
-      const timeObj = new Date(`1970-01-01T${time}`);
-      const options = {
-        hour: "numeric",
-        minute: "numeric",
-      };
-      return timeObj.toLocaleTimeString("fr-FR", options);
-    };
+    // const date = project.projectDate.split(" ")[0];
 
     // If project is found, set the eventData state with its data
     if (project) {
       setProjectData({
         title: project.projectTitle,
-        // date: `${formatteDate(date)} @  ${formattedTime(
-        //   time
-        // )} - ${formattedTime(project.eventEndDate.split(" ")[1])}`,
+        // date: `${formatteDate(date)}`,
         imageUrl:
           project.projectContent.includes("<img") &&
           (project.projectContent.match(/<img[^>]+src="([^">]+)"/)?.[1] || ""),
@@ -83,8 +72,7 @@ const ProjetCardDetail = ({ projects, projectID, setIsDetail, imageURL }) => {
         </p>
         <h1 className="m-4">{projectData.title}</h1>
         <div className="datetime">
-          <h3 style={{ marginRight: "5px" }}>Posté le : {projectData.date}</h3>
-          <h3>{projectData.time}</h3>
+          {/* <h3 style={{ marginRight: "5px" }}>Posté le : {projectData.date}</h3> */}
         </div>
         <img
           className="imageContainer pt-3"
@@ -93,11 +81,6 @@ const ProjetCardDetail = ({ projects, projectID, setIsDetail, imageURL }) => {
           alt=""
         ></img>
         <p className="pDesc content-text-font">{projectData.description}</p>
-        {/* <CardDetailFooter
-          location={eventData.location}
-          websiteURL={eventData.websiteURL}
-          phone={eventData.phone}
-        ></CardDetailFooter> */}
       </div>
     </>
   );

@@ -5,14 +5,51 @@ import { useNavigate } from "react-router-dom";
 const ProjetCard = ({
   title,
   description,
+  date,
   imageUrl, // Corrected prop name
   setIsDetail,
   cardId,
   setProjectId,
 }) => {
+  //state variable to see the subscribe button disable onClick
+  // const [isDisable,setIsDisable] = useState(isSubbed)
+
+  const months = {
+    "01": "Janvier",
+    "02": "Février",
+    "03": "Mars",
+    "04": "Avril",
+    "05": "Mai",
+    "06": "Juin",
+    "07": "Juillet",
+    "08": "Août",
+    "09": "Septembre",
+    10: "Octobre",
+    11: "Novembre",
+    12: "Décembre",
+  };
+
+  //set default values before page gets hydrated
+  let day = "01";
+  let month = "January";
+  let year = "2024";
   let desc = "";
 
   const navigate = useNavigate();
+
+  const setDate = () => {
+    const token = date.split("-");
+    const dayConversion = token[2].split(" ");
+    //console.log(dayConversion);
+    day = dayConversion[0];
+    for (const key in months) {
+      if (key === token[1]) {
+        month = months[key];
+      }
+    }
+    year = token[0];
+    //console.log(token);
+  };
 
   const setDesc = () => {
     const token = description.split(".");
@@ -37,7 +74,7 @@ const ProjetCard = ({
     setProjectId(cardId);
     scrollToTop();
   };
-
+  setDate();
   setDesc();
   return (
     <div className="container">
@@ -55,6 +92,11 @@ const ProjetCard = ({
           <p className="content" onClick={handleDetailClick}>
             {desc + "..."}
           </p>
+        </div>
+        <div className="example-date" onClick={handleDetailClick}>
+          <span className="day">{day}</span>
+          <span className="month">{month}</span>
+          <span className="year">{year}</span>
         </div>
       </div>
     </div>

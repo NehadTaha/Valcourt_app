@@ -3,7 +3,6 @@ import Footer from "../Components/Footer";
 import "../Styles/font.css";
 import "../Styles/EventBody.css";
 import { useEffect, useState } from "react";
-import thumbnailImage from "../Img/R.jpg"; // Import the thumbnail image
 import ProjetCard from "../Components/projetCard";
 import ProjetCardDetail from "../Components/ProjetCardDetail";
 
@@ -82,6 +81,7 @@ function ProjectPage() {
                       )?.[1] || ""
                     }
                     description={plainTextContent[index]}
+                    date={project.projectDate}
                     setIsDetail={setIsDetail}
                     setProjectId={setProjectId}
                     cardId={project.projectId}

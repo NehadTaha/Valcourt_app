@@ -51,7 +51,12 @@ router.post("/webhook", async (req, res) => {
       },
       { upsert: true }
     );
-    res.status(200).send("Post data saved to the database.");
+    //Sorting the events by date
+    const sortedEvents = await events
+      .find({})
+      .sort({ eventStartDate: -1 })
+      .toArray();
+    res.status(200).json(sortedEvents);
   } catch (error) {
     console.error("Error saving post data to the database:", error);
     res.status(500).send("Error saving post data to the database");
@@ -105,7 +110,10 @@ router.post("/webhook/venues", async (req, res) => {
 router.get("/events", async (req, res) => {
   try {
     // Fetch events data from the events collection
-    const eventsData = await events.find({}).toArray();
+    const eventsData = await events
+      .sort({ eventStartDate: -1 })
+      .find({})
+      .toArray();
     res.json(eventsData);
   } catch (error) {
     res
@@ -158,7 +166,13 @@ router.post("/combinedData", async (req, res) => {
         }
       }
     }
-    res.status(200).send("Combined data saved to the eventData collection.");
+    // Fetch combined data from the eventData collection and sort by eventStartDate in descending order
+    const sortedCombinedData = await eventData
+      .find({})
+      .sort({ eventStartDate: -1 })
+      .toArray();
+
+    res.status(200).json(sortedCombinedData);
   } catch (error) {
     console.error("Error saving combined data:", error);
     res.status(500).send("Error saving combined data");
@@ -179,7 +193,10 @@ router.get("/combinedData", async (req, res) => {
       throw new Error("Failed to fetch combined data");
     }
 
-    const combinedData = await eventData.find({}).toArray();
+    const combinedData = await eventData
+      .find({})
+      .sort({ eventStartDate: -1 })
+      .toArray();
     // Send the combinedData as the response
     res.json(combinedData);
   } catch (error) {
@@ -242,32 +259,75 @@ router.post("/webhook/projets", async (req, res) => {
 
     const { post_category: postProjectCategory } = taxonomies;
     const projectCategory = postProjectCategory || {};
-    await projects.updateOne(
-      { projectId: projectId },
-      {
-        $set: {
-          projectTitle,
-          projectContent,
-          projectDate: projectDate ? projectDate : null,
-          projectCategory: projectCategory ? projectCategory : null,
-        },
-      },
-      { upsert: true }
-    );
-    res.status(200).send("Post data saved to the database.");
+
+    // Check if the project with the given projectId already exists in the database
+    const existingProject = await projects.findOne({ projectId: projectId });
+
+    if (existingProject) {
+      // If the project exists, update it
+      await projects.updateOne(
+        { projectId: projectId },
+        {
+          $set: {
+            projectTitle,
+            projectContent,
+            projectDate: projectDate ? projectDate : null,
+            projectCategory: projectCategory ? projectCategory : null,
+          },
+        }
+      );
+      console.log("Project updated successfully");
+    } else {
+      // If the project does not exist, create a new one
+      await projects.insertOne({
+        projectId,
+        projectTitle,
+        projectContent,
+        projectDate: projectDate ? projectDate : null,
+        projectCategory: projectCategory ? projectCategory : null,
+      });
+      console.log("New project created successfully");
+    }
+    // Apply sorting after updating or inserting the data
+    const sortedProjects = await projects
+      .find({})
+      .sort({ projectDate: -1 })
+      .toArray();
+
+    res.status(200).json(sortedProjects);
   } catch (error) {
     console.error("Error getting posts from wordpress:", error);
     res.status(500).send("Error getting posts from wordpress");
   }
 });
+
 router.get("/projets", async (req, res) => {
   try {
-    const projectsData = await projects.find({}).toArray();
+    const projectsData = await projects
+      .find({})
+      .sort({ projectDate: -1 })
+      .toArray();
     res.json(projectsData);
   } catch (error) {
     res
       .status(500)
       .json({ error: "Error fetching projects data from the database" });
+  }
+});
+
+//Router to delete the deleted projects in webhook
+router.post("/webhook/deleteProjets", async (req, res) => {
+  try {
+    const { post } = req.body;
+    const { ID: projectId } = post;
+
+    // Delete the project from the projects collection
+    await projects.deleteOne({ projectId });
+
+    res.status(200).send("Project data deleted from the database.");
+  } catch (error) {
+    console.error("Error deleting project data from the database:", error);
+    res.status(500).send("Error deleting project data from the database");
   }
 });
 

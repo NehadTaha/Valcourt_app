@@ -1,4 +1,3 @@
-import CardDetailFooter from "./CardDetailFooter";
 import "../Styles/details.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,17 +11,6 @@ const ProjetCardDetail = ({ projects, projectID, setIsDetail, imageURL }) => {
     imageUrl: "",
     description: "",
   });
-
-  //convert date format in a more traditional format
-  // const formatteDate = (date) => {
-  //   const dateObj = new Date(date);
-  //   const options = {
-  //     year: "numeric",
-  //     month: "long",
-  //     day: "numeric",
-  //   };
-  //   return dateObj.toLocaleDateString("fr-FR", options);
-  // };
 
   useEffect(() => {
     // Find the project with the specified eventID

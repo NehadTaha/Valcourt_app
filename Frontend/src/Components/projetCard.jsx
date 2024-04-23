@@ -1,6 +1,4 @@
-import { useState } from "react";
 import "../Styles/EventBody.css";
-import { useNavigate } from "react-router-dom";
 
 const ProjetCard = ({
   title,
@@ -34,8 +32,6 @@ const ProjetCard = ({
   let month = "January";
   let year = "2024";
   let desc = "";
-
-  const navigate = useNavigate();
 
   const setDate = () => {
     const token = date.split("-");
@@ -86,7 +82,7 @@ const ProjetCard = ({
           {/* Access imageUrl prop directly */}
           <img
             src={imageUrl}
-            alt="image"
+            alt="event Logo"
             className="card-image img-thumbnail"
           />
           <p className="content" onClick={handleDetailClick}>

@@ -85,10 +85,12 @@ const eventTopicNotification = async (topics, eventTitle, eventUrl, eventId) => 
     { projection :{"eventId": 1}}
   )
 
-  if(!event) {
+  if(event === null) {
     // If the event is found, do not send any notifications
     console.log('Notification aborted');
     return
+  } else {
+    console.log('event: ', event);
   }
   
   const userList = await users.find(

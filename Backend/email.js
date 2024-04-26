@@ -80,17 +80,18 @@ const sendForgottenPasswordMail = (email, uniqueString) => {
 // Function to conduct the notification using a list of topics
 const eventTopicNotification = async (topics, eventTitle, eventUrl, eventId) => {
   
-  const event = await events.findOne(
-    { eventId: eventId },
-    { projection :{"eventId": 1}}
-  )
+  const event = await events.find(
+    { eventId: eventId }
+  ).toArray()
 
-  if(event === null) {
+  console.log('event: ', event);
+  
+  if(event.length === 0) {
     // If the event is found, do not send any notifications
     console.log('Notification aborted');
     return
   } else {
-    console.log('event: ', event);
+    console.log('Message sending');
   }
   
   const userList = await users.find(

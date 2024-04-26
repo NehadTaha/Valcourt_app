@@ -35,33 +35,38 @@ router.post("/webhook", async (req, res) => {
     const eventTag = postEventTag || {};
 
     eventTopicNotification(eventTag, eventTitle, eventURL, eventId)
+    
+    // Timeout to allow for eventTopicNotification check
+    setTimeout( async function() {
 
-    // Update or insert the post data to the events collection
-    await events.updateOne(
-      { eventId: eventId },
-      {
-        $set: {
-          eventTitle,
-          eventContent,
-          eventStartDate: eventStartDate ? eventStartDate[0] : null,
-          eventEndDate: eventEndDate ? eventEndDate[0] : null,
-          eventVenueId: eventVenueId ? eventVenueId[0] : null,
-          eventTag: eventTag ? eventTag : null,
-          eventURL: eventURL ? eventURL[0] : null,
+      // Update or insert the post data to the events collection
+      await events.updateOne(
+        { eventId: eventId },
+        {
+          $set: {
+            eventTitle,
+            eventContent,
+            eventStartDate: eventStartDate ? eventStartDate[0] : null,
+            eventEndDate: eventEndDate ? eventEndDate[0] : null,
+            eventVenueId: eventVenueId ? eventVenueId[0] : null,
+            eventTag: eventTag ? eventTag : null,
+            eventURL: eventURL ? eventURL[0] : null,
+          },
         },
-      },
-      { upsert: true }
-    );
-    //Sorting the events by date
-    const sortedEvents = await events
-      .find({})
-      .sort({ eventStartDate: -1 })
-      .toArray();
-    res.status(200).json(sortedEvents);
+        { upsert: true }
+      );
+      //Sorting the events by date
+      const sortedEvents = await events
+        .find({})
+        .sort({ eventStartDate: -1 })
+        .toArray();
+      res.status(200).json(sortedEvents);
+    }, 3000)
   } catch (error) {
     console.error("Error saving post data to the database:", error);
     res.status(500).send("Error saving post data to the database");
   }
+  
 });
 
 // Webhook endpoint to receive payloads for venues and save them to the database

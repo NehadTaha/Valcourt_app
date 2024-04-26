@@ -83,15 +83,13 @@ const eventTopicNotification = async (topics, eventTitle, eventUrl, eventId) => 
   const event = await events.find(
     { eventId: eventId }
   ).toArray()
-
-  console.log('event: ', event);
   
   if(event.length === 0) {
     // If the event is found, do not send any notifications
     console.log('Notification aborted');
     return
   } else {
-    console.log('Message sending');
+    console.log('Message sending...');
   }
   
   const userList = await users.find(

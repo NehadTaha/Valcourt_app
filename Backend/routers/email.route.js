@@ -34,15 +34,15 @@ router.get("/test", (req, res) => {
   });
 });
 
-router.get("/test/notification", (req, res) => {
+router.post("/test/notification", (req, res) => {
 
-  const topicList = ["Arts", "Cuisine", "Éducation"]
+  const body = req.body;
 
-  eventTopicNotification(topicList)
+  eventTopicNotification(body.topics);
 
   res.status(200);
   res.send({
-    message: "Test run.",
+    message: "Notification Test run.",
   });
 });
 

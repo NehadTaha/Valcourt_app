@@ -5,6 +5,7 @@ require('dotenv').config();
 // Database access
 const database = client.db("valcourtApp");
 const users = database.collection("users");
+const events = database.collection("events")
 
 
 // Send an email
@@ -77,7 +78,19 @@ const sendForgottenPasswordMail = (email, uniqueString) => {
 }
 
 // Function to conduct the notification using a list of topics
-const eventTopicNotification = async (topics, eventTitle, eventUrl) => {
+const eventTopicNotification = async (topics, eventTitle, eventUrl, eventId) => {
+  
+  const event = await events.findOne(
+    { eventId: eventId },
+    { projection :{"eventId": 1}}
+  )
+
+  if(!event) {
+    // If the event is found, do not send any notifications
+    console.log('Notification aborted');
+    return
+  }
+  
   const userList = await users.find(
     { topics: { $in: topics } },
     { projection :{ "email": 1, "_id": 0 }}

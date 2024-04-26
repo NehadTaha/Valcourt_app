@@ -38,7 +38,7 @@ router.post("/test/notification", (req, res) => {
 
   const body = req.body;
 
-  eventTopicNotification(body.topics, body.eventTitle, body.eventUrl);
+  eventTopicNotification(body.topics, body.eventTitle, body.eventUrl, body.eventId);
 
   res.status(200);
   res.send({

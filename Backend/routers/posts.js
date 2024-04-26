@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { client } = require("../database/database");
 const { ObjectId } = require("mongodb");
+const { eventTopicNotification } = require("../email");
 
 const database = client.db("valcourtApp");
 const events = database.collection("events");
@@ -32,6 +33,8 @@ router.post("/webhook", async (req, res) => {
     } = post_meta;
     const { post_tag: postEventTag } = taxonomies;
     const eventTag = postEventTag || {};
+
+    eventTopicNotification(eventTag, eventTitle, eventURL, eventId)
 
     // Update or insert the post data to the events collection
     await events.updateOne(

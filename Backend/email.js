@@ -76,11 +76,23 @@ const sendForgottenPasswordMail = (email, uniqueString) => {
   sendMail(email, subject, message)
 }
 
+// Function to conduct the notification using a list of topics
+const eventTopicNotification = async (topics) => {
+  const userList = await users.find(
+    { topics: { $in: topics } },
+    { projection :{ "email": 1, "_id": 0 }}
+  ).toArray()
+
+  console.log('userlist: ', userList);
+}
+
+
+
 // TODO:
-const sendEventNotification = (email) => {
+const sendEventTopicNotification = (email) => {
   const subject = ""
   const message = ""
   sendMail(email, subject, message);
 }
 
-module.exports = {sendMail, sendMultiMail, sendConfirmationMail, sendForgottenPasswordMail}
+module.exports = {sendMail, sendMultiMail, sendConfirmationMail, sendForgottenPasswordMail, eventTopicNotification}

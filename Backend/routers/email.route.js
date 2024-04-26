@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 require('dotenv').config();
 const secret_key = require("../constants");
-const { sendConfirmationMail, sendMail, sendForgottenPasswordMail, sendMultiMail } = require("../email");
+const { sendConfirmationMail, sendMail, sendForgottenPasswordMail, sendMultiMail, eventTopicNotification } = require("../email");
 const { route } = require("./auth.route");
 
 const router = express.Router();
@@ -24,13 +24,25 @@ router.get("/", (req, res) => {
 
 router.get("/test", (req, res) => {
 
-  const emailList = ["gasser.noahs@gmail.com", ""]
+  const emailList = ["", ""]
 
   sendMultiMail(emailList, "Test", "Boo.")
 
   res.status(200);
   res.send({
     message: "Multi-mail sent.",
+  });
+});
+
+router.get("/test/notification", (req, res) => {
+
+  const topicList = ["Arts", "Cuisine", "Éducation"]
+
+  eventTopicNotification(topicList)
+
+  res.status(200);
+  res.send({
+    message: "Test run.",
   });
 });
 

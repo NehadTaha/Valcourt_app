@@ -44,6 +44,15 @@ function ProjectPage() {
     <>
       <div className="d-flex flex-column min-vh-100 text-center content-items-center">
         <Navbar setIsLoggedIn={setIsLoggedIn} />
+        <section
+          className={
+            isDetail
+              ? "content-container detailsContainerGrid"
+              : isLoggedIn
+              ? "content-container"
+              : "content-container-noUser"
+          }
+        ></section>
 
         <div
           className={
@@ -63,7 +72,7 @@ function ProjectPage() {
           ) : projects != [] ? (
             projects.map((project, index) => {
               return (
-                <div className="">
+                
                   <ProjetCard
                     key={project.projectId}
                     title={project.projectTitle}
@@ -78,11 +87,11 @@ function ProjectPage() {
                     setProjectId={setProjectId}
                     cardId={project.projectId}
                   ></ProjetCard>
-                </div>
+                
               );
             })
           ) : (
-            <h2>Aucun événement pour le moment !</h2>
+            <h2>Aucun projets pour le moment !</h2>
           )}
         </div>
 

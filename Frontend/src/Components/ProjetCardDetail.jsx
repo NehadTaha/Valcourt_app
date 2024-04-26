@@ -15,7 +15,7 @@ const ProjetCardDetail = ({ projects, projectID, setIsDetail, imageURL }) => {
   useEffect(() => {
     // Find the project with the specified eventID
     const project = projects.find((project) => project.projectId === projectID);
-   
+
     // If project is found, set the eventData state with its data
     if (project) {
       setProjectData({
@@ -54,9 +54,9 @@ const ProjetCardDetail = ({ projects, projectID, setIsDetail, imageURL }) => {
         <p className="backButton mt-4" onClick={handleBack}>
           Retour
         </p>
-        <h1 className="m-4">{projectData.title}</h1>
-        <div className="datetime">
-        </div>
+
+        <h1>{projectData.title}</h1>
+        <div className="datetime"></div>
         <img
           className="imageContainer pt-3"
           id="imageContainer"

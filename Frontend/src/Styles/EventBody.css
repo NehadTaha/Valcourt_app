@@ -343,6 +343,8 @@ body {
   position: relative;
 }
 
+
+
 .slideIn {
   animation: slideInAnimation 0.5s forwards;
 }
@@ -605,6 +607,57 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+
+.confirm-main{
+  border: 1px var(--darkBlue) solid;
+  margin-top: 3px;
+}
+
+.confirm-main p{
+  border-bottom: 1px var(--darkBlue) solid;
+}
+
+.confirm-main button{
+  padding: 5px;
+  max-width: 100px;
+  min-width: 100px;
+
+  height: auto;
+
+}
+
+.confirm-main button:active{
+  color: var(--mauve);
+  background-color: var(--paleBlue);
+  transition: 0.3s;
+}
+
+.confirm-main button:hover{
+  color: var(--mauve);
+  background-color: var(--paleBlue);
+  transition: 0.3s;
+}
+
+.admin-customToast{
+  z-index: 2000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-left: 10px;
+  padding: 5px;
+  background-color: var(--mauve);
+
+  color: white;
+
+  border-radius: 5px;
+
+  user-select: none;
+}
+
+.load-prevent{
+  display: none;
 }
 
 /* Media queries for small screens */

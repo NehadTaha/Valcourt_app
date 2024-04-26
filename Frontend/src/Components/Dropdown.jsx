@@ -182,6 +182,9 @@ const Dropdown = ({ updateFilteredEvents }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topicList: selectedTags }),
       });
+      const toastDiv = document.getElementById("load-prevent")
+      toastDiv.classList.remove("load-prevent") 
+
       setCommand(true);
 
       const data = await response.json();
@@ -211,7 +214,9 @@ const Dropdown = ({ updateFilteredEvents }) => {
           <div>
             <button onClick={saveTopicList}>Sauvegarder</button>
           </div>
+          <div className="load-prevent" id="load-prevent">
           <SmallToast command={command} setCommand={setCommand}></SmallToast>
+          </div>   
         </div>
       </div>
     </div>

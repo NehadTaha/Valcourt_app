@@ -1,6 +1,23 @@
 import { useState } from "react";
 import "../Styles/EventBody.css";
 import {useNavigate} from 'react-router-dom'
+import AdminToast from "./AdminToast";
+
+
+const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
+  return (
+    <div className="confirm-main">
+      <div >
+        <p>{message}</p>
+        <div >
+          <button onClick={onConfirm}>Confirm</button>
+          <button onClick={onCancel}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 const AdminCard = ({
   title,
@@ -13,23 +30,24 @@ const AdminCard = ({
 
     const [form,setForm] = useState([])
     const [isDisable,setIsDisable] = useState(true)
+    const [showModal,setShowModal] = useState(false)
+
+    const [command, setCommand] = useState(false);
 
     function handleInputChange(key, newValue) {
         form[key] = newValue;
         setForm(form);
-        console.log(form)
-        if(form["message"] === ""){
-            console.log("hello")
+        //console.log(form)
+        if("message" in form & "object" in form & "name" in form){
+          setIsDisable(false)
         }
 
-        if(form["message"] & form["object"] != null & form["name"] != null){
-            setIsDisable(false)
+        if(form["message"] == "" || form["object"] == "" || form["name"] == ""){
+          setIsDisable(true)
         }
-        if(form["message"] === "" || form["object"] === "" || form["name"] === ""){
-            setIsDisable(true)
-        }
-        console.log(isDisable)
-    }
+        
+        //console.log(isDisable)
+      }
 
   const months = {
     "01": "Janvier",
@@ -73,26 +91,6 @@ const AdminCard = ({
     desc = token[0];
   };
 
-  //make the page srcoll to the top of the page
-  function scrollToTop() {
-    let scrollStep = 30;
-
-    function scrollAnimation() {
-      if (window.scrollY !== 0) {
-        window.scrollBy(0, -scrollStep);
-        requestAnimationFrame(scrollAnimation);
-      }
-    }
-
-    scrollAnimation();
-  }
-  //on card click
-  const handleDetailClick = () => {
-    setIsDetail(true);
-    setEventId(cardId);
-    scrollToTop();
-  };
-
   //set date and content on page load
   setDate();
   setDesc();
@@ -102,20 +100,66 @@ const AdminCard = ({
     //also add some sort of comfirmation on send?
     //add something to indicate a send (smallToast)
     //disable button when form is empty
+    setShowModal(true)
+
+    
     document.getElementById("email-form").reset()
-    console.log(form)
+    
     setForm([])
+    setIsDisable(true)
  }
+
+ const handleConfirm = async ()=>{
+  const message = form['message'] + `\n\n- ${form['name']}`
+
+    //console.log(message)
+
+    const url = 'http://localhost:8080/email/adminEventMail'
+
+    const body = {
+      eventId:cardId,
+      subject:form['object'],
+      message:message,
+    }
+
+    const option = {
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }
+
+
+  const response = await fetch(url,option)
+
+  const toastDiv = document.getElementById("load-prevent")
+  toastDiv.classList.remove("load-prevent")
+  console.log(response)
+  setShowModal(false)
+  setCommand(true)
+}
+const handleCancel = ()=>{
+  setShowModal(false)
+  console.log("canceled")
+}
+
   //component content
   return (
+    <>
+    <div className="load-prevent" id="load-prevent">
+    <AdminToast command={command} setCommand={setCommand}></AdminToast>
+    </div>
+    
+    
     <div className="customCard">
-      <p className="title" onClick={handleDetailClick}>
+      <p className="title" >
         {title}
       </p>
-      <p className="content" onClick={handleDetailClick}>
+      <p className="content" >
         {desc + "..."}
       </p>
-      <div className="admin-example-date" onClick={handleDetailClick}>
+      <div className="admin-example-date" >
         <span className="day">{day}</span>
         <span className="month">{month}</span>
         <span className="year">{year}</span>
@@ -147,11 +191,20 @@ const AdminCard = ({
                     handleInputChange("message",e.target.value)
                 }} cols="40" rows="10"></textarea>
             </div>
-            {isDisable?<div className="admin-button-disabled" onClick={handleSend} >Send Mail</div>:<div className="admin-button" onClick={handleSend}>Send Mail</div>}
+            {isDisable?<div className="admin-button-disabled" >Send Mail</div>:<div className="admin-button" onClick={handleSend}>Send Mail</div>}
             
         </form>
+        {showModal?
+            <ConfirmationModal
+            message="Are you sure?"
+            onConfirm={handleConfirm}
+            onCancel={handleCancel}
+            />
+            :<></>}
+            
       </div>
     </div>
+    </>
   );
 };
 

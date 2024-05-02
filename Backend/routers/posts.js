@@ -6,6 +6,7 @@ const { ObjectId } = require("mongodb");
 const database = client.db("valcourtApp");
 const events = database.collection("events");
 const venues = database.collection("venues");
+const nouvelles = database.collection("nouvelles");
 const eventData = database.collection("combinedData");
 
 const router = express.Router();
@@ -222,6 +223,66 @@ router.post("/webhook/delete", async (req, res) => {
   } catch (error) {
     console.error("Error deleting post data from the database:", error);
     res.status(500).send("Error deleting post data from the database");
+  }
+});
+
+// Webhook endpoint to receive payloads from WordPress and save them to the database
+router.post("/nouvelles", async (req, res) => {
+  try {
+    console.log("Received payload:", req.body);
+
+    // Extract the desired data from the payload
+    const { post, taxonomies } = req.body;
+    const {
+      ID: postId,
+      post_name: postName,
+      post_date: postDate,
+      post_modified: postModified,
+      post_content: postContent,
+    } = post;
+
+    // Check if the post is in the "nouvelles" category
+    const { category } = taxonomies;
+    const isNouvellesCategory = category && category.nouvelles;
+
+    // If the post is not in the "nouvelles" category, return without saving to the database
+    if (!isNouvellesCategory) {
+      console.log("Post is not in the 'nouvelles' category. Skipping saving to the database.");
+      return res.status(200).send("Post data not saved to the database.");
+    }
+
+    // Update or insert the post data to the database
+    await savePostToDatabase({
+      postId,
+      postName,
+      postDate: postDate ? new Date(postDate) : null, // Convert postDate to Date object if present
+      postModified: postModified ? new Date(postModified) : null, // Convert postModified to Date object if present
+      postContent,
+    });
+
+    res.status(200).send("Post data saved to the database.");
+  } catch (error) {
+    console.error("Error saving post data to the database:", error);
+    res.status(500).send("Error saving post data to the database");
+  }
+});
+
+// Function to save post data to the database
+async function savePostToDatabase(postData) {
+  // Implement your database saving logic here
+  console.log("Saving post data to the database:", postData);
+  // Example MongoDB usage:
+  await database.collection("nouvelles").updateOne({ postId: postData.postId }, { $set: postData }, { upsert: true });
+}
+
+// GET method to retrieve all data from the "nouvelles" collection
+router.get("/nouvelles", async (req, res) => {
+  try {
+    const nouvelles = await nouvelles.find({});
+    res.json(nouvelles);
+  } catch (error) {
+    console.error("Error retrieving nouvelles:", error);
+    res.status(500).send("Error retrieving nouvelles");
   }
 });
 

@@ -5,6 +5,7 @@ require('dotenv').config();
 // Database access
 const database = client.db("valcourtApp");
 const users = database.collection("users");
+const events = database.collection("events")
 
 
 // Send an email
@@ -76,11 +77,40 @@ const sendForgottenPasswordMail = (email, uniqueString) => {
   sendMail(email, subject, message)
 }
 
-// TODO:
-const sendEventNotification = (email) => {
-  const subject = ""
-  const message = ""
-  sendMail(email, subject, message);
+// Function to conduct the notification using a list of topics
+const eventTopicNotification = async (topics, eventTitle, eventUrl, eventId) => {
+  
+  const event = await events.find(
+    { eventId: eventId }
+  ).toArray()
+  
+  if(event.length === 0) {
+    // If the event is found, do not send any notifications
+    console.log('Notification aborted');
+    return
+  } else {
+    console.log('Message sending...');
+  }
+  
+  const userList = await users.find(
+    { topics: { $in: topics } },
+    { projection :{ "email": 1, "_id": 0 }}
+  ).toArray()
+
+  const emailList = userList.map((element) => {
+    return element.email
+  })
+
+  sendEventTopicNotification(emailList, eventTitle, eventUrl)
 }
 
-module.exports = {sendMail, sendMultiMail, sendConfirmationMail, sendForgottenPasswordMail}
+
+
+// TODO:
+const sendEventTopicNotification = (emails, eventTitle, eventUrl) => {
+  const subject = "Nouvel évènement: "+ eventTitle
+  const message = `<p>Un nouvel évènment à Valcourt2030!</p><br><a href='`+eventUrl+`'>Cliquez ici pour y accéder!</a>`
+  sendMultiMail(emails, subject, message);
+}
+
+module.exports = {sendMail, sendMultiMail, sendConfirmationMail, sendForgottenPasswordMail, eventTopicNotification}

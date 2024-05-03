@@ -7,6 +7,7 @@ import Dropdown from "../Components/Dropdown";
 import { useEffect, useState } from "react";
 import CardDetail from "../Components/CardDetail";
 import getUserTags from "../Middleware/getUserTags";
+import { useNavigate } from "react-router-dom";
 
 function EventPage() {
   const [events, setEvents] = useState([]); // State for storing event data
@@ -17,6 +18,8 @@ function EventPage() {
   const [eventId, setEventId] = useState("");// State for storing selected event ID
 
   const [subbedEvents, setSubbedEvents] = useState([]);// State for storing subscribed events
+
+  const navigate = useNavigate()
 
   // Effect hook to fetch subscribed events and event data on component mount or login state change
   useEffect(() => {

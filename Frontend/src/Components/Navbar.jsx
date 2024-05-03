@@ -22,6 +22,8 @@ function Navbar({ setIsLoggedIn }) {
 
   const [vUser, setVUser] = useState();// To store user info
 
+  const [isAdmin,setIsAdmin] = useState(false) // check if user is the admin account
+
   const [isMenuOpen, setIsMenuopen] = useState(false);// To track whether the menu is open
 
   // Fetching user info from the backend when component mounts
@@ -50,7 +52,10 @@ function Navbar({ setIsLoggedIn }) {
         if (response.ok) {
           setVUser(data); // Set user info state
           setLogTest(true);// Setting login status to true
-          setIsLoggedIn(true); // Setting parent component's login status
+          setIsLoggedIn(true);
+          if(data.admin){
+            setIsAdmin(true)
+          } // Setting parent component's login status
         } else {
           //console.error("Error fetching user info:", data.message);
           setVUser(false); // Setting user info state to false
@@ -157,7 +162,16 @@ function Navbar({ setIsLoggedIn }) {
         <a href="#" className="main-logo"></a>
       </div>
 
-      <div className="middle"></div>
+      <div className="middle">
+                {isAdmin ? <a 
+                href="/admin"
+                onClick={()=>{
+                  navigate("/admin")
+                }}
+                >
+                  Admin
+                </a> : <></>}
+      </div>
 
       <div className="end">
         {logTest ? (

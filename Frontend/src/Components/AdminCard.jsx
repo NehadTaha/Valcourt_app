@@ -26,6 +26,7 @@ const AdminCard = ({
   setIsDetail,
   cardId,
   setEventId,
+  isAdmin
 }) => {
 
     const [form,setForm] = useState([])
@@ -109,7 +110,8 @@ const AdminCard = ({
  }
 
  const handleConfirm = async ()=>{
-  const message = form['message'] + `\n\n- ${form['name']}`
+  if(isAdmin){
+    const message = form['message'] + `\n\n- ${form['name']}`
 
     //console.log(message)
 
@@ -130,14 +132,16 @@ const AdminCard = ({
     }
 
 
-  const response = await fetch(url,option)
+    const response = await fetch(url,option)
 
-  const toastDiv = document.getElementById("load-prevent")
-  toastDiv.classList.remove("load-prevent")
-  console.log(response)
-  setShowModal(false)
-  setCommand(true)
-  setForm([])
+    const toastDiv = document.getElementById("load-prevent")
+    toastDiv.classList.remove("load-prevent")
+    console.log(response)
+    setShowModal(false)
+    setCommand(true)
+    setForm([])
+  }
+ 
   setIsDisable(true)
 }
 const handleCancel = ()=>{

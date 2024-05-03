@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import CardDetail from "../Components/CardDetail";
 import getUserTags from "../Middleware/getUserTags";
 import AdminCard from "../Components/AdminCard";
+import { useNavigate } from "react-router-dom";
 
 function AdminPage() {
   const [events, setEvents] = useState([]); // State for storing event data
@@ -16,12 +17,44 @@ function AdminPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);// State for user login status
   const [isDetail, setIsDetail] = useState(false);// State for displaying event detail view
   const [eventId, setEventId] = useState("");// State for storing selected event ID
+  const [isAdmin,setIsAdmin] = useState(false)
 
+  const navigate = useNavigate()
 
   // Effect hook to fetch subscribed events and event data on component mount or login state change
   useEffect(() => {
-   
+    let token = ""
+    function getUser() {
+      if (localStorage.getItem("token")) {
+        token = localStorage.getItem("token");
+      }
+    }
+    const adminCheck = async ()=>{
+        const userInfoUrl = "http://localhost:8080/userInfo/profile";
+        const options = {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",// Setting Authorization header with token
+          },
+        };
+  
+        try {
+          const response = await fetch(userInfoUrl, options);// Fetching user info
+  
+          const data = await response.json();// Parsing response JSON
+  
+          if (response.ok && data.admin) {
+            setIsAdmin(true)
+          } else {
+            navigate("/")
+          }
+        } catch (error) {
+          navigate("/")
+        }
+    }
+    getUser()
+    adminCheck()
     fetchData();
+    
   }, [isLoggedIn]);
 
   // Function to fetch event data
@@ -98,6 +131,7 @@ function AdminPage() {
                     setIsDetail={setIsDetail}
                     setEventId={setEventId}
                     cardId={event.eventId}
+                    isAdmin={isAdmin}
                   ></AdminCard>
                 );
               })

@@ -89,6 +89,24 @@ header .end a:active {
   color: var(--mauve);
 }
 
+header .middle a {
+  font-size: 16px;
+  color: white;
+  padding: 0px 5px 0px 5px;
+  border-radius: 15px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+header .middle a:hover {
+  color: var(--darkBlue);
+  transition: 0.3s;
+}
+
+header .middle a:active {
+  color: var(--mauve);
+}
+
 .no-select{
   user-select: none;
 }

@@ -78,20 +78,28 @@ const sendForgottenPasswordMail = (email, uniqueString) => {
 }
 
 // Function to notify users with relevant topics of a new event
-const sendEventTopicNotification = async (topics, eventTitle, eventUrl, eventId) => {
+const sendEventTopicNotification = async (eventTag, eventTitle, eventUrl, eventId) => {
+  
+  // Extract the topics from the eventTag object
+  const topics = eventTag.map((tag) => {
+    return tag.name
+  })
+
   
   // Gets the event data according to its eventId
   const event = await events.findOne(
     { eventId: eventId }
   )
+  console.log('eventId: ', eventId);
+  console.log('event: ', event);
   
   try {
-    // If the updatedCount is greater than 1, cancel the notification
-    // So notifications are not sent at every update
-    if(event.updatedCount > 1) {
-      console.log('Notification aborted');
-      return
-    }
+    // // If the updatedCount is greater than 1, cancel the notification
+    // // So notifications are not sent at every update
+    // if(event.updatedCount > 1) {
+    //   console.log('Notification aborted');
+    //   return
+    // }
     
     // Gets the list of users subscribed to the relevant topics
     const userList = await users.find(

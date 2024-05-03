@@ -105,8 +105,7 @@ const AdminCard = ({
     
     document.getElementById("email-form").reset()
     
-    setForm([])
-    setIsDisable(true)
+
  }
 
  const handleConfirm = async ()=>{
@@ -138,6 +137,8 @@ const AdminCard = ({
   console.log(response)
   setShowModal(false)
   setCommand(true)
+  setForm([])
+  setIsDisable(true)
 }
 const handleCancel = ()=>{
   setShowModal(false)

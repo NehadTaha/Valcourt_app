@@ -6,7 +6,7 @@ const { ObjectId } = require("mongodb");
 const database = client.db("valcourtApp");
 const events = database.collection("events");
 const venues = database.collection("venues");
-const nouvelles = database.collection("nouvelles");
+const nouvellesCollection = database.collection("nouvelles");
 const eventData = database.collection("combinedData");
 
 const router = express.Router();
@@ -231,15 +231,17 @@ router.post("/nouvelles", async (req, res) => {
   try {
     console.log("Received payload:", req.body);
 
-    // Extract the desired data from the payload
-    const { post, taxonomies } = req.body;
-    const {
-      ID: postId,
-      post_name: postName,
-      post_date: postDate,
-      post_modified: postModified,
-      post_content: postContent,
-    } = post;
+  // Extract the desired data from the payload
+  const { post, taxonomies } = req.body;
+  const {
+    ID: postId,
+    post_name: postName,
+    post_date: postDate,
+    post_modified: postModified,
+    post_content: postContent,
+    post_thumbnail: postThumbnail // Add post_thumbnail to the destructuring
+  } = post;
+
 
     // Check if the post is in the "nouvelles" category
     const { category } = taxonomies;
@@ -258,6 +260,7 @@ router.post("/nouvelles", async (req, res) => {
       postDate: postDate ? new Date(postDate) : null, // Convert postDate to Date object if present
       postModified: postModified ? new Date(postModified) : null, // Convert postModified to Date object if present
       postContent,
+      postThumbnail: postThumbnail ? `https://valcourt2030.org/wp-content/uploads/2023/04/social-media-3758364_1920-1080x461.jpg` : null // Replace URL_TO_YOUR_IMAGE with the actual URL
     });
 
     res.status(200).send("Post data saved to the database.");
@@ -278,12 +281,13 @@ async function savePostToDatabase(postData) {
 // GET method to retrieve all data from the "nouvelles" collection
 router.get("/nouvelles", async (req, res) => {
   try {
-    const nouvelles = await nouvelles.find({});
-    res.json(nouvelles);
+    const nouvellesData = await nouvellesCollection.find({}).toArray(); // Change variable name
+    res.json(nouvellesData);
   } catch (error) {
     console.error("Error retrieving nouvelles:", error);
     res.status(500).send("Error retrieving nouvelles");
   }
 });
+
 
 module.exports = router;

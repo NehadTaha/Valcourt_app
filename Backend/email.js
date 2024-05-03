@@ -113,17 +113,11 @@ const sendEventTopicNotification = async (eventId) => {
     const emailList = userList.map((element) => {
       return element.email
     })
-  
-    console.log('emailList: ', emailList);
 
     // Email Details and Sending - CONSULT THIS TO EDIT
     const subject = "Nouvel évènement: "+ event.eventTitle
-    console.log('subject: ', subject);
     const message = `<p>Un nouvel évènment à Valcourt2030!</p><br><a href='`+event.eventUrl+`'>Cliquez ici pour y accéder!</a>`
-    console.log('message: ', message);
-    //sendMultiMail(emailList, subject, message);
-
-    console.log('-> [Mail message test successful. Remember to enable sending again in code.]');
+    sendMultiMail(emailList, subject, message);
 
   } catch (error) {
     console.log(error);

@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { client } = require("../database/database");
 const { ObjectId } = require("mongodb");
-const { eventTopicNotification } = require("../email");
+const { sendEventTopicNotification } = require("../email");
 
 const database = client.db("valcourtApp");
 const events = database.collection("events");
@@ -34,39 +34,36 @@ router.post("/webhook", async (req, res) => {
     const { post_tag: postEventTag } = taxonomies;
     const eventTag = postEventTag || {};
 
-    eventTopicNotification(eventTag, eventTitle, eventURL, eventId)
+    // Send an email notification to all user with the relevant topics
+    sendEventTopicNotification(eventTag, eventTitle, eventURL, eventId)
     
-    // Timeout to allow for eventTopicNotification check
-    setTimeout( async function() {
-
-      // Update or insert the post data to the events collection
-      await events.updateOne(
-        { eventId: eventId },
-        {
-          $set: {
-            eventTitle,
-            eventContent,
-            eventStartDate: eventStartDate ? eventStartDate[0] : null,
-            eventEndDate: eventEndDate ? eventEndDate[0] : null,
-            eventVenueId: eventVenueId ? eventVenueId[0] : null,
-            eventTag: eventTag ? eventTag : null,
-            eventURL: eventURL ? eventURL[0] : null,
-          },
+    // Update or insert the post data to the events collection
+    await events.updateOne(
+      { eventId: eventId },
+      {
+        $set: {
+          eventTitle,
+          eventContent,
+          eventStartDate: eventStartDate ? eventStartDate[0] : null,
+          eventEndDate: eventEndDate ? eventEndDate[0] : null,
+          eventVenueId: eventVenueId ? eventVenueId[0] : null,
+          eventTag: eventTag ? eventTag : null,
+          eventURL: eventURL ? eventURL[0] : null,
         },
-        { upsert: true }
-      );
-      //Sorting the events by date
-      const sortedEvents = await events
-        .find({})
-        .sort({ eventStartDate: -1 })
-        .toArray();
-      res.status(200).json(sortedEvents);
-    }, 3000)
+        $inc: {updatedCount: 1}
+      },
+      { upsert: true }
+    );
+    //Sorting the events by date
+    const sortedEvents = await events
+      .find({})
+      .sort({ eventStartDate: -1 })
+      .toArray();
+    res.status(200).json(sortedEvents);
   } catch (error) {
     console.error("Error saving post data to the database:", error);
     res.status(500).send("Error saving post data to the database");
   }
-  
 });
 
 // Webhook endpoint to receive payloads for venues and save them to the database

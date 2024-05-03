@@ -77,40 +77,43 @@ const sendForgottenPasswordMail = (email, uniqueString) => {
   sendMail(email, subject, message)
 }
 
-// Function to conduct the notification using a list of topics
-const eventTopicNotification = async (topics, eventTitle, eventUrl, eventId) => {
+// Function to notify users with relevant topics of a new event
+const sendEventTopicNotification = async (topics, eventTitle, eventUrl, eventId) => {
   
-  const event = await events.find(
+  // Gets the event data according to its eventId
+  const event = await events.findOne(
     { eventId: eventId }
-  ).toArray()
+  )
   
-  if(event.length === 0) {
-    // If the event is found, do not send any notifications
-    console.log('Notification aborted');
-    return
-  } else {
-    console.log('Message sending...');
+  try {
+    // If the updatedCount is greater than 1, cancel the notification
+    // So notifications are not sent at every update
+    if(event.updatedCount > 1) {
+      console.log('Notification aborted');
+      return
+    }
+    
+    // Gets the list of users subscribed to the relevant topics
+    const userList = await users.find(
+      { topics: { $in: topics } },
+      { projection :{ "email": 1, "_id": 0 }}
+    ).toArray()
+  
+    // Extracts the emails from the list of users
+    const emailList = userList.map((element) => {
+      return element.email
+    })
+  
+    
+    // Email Details and Sending
+    const subject = "Nouvel évènement: "+ eventTitle
+    const message = `<p>Un nouvel évènment à Valcourt2030!</p><br><a href='`+eventUrl+`'>Cliquez ici pour y accéder!</a>`
+    sendMultiMail(emailList, subject, message);
+
+  } catch (error) {
+    console.log(error);
   }
   
-  const userList = await users.find(
-    { topics: { $in: topics } },
-    { projection :{ "email": 1, "_id": 0 }}
-  ).toArray()
-
-  const emailList = userList.map((element) => {
-    return element.email
-  })
-
-  sendEventTopicNotification(emailList, eventTitle, eventUrl)
 }
 
-
-
-// TODO:
-const sendEventTopicNotification = (emails, eventTitle, eventUrl) => {
-  const subject = "Nouvel évènement: "+ eventTitle
-  const message = `<p>Un nouvel évènment à Valcourt2030!</p><br><a href='`+eventUrl+`'>Cliquez ici pour y accéder!</a>`
-  sendMultiMail(emails, subject, message);
-}
-
-module.exports = {sendMail, sendMultiMail, sendConfirmationMail, sendForgottenPasswordMail, eventTopicNotification}
+module.exports = {sendMail, sendMultiMail, sendConfirmationMail, sendForgottenPasswordMail, sendEventTopicNotification}

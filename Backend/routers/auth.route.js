@@ -22,15 +22,14 @@ router.get("/", (req, res) => {
 });
 
 
-// Generates a random string (copied function)
-const randString = () => {
-  // a 8 length
+// Generates a random string
+const generateRandString = () => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789{}/*<>?!@$%&()-+';
   const len = 8
   let randStr = ''
-  for (let i=0; i<len; i++) {
-    //ch = a number between 1 to 10
-    const ch = Math.floor((Math.random() * 10) + 1)
-    randStr += ch
+  for (let i = 0; i < len; i++) {
+    // Appends a random character from the characters into randStr
+    randStr += characters.charAt(Math.floor(Math.random() * characters.length));
   }
 
   return randStr
@@ -117,7 +116,7 @@ router.post("/register", async (req, res) => {
     return;
   }
 
-  const uniqueString = randString()
+  const uniqueString = generateRandString()
 
   // Hash the password
   const salt = await bcrypt.genSalt(10);

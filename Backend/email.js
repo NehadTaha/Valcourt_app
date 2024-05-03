@@ -91,6 +91,7 @@ const sendEventTopicNotification = async (eventTag, eventTitle, eventUrl, eventI
     { eventId: eventId }
   )
   console.log('eventId: ', eventId);
+  console.log('event: ', event);
   
   try {
     // // If the updatedCount is greater than 1, cancel the notification

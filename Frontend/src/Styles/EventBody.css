@@ -704,23 +704,13 @@ body {
     margin-top: 10%;
   }
 
-  .content-fbtn {
-    justify-items: center;
-    align-items: center;
 
-  }
-
-  .content-fbtn .floating-button {
-    margin-bottom: 50px;
-    margin-right: 10px;
-    margin-left: 20px;
-  }
 }
 
 /* Media queries for medium screens */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 770px) and (max-width: 970px) {
   .content-container {
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 100%;
   }
 
   .content-card,
@@ -740,10 +730,6 @@ body {
     margin-top: 10%;
   }
 
-  .content-fbtn {
-    justify-items: center;
-    align-items: center;
-  }
 
   .content-fbtn .floating-button {
     margin-bottom: 50px;

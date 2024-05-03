@@ -33,9 +33,6 @@ router.post("/webhook", async (req, res) => {
     } = post_meta;
     const { post_tag: postEventTag } = taxonomies;
     const eventTag = postEventTag || {};
-
-    // Send an email notification to all user with the relevant topics
-    sendEventTopicNotification(eventTag, eventTitle, eventURL, eventId)
     
     // Update or insert the post data to the events collection
     await events.updateOne(
@@ -54,6 +51,10 @@ router.post("/webhook", async (req, res) => {
       },
       { upsert: true }
     );
+
+    // Send an email notification to all user with the relevant topics
+    sendEventTopicNotification(eventId)
+
     //Sorting the events by date
     const sortedEvents = await events
       .find({})

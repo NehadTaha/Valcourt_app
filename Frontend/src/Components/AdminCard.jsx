@@ -123,10 +123,12 @@ const AdminCard = ({
       message:message,
     }
 
+    let token = localStorage.getItem("token");
     const option = {
       method:"POST",
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : "",
       },
       body: JSON.stringify(body)
     }

@@ -22,17 +22,17 @@ app.get("/", function (req, res) {
 // Login routes
 app.use("/auth", authRouter);
 
-// Auth middleware
-app.use(standardAuth)
-
-// Route for handling user data
-app.use("/userInfo", userInfoRouter);
-
 // Route for handling WordPress webhooks
 app.use("/posts", wpPostsRouter);
 
 // Route for handling emails
 app.use("/email", emailRouter)
+
+// Auth middleware
+app.use(standardAuth)
+
+// Route for handling user data
+app.use("/userInfo", userInfoRouter);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

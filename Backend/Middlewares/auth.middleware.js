@@ -16,7 +16,7 @@ async function standardAuth(req, res, next) {
     }
 
     try {
-        jwt.decode(token, secret_key);
+        jwt.verify(token, secret_key);
         next();
     } catch (err) {
         res.status(401);

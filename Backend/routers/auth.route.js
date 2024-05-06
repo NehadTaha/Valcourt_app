@@ -180,13 +180,12 @@ router.get('/verify/:uniqueString', async (req, res) => {
 router.post('/reset', async (req, res) => {
   
   const email = req.body.email;
-  const  newString = randString();
   
   const user = await users.findOne({ email: email })
   if (user) {
     // if the user exists...
 
-    // Generate token
+    // Generate a short token
     const token = jwt.sign({ userId: user._id }, secret_key, {
       expiresIn: "10m",
     }); 

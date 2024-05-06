@@ -176,7 +176,7 @@ router.get('/verify/:uniqueString', async (req, res) => {
   }
 })
 
-// Reset password route
+// Reset password (when forgotten) route
 router.post('/reset', async (req, res) => {
   
   const email = req.body.email;

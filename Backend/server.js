@@ -7,7 +7,8 @@ const { connect } = require("./database/database");
 const authRouter = require("./routers/auth.route");
 const userInfoRouter = require("./routers/userInfo");
 const wpPostsRouter = require("./routers/posts");
-const emailRouter = require("./routers/email.route")
+const emailRouter = require("./routers/email.route");
+const { standardAuth } = require("./Middlewares/auth.middleware");
 
 app.use(cors());
 app.use(morgan("tiny"));
@@ -20,6 +21,9 @@ app.get("/", function (req, res) {
 
 // Login routes
 app.use("/auth", authRouter);
+
+// Auth middleware
+app.use(standardAuth)
 
 // Route for handling user data
 app.use("/userInfo", userInfoRouter);

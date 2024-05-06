@@ -22,30 +22,6 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/test", (req, res) => {
-
-  const emailList = ["", ""]
-
-  sendMultiMail(emailList, "Test", "Boo.")
-
-  res.status(200);
-  res.send({
-    message: "Multi-mail sent.",
-  });
-});
-
-router.post("/test/notification", (req, res) => {
-
-  const body = req.body;
-
-  sendEventTopicNotification(body.topics, body.eventTitle, body.eventUrl, body.eventId);
-
-  res.status(200);
-  res.send({
-    message: "Notification Test run.",
-  });
-});
-
 // Route for admin to send an email to all users subscribed to specific event.
 router.post("/adminEventMail", async (req, res) => {
 

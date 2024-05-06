@@ -77,9 +77,17 @@ router.post("/login", async (req, res) => {
     return
   }
 
+  // Determine if the user is Admin or not
+  let isAdmin;
+
+  if(user.isAdmin) {
+    isAdmin = true;
+  } else {
+    isAdmin = false
+  }
 
   // Generate token
-  const token = jwt.sign({ userId: user._id }, secret_key, {
+  const token = jwt.sign({ userId: user._id, isAdmin: isAdmin }, secret_key, {
     expiresIn: "1h",
   });
 
@@ -180,13 +188,12 @@ router.get('/verify/:uniqueString', async (req, res) => {
 router.post('/reset', async (req, res) => {
   
   const email = req.body.email;
-  const  newString = randString();
   
   const user = await users.findOne({ email: email })
   if (user) {
     // if the user exists...
 
-    // Generate token
+    // Generate a short token
     const token = jwt.sign({ userId: user._id }, secret_key, {
       expiresIn: "10m",
     }); 

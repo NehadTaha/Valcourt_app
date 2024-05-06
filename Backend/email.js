@@ -78,28 +78,30 @@ const sendForgottenPasswordMail = (email, uniqueString) => {
 }
 
 // Function to notify users with relevant topics of a new event
-const sendEventTopicNotification = async (eventTag, eventTitle, eventUrl, eventId) => {
-  
-  // Extract the topics from the eventTag object
-  const topics = eventTag.map((tag) => {
-    return tag.name
-  })
+const sendEventTopicNotification = async (eventId) => {
 
-  
-  // Gets the event data according to its eventId
-  const event = await events.findOne(
-    { eventId: eventId }
-  )
-  console.log('eventId: ', eventId);
-  console.log('event: ', event);
-  
   try {
-    // // If the updatedCount is greater than 1, cancel the notification
-    // // So notifications are not sent at every update
-    // if(event.updatedCount > 1) {
-    //   console.log('Notification aborted');
-    //   return
-    // }
+    // Gets the event data according to its eventId
+    const event = await events.findOne(
+      { eventId: eventId }
+    )
+
+    // If the updatedCount is greater than 1, cancel the notification
+    // So notifications are not sent at every update
+    if(event.updatedCount > 1) {
+      console.log('Notification aborted');
+      return
+    }
+    
+    // Extract the eventTag array from the event object
+    const evenTag = Object.values(await event.eventTag)
+    
+    // Extract the topics from the objects in the eventTag array 
+    const topics = evenTag.map((tag) => {
+      return tag.name
+    })
+
+    console.log('topics: ', topics);
     
     // Gets the list of users subscribed to the relevant topics
     const userList = await users.find(
@@ -111,11 +113,10 @@ const sendEventTopicNotification = async (eventTag, eventTitle, eventUrl, eventI
     const emailList = userList.map((element) => {
       return element.email
     })
-  
-    
-    // Email Details and Sending
-    const subject = "Nouvel évènement: "+ eventTitle
-    const message = `<p>Un nouvel évènment à Valcourt2030!</p><br><a href='`+eventUrl+`'>Cliquez ici pour y accéder!</a>`
+
+    // Email Details and Sending - CONSULT THIS TO EDIT
+    const subject = "Nouvel évènement: "+ event.eventTitle
+    const message = `<p>Un nouvel évènment à Valcourt2030!</p><br><a href='`+event.eventUrl+`'>Cliquez ici pour y accéder!</a>`
     sendMultiMail(emailList, subject, message);
 
   } catch (error) {

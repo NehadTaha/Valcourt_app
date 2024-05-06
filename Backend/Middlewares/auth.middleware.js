@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 // Function to check if the headers of HTTP requests have valid authorization 
 async function standardAuth(req, res, next) {
 
-    const authorization = req.headers.authorization;
+    const token = req.headers.authorization.split(" ")[1];
 
-    if (!authorization) {
+    if (!token) {
         res.status(401);
         res.send({
             message: 'Unauthorized'
@@ -15,7 +15,7 @@ async function standardAuth(req, res, next) {
     }
 
     try {
-        jwt.decode(authorization, process.env.SECRET);
+        jwt.decode(token, process.env.SECRET);
         next();
     } catch (err) {
         res.status(401);

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const secret_key = require('../constants');
 
 // Function to check if the headers of HTTP requests have valid authorization 
 async function standardAuth(req, res, next) {
@@ -15,7 +16,7 @@ async function standardAuth(req, res, next) {
     }
 
     try {
-        jwt.decode(token, process.env.SECRET);
+        jwt.decode(token, secret_key);
         next();
     } catch (err) {
         res.status(401);

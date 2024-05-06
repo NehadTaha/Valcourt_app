@@ -77,9 +77,17 @@ router.post("/login", async (req, res) => {
     return
   }
 
+  // Determine if the user is Admin or not
+  let isAdmin;
+
+  if(user.isAdmin) {
+    isAdmin = true;
+  } else {
+    isAdmin = false
+  }
 
   // Generate token
-  const token = jwt.sign({ userId: user._id }, secret_key, {
+  const token = jwt.sign({ userId: user._id, isAdmin: isAdmin }, secret_key, {
     expiresIn: "1h",
   });
 

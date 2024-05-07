@@ -166,14 +166,15 @@ const ChangePassword = () => {
           Changer le mot de passe
         </h1>
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formBasicEmail">
+          {/* <Form.Group controlId="formBasicEmail">
             <Form.Label className="pt-3 ">Couriel</Form.Label>
             <Form.Control
               className="input-text"
               type="email"
               placeholder="Entrez votre couriel"
+
             />
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group controlId="formBasicOldPassword">
             <Form.Label className="pt-3">Ancien mot de passe</Form.Label>
             <Form.Control

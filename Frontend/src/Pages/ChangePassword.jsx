@@ -108,7 +108,7 @@ const ChangePassword = () => {
     // Check if new password matches confirm password
     if (newPassword !== confirmPassword) {
       setAlertVariant("danger");
-      setAlertMessage("Passwords do not match");
+      setAlertMessage("Les mots de passe ne correspondent pas");
       setShowAlert(true);
       return;
     }

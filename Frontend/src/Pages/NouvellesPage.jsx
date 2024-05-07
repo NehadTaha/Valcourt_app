@@ -5,7 +5,7 @@ import "../Styles/style.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../Components/Footer";
 import Logo from "../Components/Logo";
-import ProjetCard from "../Components/projetCard";
+import NouvellesCard from "../Components/nouvellesCard"
 
 function NouvellesPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,9 +46,9 @@ function NouvellesPage() {
         }
       >
         <div className="row">
-          <div className="col-md-6 offset-md-3"> {/* Adjust the column size and offset */}
+          <div className="col"> {/* Adjust the column size and offset */}
             {nouvelles.map(nouvelle => (
-              <ProjetCard
+              <NouvellesCard
                 key={nouvelle.postId} // Ensure each component has a unique key
                 title={nouvelle.postName}
                 description={nouvelle.postContent}

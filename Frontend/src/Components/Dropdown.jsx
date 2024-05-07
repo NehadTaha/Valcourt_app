@@ -176,10 +176,15 @@ const Dropdown = ({ updateFilteredEvents }) => {
     const modifyTopiURL = `http://localhost:8080/userInfo/topics/update/${isUser}`;
 
     try {
+      let token = localStorage.getItem("token");
+
       const response = await fetch(modifyTopiURL, {
         method: "POST",
         credentials: "same-origin",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json", 
+          Authorization: token ? `Bearer ${token}` : "",
+        },
         body: JSON.stringify({ topicList: selectedTags }),
       });
       const toastDiv = document.getElementById("load-prevent")

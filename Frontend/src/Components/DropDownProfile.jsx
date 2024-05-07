@@ -164,10 +164,15 @@ const DropdownProfile = ({ editMode, setEditMode, onChangeTags }) => {
     const removeTopicUrl = `http://localhost:8080/userInfo/topics/update/${isUser}`;
 
     try {
+      let token = localStorage.getItem("token");
+
       const response = await fetch(removeTopicUrl, {
         method: "POST",
         credentials: "same-origin",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "" 
+        },
         body: JSON.stringify({ topicList: selectedTags }),
       });
       setCommand(true);

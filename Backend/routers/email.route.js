@@ -7,6 +7,7 @@ require('dotenv').config();
 const secret_key = require("../constants");
 const { sendConfirmationMail, sendMail, sendForgottenPasswordMail, sendMultiMail, sendEventTopicNotification } = require("../email");
 const { route } = require("./auth.route");
+const { adminAuth } = require("../Middlewares/auth.middleware");
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.get("/", (req, res) => {
 });
 
 // Route for admin to send an email to all users subscribed to specific event.
-router.post("/adminEventMail", async (req, res) => {
+router.post("/adminEventMail", adminAuth, async (req, res) => {
 
   const body = req.body;
   

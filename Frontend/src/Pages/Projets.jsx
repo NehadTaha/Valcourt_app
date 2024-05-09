@@ -42,8 +42,8 @@ function ProjectPage() {
 
   return (
     <>
-      <div className="d-flex flex-column min-vh-100 text-center content-items-center">
-        <Navbar setIsLoggedIn={setIsLoggedIn} />
+      <div className="d-flex flex-column min-vh-100 w-100 text-center content-items-center">
+        <Navbar setIsLoggedIn={setIsLoggedIn} className="col-12" />
 
         <div
           className={

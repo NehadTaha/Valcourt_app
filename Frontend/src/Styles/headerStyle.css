@@ -53,6 +53,8 @@ header {
   grid-template-columns: auto auto auto;
   line-height: 48px;
   font-family: 'BebasNeue', sans-serif;
+  position: fixed;
+  z-index: 1000;
 }
 
 header .start {
@@ -113,7 +115,7 @@ header .middle a:active {
 
 .navDrawer {
   list-style: none;
-  position: absolute;
+  position: fixed;
   width: fit-content;
   height: 100%;
   background: var(--paleBlue);

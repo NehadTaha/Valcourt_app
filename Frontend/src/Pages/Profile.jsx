@@ -128,7 +128,7 @@ const Profile = () => {
         </div>
         <div className="container-flex p-2 bg-gradient bg-light flex-grow-1">
           <div className="row p-3">
-            <div className="col-12">
+            <div className="col-12" style={{ paddingTop: "80px" }}>
               <i className="bi bi-suit-heart-fill fs-4 mx-1"></i>
               <button
                 className="btn fs-2 mb-2 rounded-pill"

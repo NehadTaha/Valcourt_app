@@ -10,16 +10,16 @@ import getUserTags from "../Middleware/getUserTags";
 import { useNavigate } from "react-router-dom";
 
 function EventPage() {
-  const [events, setEvents] = useState([]); // State for storing event data
-  const [plainTextContent, setPlainTextContent] = useState([]);// State for plain text content of events
+  const [events, setEvents] = useState([]); //State for storing event data
+  const [plainTextContent, setPlainTextContent] = useState([]); // State for plain text content of events
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);// State for user login status
-  const [isDetail, setIsDetail] = useState(false);// State for displaying event detail view
-  const [eventId, setEventId] = useState("");// State for storing selected event ID
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for user login status
+  const [isDetail, setIsDetail] = useState(false); // State for displaying event detail view
+  const [eventId, setEventId] = useState(""); //State for storing selected event ID
 
-  const [subbedEvents, setSubbedEvents] = useState([]);// State for storing subscribed events
+  const [subbedEvents, setSubbedEvents] = useState([]); // State for storing subscribed events
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Effect hook to fetch subscribed events and event data on component mount or login state change
   useEffect(() => {
@@ -48,7 +48,7 @@ function EventPage() {
 
   // Function to fetch event data
   const fetchData = async () => {
-    try{
+    try {
       const url = `http://localhost:8080/posts/combinedData`;
       const eventsResponse = await fetch(url, {
         method: "GET",
@@ -108,6 +108,7 @@ function EventPage() {
               ? "content-container"
               : "content-container-noUser"
           }
+          style={{ paddingTop: "40px" }}
         >
           {isDetail ? (
             <div></div>
@@ -123,6 +124,7 @@ function EventPage() {
                 ? "content-card"
                 : "content-card noUser-justify"
             }
+            style={{ paddingTop: "40px" }}
           >
             {isDetail ? (
               <CardDetail

@@ -52,7 +52,9 @@ function ProjectPage() {
               : isLoggedIn
               ? "content-card"
               : "content-card noUser-justify"
+              
           }
+          style={{paddingTop: "80px"}}
         >
           {isDetail ? (
             <ProjetCardDetail

@@ -54,7 +54,7 @@ const ProjetCardDetail = ({ projects, projectID, setIsDetail, imageURL }) => {
         <p className="backButton mt-3" onClick={handleBack}>
           Retour
         </p>
-        <h1 className="me-5 ms-5 mt-3">{projectData.title}</h1>
+        <h1 className="mt-3">{projectData.title}</h1>
         <img
           className="imageContainer pt-3"
           id="imageContainer"

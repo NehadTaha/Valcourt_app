@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 require('dotenv').config();
-const secret_key = require("../constants");
 const { sendConfirmationMail, sendMail, sendForgottenPasswordMail } = require("../email");
 
 const router = express.Router();
@@ -87,7 +86,7 @@ router.post("/login", async (req, res) => {
   }
 
   // Generate token
-  const token = jwt.sign({ userId: user._id, admin: admin }, secret_key, {
+  const token = jwt.sign({ userId: user._id, admin: admin }, process.env.SECRET, {
     expiresIn: "1h",
   });
 
@@ -194,7 +193,7 @@ router.post('/reset', async (req, res) => {
     // if the user exists...
 
     // Generate a short token
-    const token = jwt.sign({ userId: user._id }, secret_key, {
+    const token = jwt.sign({ userId: user._id }, process.env.SECRET, {
       expiresIn: "10m",
     }); 
 

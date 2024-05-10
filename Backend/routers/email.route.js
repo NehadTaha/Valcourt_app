@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 require('dotenv').config();
-const secret_key = require("../constants");
 const { sendConfirmationMail, sendMail, sendForgottenPasswordMail, sendMultiMail, sendEventTopicNotification } = require("../email");
 const { route } = require("./auth.route");
 const { adminAuth } = require("../Middlewares/auth.middleware");

@@ -2,7 +2,6 @@ const express = require("express");
 const { client } = require("../database/database");
 const { ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
-const secret_key = require("../constants");
 const removeItemOnce = require("../utils");
 const { json } = require("body-parser");
 
@@ -51,7 +50,7 @@ router.get("/profile", async (req, res) => {
       return res.status(404).json({ message: "Token not found" });
     } else {
       // Verify the token
-      const decodedToken = jwt.verify(token, secret_key);
+      const decodedToken = jwt.verify(token, process.env.SECRET);
       //console.log("decodedToken: ", decodedToken);
       //console.log("decodedToken.userId: ", decodedToken.userId);
 
@@ -81,7 +80,7 @@ router.get("/profile", async (req, res) => {
       //console.log("token: ", token);
 
       // Verify the token
-      const decodedToken = jwt.verify(token, secret_key);
+      const decodedToken = jwt.verify(token, process.env.SECRET);
       //console.log("decodedToken: ", decodedToken);
       //console.log("decodedToken.userId: ", decodedToken.userId);
 
@@ -116,7 +115,7 @@ router.post("/Subscribe", async (req, res) => {
   try {
     const eventId = req.body.eventId;
     const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, secret_key);
+    const decodedToken = jwt.verify(token, process.env.SECRET);
     const userId = new ObjectId(decodedToken.userId);
 
     const user = await users.findOneAndUpdate(
@@ -149,7 +148,7 @@ router.post("/Subscribe", async (req, res) => {
 router.get("/subbedEvent", async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, secret_key);
+    const decodedToken = jwt.verify(token, process.env.SECRET);
     const userId = new ObjectId(decodedToken.userId);
     const result = await users.findOne({ _id: userId });
 

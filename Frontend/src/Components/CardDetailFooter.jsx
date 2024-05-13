@@ -11,7 +11,7 @@ const CardDetailFooter = ({ location, phone, websiteURL }) => {
           <p className="content-text-font">{phone}</p>
         </div>
         <div>
-          <h1>Website URL</h1>
+          <h1>Formulaire</h1>
           <a href={websiteURL} className="content-text-font">
             {websiteURL}
           </a>

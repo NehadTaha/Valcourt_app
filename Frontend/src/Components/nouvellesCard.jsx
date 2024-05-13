@@ -74,7 +74,7 @@ const ProjetCard = ({
     <div className="container">
       <div className="customCard">
         <div>
-          <p className="title" onClick={handleDetailClick}>
+          <p className="title" /*onClick={handleDetailClick}*/>
             {title}
           </p>
           {/* Access imageUrl prop directly */}
@@ -83,11 +83,11 @@ const ProjetCard = ({
             alt="event Logo"
             className="card-image img-thumbnail"
           />
-          <p className="content" onClick={handleDetailClick}>
+          <p className="content" /*onClick={handleDetailClick}*/>
             {desc + "..."}
           </p>
         </div>
-        <div className="example-date" onClick={handleDetailClick}>
+        <div className="example-date" /*onClick={handleDetailClick}*/>
           <span className="day">{day}</span>
           <span className="month">{month}</span>
           <span className="year">{year}</span>

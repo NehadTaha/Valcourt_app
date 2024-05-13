@@ -4,15 +4,15 @@ import Navbar from "../Components/Navbar";
 import "../Styles/style.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../Components/Footer";
-import Logo from "../Components/Logo";
-import NouvellesCard from "../Components/nouvellesCard"
+import NouvellesCard from "../Components/nouvellesCard";
 
 function NouvellesPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDetail, setIsDetail] = useState(false);
   const [nouvelles, setNouvelles] = useState([]);
-  const [nouvellesId, setNouvellesId] = useState("");
-  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
+  //const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +22,8 @@ function NouvellesPage() {
           throw new Error('Failed to fetch nouvelles');
         }
         const data = await response.json();
+        // Sort the data based on the post date, newest first
+        data.sort((a, b) => new Date(b.postDate) - new Date(a.postDate));
         setNouvelles(data);
       } catch (error) {
         console.error('Error fetching nouvelles:', error);
@@ -30,12 +32,25 @@ function NouvellesPage() {
   
     fetchData();
   }, []);
-  
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(nouvelles.length / itemsPerPage);
+
+  // Calculate index of the last item to display on the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+
+  // Calculate index of the first item to display on the current page
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  // Slice the nouvelles array to include only the items for the current page
+  const displayedNouvelles = nouvelles.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="d-flex flex-column min-vh-100 text-center content-items-center">
       <Navbar setIsLoggedIn={setIsLoggedIn} />
-      <Logo />
       <section
         className={
           isDetail
@@ -47,22 +62,35 @@ function NouvellesPage() {
       >
         <div className="row">
           <div className="col"> {/* Adjust the column size and offset */}
-            {nouvelles.map(nouvelle => (
+            {displayedNouvelles.map(nouvelle => (
               <NouvellesCard
                 key={nouvelle.postId} // Ensure each component has a unique key
                 title={nouvelle.postName}
                 description={nouvelle.postContent}
-                date={nouvelle.postDate}
+                date={nouvelle.postDate ? nouvelle.postDate.split('T')[0] : ""}
                 isLoggedIn={isLoggedIn}
                 setIsDetail={setIsDetail}
-                setNouvellesId={setNouvellesId}
-                cardId={nouvelle.postId}
+                cardId={nouvelle.postId} // Removed setNouvellesId
                 isSubbed={null}
               />
             ))}
           </div>
         </div>
       </section>
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <nav>
+          <ul className="pagination justify-content-center"> {/* Added justify-content-center class */}
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <li key={index} className="page-item">
+                <button onClick={() => paginate(index + 1)} className="page-link">
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
       <Footer />
     </div>
   );

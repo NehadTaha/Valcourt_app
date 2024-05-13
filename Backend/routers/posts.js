@@ -257,8 +257,8 @@ router.post("/nouvelles", async (req, res) => {
     await savePostToDatabase({
       postId,
       postName,
-      postDate: postDate ? new Date(postDate) : null, // Convert postDate to Date object if present
-      postModified: postModified ? new Date(postModified) : null, // Convert postModified to Date object if present
+      postDate: postDate ? new Date(postDate.split('T')[0]) : null, // Convert postDate to Date object if present, taking only the date part
+      postModified: postModified ? new Date(postModified.split('T')[0]) : null, // Convert postModified to Date object if present
       postContent,
       postThumbnail: postThumbnail ? `https://valcourt2030.org/wp-content/uploads/2023/04/social-media-3758364_1920-1080x461.jpg` : null // Replace URL_TO_YOUR_IMAGE with the actual URL
     });

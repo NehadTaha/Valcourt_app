@@ -1,11 +1,7 @@
 const express = require("express");
 const { client } = require("../database/database");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer")
 require('dotenv').config();
-const { sendConfirmationMail, sendMail, sendForgottenPasswordMail, sendMultiMail, sendEventTopicNotification } = require("../email");
-const { route } = require("./auth.route");
+const { sendMultiMail } = require("../email");
 const { adminAuth } = require("../Middlewares/auth.middleware");
 
 const router = express.Router();
@@ -46,8 +42,6 @@ router.post("/adminEventMail", adminAuth, async (req, res) => {
   const emailList = userList.map((element) => {
     return element.email
   })
-
-  console.log('emailList: ', emailList);
 
   // Send the email
   sendMultiMail(emailList, body.subject, body.message)

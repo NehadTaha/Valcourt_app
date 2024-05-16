@@ -100,8 +100,6 @@ const sendEventTopicNotification = async (eventId) => {
     const topics = evenTag.map((tag) => {
       return tag.name
     })
-
-    console.log('topics: ', topics);
     
     // Gets the list of users subscribed to the relevant topics
     const userList = await users.find(
@@ -116,7 +114,7 @@ const sendEventTopicNotification = async (eventId) => {
 
     // Email Details and Sending - CONSULT THIS TO EDIT
     const subject = "Nouvel évènement: "+ event.eventTitle
-    const message = `<p>Un nouvel évènment à Valcourt2030!</p><br><a href='`+event.eventUrl+`'>Cliquez ici pour y accéder!</a>`
+    const message = `<p>Un nouvel évènment à Valcourt2030!</p><br> Consultez le site web ou <a href='`+event.eventUrl+`'>cliquez ici pour accéder au formulaire!</a>`
     sendMultiMail(emailList, subject, message);
 
   } catch (error) {

@@ -100,7 +100,6 @@ router.post("/login", async (req, res) => {
 // User registration route
 router.post("/register", async (req, res) => {
   const body = req.body;
-  console.log("body: ", body);
 
   if (!body.email || !body.password) {
     res.status(401).send({

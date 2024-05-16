@@ -76,7 +76,7 @@ router.post("/login", async (req, res) => {
   }
 
   // Determine if the user is Admin or not
-  let isAdmin;
+  let admin;
 
   if(user.admin) {
     admin = true;

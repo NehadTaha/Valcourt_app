@@ -2,9 +2,8 @@ const express = require("express");
 const { client } = require("../database/database");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer")
 require('dotenv').config();
-const { sendConfirmationMail, sendMail, sendForgottenPasswordMail } = require("../email");
+const { sendConfirmationMail, sendForgottenPasswordMail } = require("../email");
 
 const router = express.Router();
 

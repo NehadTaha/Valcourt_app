@@ -18,13 +18,13 @@ import { useNavigate } from "react-router-dom";
 
 // Navbar component
 function Navbar({ setIsLoggedIn }) {
-  const [logTest, setLogTest] = useState(false);// To track user login status
+  const [logTest, setLogTest] = useState(false); // To track user login status
 
-  const [vUser, setVUser] = useState();// To store user info
+  const [vUser, setVUser] = useState(); // To store user info
 
-  const [isAdmin,setIsAdmin] = useState(false) // check if user is the admin account
+  const [isAdmin, setIsAdmin] = useState(false); // check if user is the admin account
 
-  const [isMenuOpen, setIsMenuopen] = useState(false);// To track whether the menu is open
+  const [isMenuOpen, setIsMenuopen] = useState(false); // To track whether the menu is open
 
   // Fetching user info from the backend when component mounts
   useEffect(() => {
@@ -40,30 +40,30 @@ function Navbar({ setIsLoggedIn }) {
       const userInfoUrl = "http://localhost:8080/userInfo/profile";
       const options = {
         headers: {
-          Authorization: token ? `Bearer ${token}` : "",// Setting Authorization header with token
+          Authorization: token ? `Bearer ${token}` : "", // Setting Authorization header with token
         },
       };
 
       try {
-        const response = await fetch(userInfoUrl, options);// Fetching user info
+        const response = await fetch(userInfoUrl, options); // Fetching user info
 
-        const data = await response.json();// Parsing response JSON
+        const data = await response.json(); // Parsing response JSON
 
         if (response.ok) {
           setVUser(data); // Set user info state
-          setLogTest(true);// Setting login status to true
+          setLogTest(true); // Setting login status to true
           setIsLoggedIn(true);
-          if(data.admin){
-            setIsAdmin(true)
+          if (data.admin) {
+            setIsAdmin(true);
           } // Setting parent component's login status
         } else {
           //console.error("Error fetching user info:", data.message);
           setVUser(false); // Setting user info state to false
-          setLogTest(false);// Setting login status to false
+          setLogTest(false); // Setting login status to false
         }
       } catch (error) {
         //console.error("Error fetching user info:", error);
-        setVUser(false);// Setting user info state to false
+        setVUser(false); // Setting user info state to false
         setLogTest(false); // Setting login status to false
       }
     };
@@ -78,20 +78,20 @@ function Navbar({ setIsLoggedIn }) {
   // Function to toggle the menu open/close
   function menuFlop() {
     if (!isMenuOpen) {
-      setIsMenuopen(true);// Opening the menu
-      document.getElementById("check").click();// Simulating click on the checkbox
+      setIsMenuopen(true); // Opening the menu
+      document.getElementById("check").click(); // Simulating click on the checkbox
     } else {
-      setIsMenuopen(false);// Closing the menu
-      document.getElementById("check").click();// Simulating click on the checkbox
+      setIsMenuopen(false); // Closing the menu
+      document.getElementById("check").click(); // Simulating click on the checkbox
     }
   }
-    // Function to handle menu open/close
+  // Function to handle menu open/close
   function onMenuOpen() {
-    menuFlop();// Toggling the menu
+    menuFlop(); // Toggling the menu
     if (isMenuOpen) {
-      document.body.style.overflow = "unset";// Allowing body overflow when menu is closed, masking the page scrollable
+      document.body.style.overflow = "unset"; // Allowing body overflow when menu is closed, masking the page scrollable
     } else {
-      document.body.style.overflow = "hidden";// Hiding body overflow when menu is open, making the page unscrollable
+      document.body.style.overflow = "hidden"; // Hiding body overflow when menu is open, making the page unscrollable
     }
   }
 
@@ -147,7 +147,7 @@ function Navbar({ setIsLoggedIn }) {
             <li>
               <FontAwesomeIcon icon={faHouse} />
               <a
-                href="/"
+                href="https://valcourt2030.org/"
                 onClick={() => {
                   closeMenu();
                   navigate("/");
@@ -163,14 +163,18 @@ function Navbar({ setIsLoggedIn }) {
       </div>
 
       <div className="middle">
-                {isAdmin ? <a 
-                href="/admin"
-                onClick={()=>{
-                  navigate("/admin")
-                }}
-                >
-                  Admin
-                </a> : <></>}
+        {isAdmin ? (
+          <a
+            href="/admin"
+            onClick={() => {
+              navigate("/admin");
+            }}
+          >
+            Admin
+          </a>
+        ) : (
+          <></>
+        )}
       </div>
 
       <div className="end">

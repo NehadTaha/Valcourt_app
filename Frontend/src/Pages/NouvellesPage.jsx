@@ -50,7 +50,7 @@ function NouvellesPage() {
 
   return (
     <div className="d-flex flex-column min-vh-100 text-center content-items-center">
-      <Navbar setIsLoggedIn={setIsLoggedIn} />
+      <Navbar setIsLoggedIn={setIsLoggedIn} className="col-12" />
       <section
         className={
           isDetail
@@ -59,20 +59,29 @@ function NouvellesPage() {
             ? "content-container d-flex align-items-center justify-content-center"
             : "content-container-noUser d-flex align-items-center justify-content-center"
         }
+        style={{ paddingTop: "80px" }}
       >
         <div className="row">
-          <div className="col"> {/* Adjust the column size and offset */}
-            {displayedNouvelles.map(nouvelle => (
+          <div className="col">
+            {" "}
+            {/* Adjust the column size and offset */}
+            {displayedNouvelles.map((nouvelle) => (
               <NouvellesCard
                 key={nouvelle.postId} // Ensure each component has a unique key
                 title={nouvelle.postName}
+                imageUrl={
+                  nouvelle.postContent.match(
+                    /<img[^>]+src="([^">]+)"/
+                  )?.[1] || ""
+                }
                 description={nouvelle.postContent}
-                date={nouvelle.postDate ? nouvelle.postDate.split('T')[0] : ""}
+                date={nouvelle.postDate ? nouvelle.postDate.split("T")[0] : ""}
                 isLoggedIn={isLoggedIn}
                 setIsDetail={setIsDetail}
                 cardId={nouvelle.postId} // Removed setNouvellesId
                 isSubbed={null}
               />
+
             ))}
           </div>
         </div>
@@ -80,10 +89,15 @@ function NouvellesPage() {
       {/* Pagination */}
       {totalPages > 1 && (
         <nav>
-          <ul className="pagination justify-content-center"> {/* Added justify-content-center class */}
+          <ul className="pagination justify-content-center">
+            {" "}
+            {/* Added justify-content-center class */}
             {Array.from({ length: totalPages }).map((_, index) => (
               <li key={index} className="page-item">
-                <button onClick={() => paginate(index + 1)} className="page-link">
+                <button
+                  onClick={() => paginate(index + 1)}
+                  className="page-link"
+                >
                   {index + 1}
                 </button>
               </li>

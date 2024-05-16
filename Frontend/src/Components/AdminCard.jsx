@@ -10,8 +10,8 @@ const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
       <div >
         <p>{message}</p>
         <div >
-          <button onClick={onConfirm}>Confirm</button>
-          <button onClick={onCancel}>Cancel</button>
+          <button onClick={onConfirm}>Confirmer</button>
+          <button onClick={onCancel}>Annuler</button>
         </div>
       </div>
     </div>
@@ -172,11 +172,11 @@ const handleCancel = ()=>{
         <span className="year">{year}</span>
       </div>
       <div className="admin-form">
-        <h1>Send Email to Participants</h1>
+        <h1>Envoyer un email aux participants</h1>
         <form className="admin-main" id="email-form">
             <div className="admin-grouping">
                 <label htmlFor="senderName" className="admin-input">
-                    <i></i> Your Name 
+                    <i></i> Votre nom
                 </label>
                 <input className="content-text-font" name="senderName" type="text" onChange={(e)=>{
                     handleInputChange("name",e.target.value)
@@ -184,7 +184,7 @@ const handleCancel = ()=>{
             </div>
             <div className="admin-grouping">
                 <label htmlFor="object" className="admin-input">
-                    <i></i> Object
+                    <i></i> Sujet
                 </label>
                 <input className="content-text-font" name="object" type="text" onChange={(e)=>{
                     handleInputChange("object",e.target.value)

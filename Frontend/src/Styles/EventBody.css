@@ -45,6 +45,10 @@ body {
   text-align: center;
 }
 
+.admin-spacing{
+  margin-top: 100px;
+}
+
 .imageTile {
   position: relative;
 

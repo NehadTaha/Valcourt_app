@@ -117,7 +117,7 @@ function AdminPage() {
           <></>
 
           <div
-            className="content-card"
+            className="content-card admin-spacing"
           >
             {events.length >= 1 ? (
               events.map((event, index) => {

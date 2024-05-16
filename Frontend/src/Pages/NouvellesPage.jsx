@@ -69,6 +69,11 @@ function NouvellesPage() {
               <NouvellesCard
                 key={nouvelle.postId} // Ensure each component has a unique key
                 title={nouvelle.postName}
+                imageUrl={
+                  nouvelle.postContent.match(
+                    /<img[^>]+src="([^">]+)"/
+                  )?.[1] || ""
+                }
                 description={nouvelle.postContent}
                 date={nouvelle.postDate ? nouvelle.postDate.split("T")[0] : ""}
                 isLoggedIn={isLoggedIn}
@@ -76,6 +81,7 @@ function NouvellesPage() {
                 cardId={nouvelle.postId} // Removed setNouvellesId
                 isSubbed={null}
               />
+
             ))}
           </div>
         </div>

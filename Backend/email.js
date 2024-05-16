@@ -65,7 +65,7 @@ const sendMultiMail = (emails, subject, message) => {
 // For account confirmation on registration
 const sendConfirmationMail = (email, uniqueString) => {
   const subject = "Confirmation de l'émail"
-  const message = `Cliquez <a href=http://localhost:3000/verify/${uniqueString}> ici</a> pour vérifier votre email. Thanks.`
+  const message = `Cliquez <a href=http://localhost:3000/verify/${uniqueString}> ici</a> pour vérifier votre email. Merci.`
 
   sendMail(email, subject, message);
 }

@@ -114,7 +114,7 @@ const sendEventTopicNotification = async (eventId) => {
 
     // Email Details and Sending - CONSULT THIS TO EDIT
     const subject = "Nouvel évènement: "+ event.eventTitle
-    const message = `<p>Un nouvel évènment à Valcourt2030!</p><br> Consultez le site web ou <a href='`+event.eventUrl+`'>cliquez ici pour accéder au formulaire!</a>`
+    const message = `<p>Un nouvel évènment à Valcourt2030!</p><br> Consultez le <a href='https://valcourt2030.org/calendrier/'>site web<a/> ou <a href='`+event.eventUrl+`'>cliquez ici pour accéder au formulaire!</a>`
     sendMultiMail(emailList, subject, message);
 
   } catch (error) {

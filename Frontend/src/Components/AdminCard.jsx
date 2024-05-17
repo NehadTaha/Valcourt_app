@@ -198,7 +198,7 @@ const handleCancel = ()=>{
                     handleInputChange("message",e.target.value)
                 }} cols="40" rows="10"></textarea>
             </div>
-            {isDisable?<div className="admin-button-disabled" >Send Mail</div>:<div className="admin-button" onClick={handleSend}>Send Mail</div>}
+            {isDisable?<div className="admin-button-disabled" >Envoyer</div>:<div className="admin-button" onClick={handleSend}>Envoyer</div>}
             
         </form>
         {showModal?

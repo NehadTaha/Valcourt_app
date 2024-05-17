@@ -111,7 +111,7 @@ const AdminCard = ({
 
  const handleConfirm = async ()=>{
   if(isAdmin){
-    const message = form['message'] + `\n\n- ${form['name']}`
+    const message = form['message'] + `<br><br>- ${form['name']}`
 
     //console.log(message)
 
@@ -198,7 +198,7 @@ const handleCancel = ()=>{
                     handleInputChange("message",e.target.value)
                 }} cols="40" rows="10"></textarea>
             </div>
-            {isDisable?<div className="admin-button-disabled" >Send Mail</div>:<div className="admin-button" onClick={handleSend}>Send Mail</div>}
+            {isDisable?<div className="admin-button-disabled" >Envoyer</div>:<div className="admin-button" onClick={handleSend}>Envoyer</div>}
             
         </form>
         {showModal?

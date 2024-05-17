@@ -16,9 +16,9 @@ const AdminToast = ({ command, setCommand }) => {
   return (
     <>
       {command ? (
-        <div className="admin-customToast slideIn">Envoyer!</div>
+        <div className="admin-customToast slideIn">Envoyé!</div>
       ) : (
-        <div className="admin-customToast slideOut">Envoyer!</div>
+        <div className="admin-customToast slideOut">Envoyé!</div>
       )}
     </>
   );

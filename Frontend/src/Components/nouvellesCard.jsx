@@ -1,6 +1,6 @@
 import "../Styles/EventBody.css";
 
-const ProjetCard = ({
+const NouvellesCard = ({
   title,
   description,
   date,
@@ -9,7 +9,6 @@ const ProjetCard = ({
   cardId,
   setProjectId,
 }) => {
- 
   const months = {
     "01": "Janvier",
     "02": "Février",
@@ -34,7 +33,7 @@ const ProjetCard = ({
   const setDate = () => {
     const token = date.split("-");
     const dayConversion = token[2].split(" ");
-    
+
     day = dayConversion[0];
     for (const key in months) {
       if (key === token[1]) {
@@ -42,7 +41,6 @@ const ProjetCard = ({
       }
     }
     year = token[0];
-   
   };
 
   const setDesc = () => {
@@ -74,7 +72,7 @@ const ProjetCard = ({
     <div className="container">
       <div className="customCard">
         <div>
-          <p className="title" /*onClick={handleDetailClick}*/>
+          <p className="title" onClick={handleDetailClick}>
             {title}
           </p>
           {/* Access imageUrl prop directly */}
@@ -83,11 +81,11 @@ const ProjetCard = ({
             alt="event Logo"
             className="card-image img-thumbnail"
           />
-          <p className="content" /*onClick={handleDetailClick}*/>
+          <p className="content" onClick={handleDetailClick}>
             {desc + "..."}
           </p>
         </div>
-        <div className="example-date" /*onClick={handleDetailClick}*/>
+        <div className="example-date" onClick={handleDetailClick}>
           <span className="day">{day}</span>
           <span className="month">{month}</span>
           <span className="year">{year}</span>
@@ -97,4 +95,4 @@ const ProjetCard = ({
   );
 };
 
-export default ProjetCard;
+export default NouvellesCard;

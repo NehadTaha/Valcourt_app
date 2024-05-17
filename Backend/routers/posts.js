@@ -7,7 +7,7 @@ const { sendEventTopicNotification } = require("../email");
 const database = client.db("valcourtApp");
 const events = database.collection("events");
 const venues = database.collection("venues");
-const nouvellesCollection = database.collection("nouvelles");
+const nouvelles = database.collection("nouvelles");
 const eventData = database.collection("combinedData");
 const projects = database.collection("projects");
 
@@ -34,7 +34,7 @@ router.post("/webhook", async (req, res) => {
     } = post_meta;
     const { post_tag: postEventTag } = taxonomies;
     const eventTag = postEventTag || {};
-    
+
     // Update or insert the post data to the events collection
     await events.updateOne(
       { eventId: eventId },
@@ -48,13 +48,13 @@ router.post("/webhook", async (req, res) => {
           eventTag: eventTag ? eventTag : null,
           eventURL: eventURL ? eventURL[0] : null,
         },
-        $inc: {updatedCount: 1}
+        $inc: { updatedCount: 1 },
       },
       { upsert: true }
     );
 
     // Send an email notification to all user with the relevant topics
-    sendEventTopicNotification(eventId)
+    sendEventTopicNotification(eventId);
 
     //Sorting the events by date
     const sortedEvents = await events
@@ -336,63 +336,81 @@ router.post("/nouvelles", async (req, res) => {
   try {
     console.log("Received payload:", req.body);
 
-  // Extract the desired data from the payload
-  const { post, taxonomies } = req.body;
-  const {
-    ID: postId,
-    post_name: postName,
-    post_date: postDate,
-    post_modified: postModified,
-    post_content: postContent,
-    post_thumbnail: postThumbnail // Add post_thumbnail to the destructuring
-  } = post;
+    // Extract the desired data from the payload
+    const data = req.body;
+    const { post, post_meta, taxonomies } = data;
+    const {
+      ID: newsId,
+      post_title: newsTitle,
+      post_content: newsContent,
+      post_date: newsDate,
+    } = post;
 
+    const { category: postNewsCategory } = taxonomies;
+    const newsCategory = postNewsCategory || {};
 
-    // Check if the post is in the "nouvelles" category
-    const { category } = taxonomies;
-    const isNouvellesCategory = category && category.nouvelles;
+    // Check if the project with the given projectId already exists in the database
+    const existingNews = await nouvelles.findOne({ newsId: newsId });
 
-    // If the post is not in the "nouvelles" category, return without saving to the database
-    if (!isNouvellesCategory) {
-      console.log("Post is not in the 'nouvelles' category. Skipping saving to the database.");
-      return res.status(200).send("Post data not saved to the database.");
+    if (existingNews) {
+      // If the project exists, update it
+      await nouvelles.updateOne(
+        { newsId: newsId },
+        {
+          $set: {
+            newsTitle,
+            newsContent,
+            newsDate: newsDate ? newsDate : null,
+            newsCategory: newsCategory ? newsCategory : null,
+          },
+        }
+      );
+    } else {
+      // If the project does not exist, create a new one
+      await projects.insertOne({
+        newsId,
+        newsTitle,
+        newsContent,
+        newsDate: newsDate ? newsDate : null,
+        newsCategory: newsCategory ? newsCategory : null,
+      });
     }
+    // Apply sorting after updating or inserting the data
+    const sortedNews = await nouvelles
+      .find({})
+      .sort({ newsDate: -1 })
+      .toArray();
 
-    // Update or insert the post data to the database
-    await savePostToDatabase({
-      postId,
-      postName,
-      postDate: postDate ? new Date(postDate.split('T')[0]) : null, // Convert postDate to Date object if present, taking only the date part
-      postModified: postModified ? new Date(postModified.split('T')[0]) : null, // Convert postModified to Date object if present
-      postContent,
-      postThumbnail: postThumbnail ? `https://valcourt2030.org/wp-content/uploads/2023/04/social-media-3758364_1920-1080x461.jpg` : null // Replace URL_TO_YOUR_IMAGE with the actual URL
-    });
-
-    res.status(200).send("Post data saved to the database.");
+    res.status(200).json(sortedNews);
   } catch (error) {
-    console.error("Error saving post data to the database:", error);
-    res.status(500).send("Error saving post data to the database");
+    console.error("Error getting posts from wordpress:", error);
+    res.status(500).send("Error getting posts from wordpress");
   }
 });
-
-// Function to save post data to the database
-async function savePostToDatabase(postData) {
-  // Implement your database saving logic here
-  console.log("Saving post data to the database:", postData);
-  // Example MongoDB usage:
-  await database.collection("nouvelles").updateOne({ postId: postData.postId }, { $set: postData }, { upsert: true });
-}
-
 // GET method to retrieve all data from the "nouvelles" collection
 router.get("/nouvelles", async (req, res) => {
   try {
-    const nouvellesData = await nouvellesCollection.find({}).toArray(); // Change variable name
-    res.json(nouvellesData);
+    const newsData = await nouvelles.find({}).sort({ newsDate: -1 }).toArray();
+    res.json(newsData);
   } catch (error) {
-    console.error("Error retrieving nouvelles:", error);
-    res.status(500).send("Error retrieving nouvelles");
+    res
+      .status(500)
+      .json({ error: "Error fetching news data from the database" });
   }
 });
+router.post("/webhook/deleteNews", async (req, res) => {
+  try {
+    const { post } = req.body;
+    const { ID: newsId } = post;
 
+    // Delete the project from the projects collection
+    await nouvelles.deleteOne({ newsId });
+
+    res.status(200).send("News data deleted from the database.");
+  } catch (error) {
+    console.error("Error deleting news data from the database:", error);
+    res.status(500).send("Error deleting news data from the database");
+  }
+});
 
 module.exports = router;

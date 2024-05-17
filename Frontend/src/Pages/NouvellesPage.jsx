@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import "../Styles/style.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Footer from "../Components/Footer";
 import NouvellesCard from "../Components/nouvellesCard";
+import NouvellesCardDetail from "../Components/NouvellesCardDetail";
 
 function NouvellesPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,26 +12,30 @@ function NouvellesPage() {
   const [nouvelles, setNouvelles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(3);
+  const [plainTextContent, setPlainTextContent] = useState([]);
+  const [newsId, setNewsId] = useState("");
   //const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/posts/nouvelles');
-        if (!response.ok) {
-          throw new Error('Failed to fetch nouvelles');
-        }
-        const data = await response.json();
-        // Sort the data based on the post date, newest first
-        data.sort((a, b) => new Date(b.postDate) - new Date(a.postDate));
-        setNouvelles(data);
-      } catch (error) {
-        console.error('Error fetching nouvelles:', error);
-      }
-    };
-  
     fetchData();
-  }, []);
+  }, [isLoggedIn]);
+  const fetchData = async () => {
+    try {
+      const url = `http://localhost:8080/posts/nouvelles`;
+
+      const response = await fetch('url,{method: "GET"}');
+      if (!response.ok) {
+        throw new Error("Failed to fetch nouvelles");
+      }
+      const data = await response.json();
+      setNouvelles(data);
+      setPlainTextContent(
+        data.map((nouvelle) => nouvelle.postContent.replace(/<[^>]+>/g, ""))
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   // Calculate total number of pages
   const totalPages = Math.ceil(nouvelles.length / itemsPerPage);
@@ -54,37 +58,39 @@ function NouvellesPage() {
       <section
         className={
           isDetail
-            ? "content-container detailsContainerGrid"
+            ? "content-card detailsContent-Card"
             : isLoggedIn
-            ? "content-container d-flex align-items-center justify-content-center"
-            : "content-container-noUser d-flex align-items-center justify-content-center"
+            ? "content-card"
+            : "content-card noUser-justify"
         }
         style={{ paddingTop: "80px" }}
       >
-        <div className="row">
-          <div className="col">
-            {" "}
-            {/* Adjust the column size and offset */}
-            {displayedNouvelles.map((nouvelle) => (
+        {isDetail ? (
+          <NouvellesCardDetail
+            nouvelles={nouvelles} // Assuming you want to display details for the first event
+            newsID={newsId} // Assuming eventId is a property of event object
+            setIsDetail={setIsDetail}
+          />
+        ) : nouvelles != [] ? (
+          nouvelles.map((nouvelle, index) => {
+            return (
               <NouvellesCard
-                key={nouvelle.postId} // Ensure each component has a unique key
-                title={nouvelle.postName}
+                key={nouvelle.newsId} // Ensure each component has a unique key
+                title={nouvelle.newsTitle}
                 imageUrl={
-                  nouvelle.postContent.match(
-                    /<img[^>]+src="([^">]+)"/
-                  )?.[1] || ""
+                  nouvelle.newsContent.match(/<img[^>]+src="([^">]+)"/)?.[1] ||
+                  ""
                 }
-                description={nouvelle.postContent}
-                date={nouvelle.postDate ? nouvelle.postDate.split("T")[0] : ""}
-                isLoggedIn={isLoggedIn}
+                description={plainTextContent[index]}
+                date={nouvelle.newsDate}
                 setIsDetail={setIsDetail}
-                cardId={nouvelle.postId} // Removed setNouvellesId
-                isSubbed={null}
-              />
-
-            ))}
-          </div>
-        </div>
+                cardId={nouvelle.newsId}
+              ></NouvellesCard>
+            );
+          })
+        ) : (
+          <h2>Aucun nouvelles pour le moment !</h2>
+        )}
       </section>
       {/* Pagination */}
       {totalPages > 1 && (
@@ -108,6 +114,6 @@ function NouvellesPage() {
       <Footer />
     </div>
   );
-};
+}
 
 export default NouvellesPage;

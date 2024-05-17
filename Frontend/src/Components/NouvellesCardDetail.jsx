@@ -2,9 +2,9 @@ import "../Styles/details.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NouvellesCardDetail = ({ nouvelless, nouvellesID, setIsDetail, imageURL }) => {
+const NouvellesCardDetail = ({ nouvelles, newsID, setIsDetail, imageURL }) => {
   // state variable of details content
-  const [nouvellesData, setnouvellesData] = useState({
+  const [newsData, setnewsData] = useState({
     title: "",
     date: "",
     time: "",
@@ -14,19 +14,21 @@ const NouvellesCardDetail = ({ nouvelless, nouvellesID, setIsDetail, imageURL })
 
   useEffect(() => {
     // Find the nouvelles with the specified eventID
-    const nouvelles = nouvelless.find((nouvelles) => nouvelles.nouvellesId === nouvellesID);
+    const nouvelles = nouvelles.find(
+      (nouvelles) => nouvelles.newsId === newsID
+    );
 
     // If nouvelles is found, set the eventData state with its data
     if (nouvelles) {
-      setnouvellesData({
-        title: nouvelles.nouvellesTitle,
+      setnewsData({
+        title: nouvelles.newsTitle,
         imageUrl:
-          nouvelles.nouvellesContent.includes("<img") &&
-          (nouvelles.nouvellesContent.match(/<img[^>]+src="([^">]+)"/)?.[1] || ""),
-        description: nouvelles.nouvellesContent.replace(/<[^>]+>/g, ""),
+          nouvelles.newsContent.includes("<img") &&
+          (nouvelles.newsContent.match(/<img[^>]+src="([^">]+)"/)?.[1] || ""),
+        description: nouvelles.newsContent.replace(/<[^>]+>/g, ""),
       });
     }
-  }, [nouvelless, nouvellesID, imageURL]); // Re-run effect when events or eventID changes
+  }, [nouvelles, newsID, imageURL]); // Re-run effect when events or eventID changes
 
   const navigate = useNavigate();
 
@@ -54,15 +56,15 @@ const NouvellesCardDetail = ({ nouvelless, nouvellesID, setIsDetail, imageURL })
         <p className="backButton mt-3" onClick={handleBack}>
           Retour
         </p>
-        <h1 className="me-5 ms-5 mt-3">{nouvellesData.title}</h1>
+        <h1 className="me-5 ms-5 mt-3">{newsData.title}</h1>
         <img
           className="imageContainer pt-3"
           id="imageContainer"
-          src={nouvellesData.imageUrl}
+          src={newsData.imageUrl}
           alt=""
         ></img>
         <p className="pDesc content-text-font wrap-url">
-          {nouvellesData.description}
+          {newsData.description}
         </p>
       </div>
     </>

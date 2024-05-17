@@ -111,7 +111,7 @@ const AdminCard = ({
 
  const handleConfirm = async ()=>{
   if(isAdmin){
-    const message = form['message'] + `\n\n- ${form['name']}`
+    const message = form['message'] + `<br><br>- ${form['name']}`
 
     //console.log(message)
 

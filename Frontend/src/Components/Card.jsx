@@ -119,7 +119,7 @@ const Card = ({
         <span className="year">{year}</span>
       </div>
       {isLoggedIn ? (
-        isSubbed || isDisable?<div id={cardId} className="disabled">Abonnez</div>:<button id={cardId} onClick={handleSub}>S'abonnez</button>
+        isSubbed || isDisable?<div id={cardId} className="disabled">Abonné</div>:<button id={cardId} onClick={handleSub}>S'abonner</button>
       ) : (
         <button onClick={()=>{navigate('/login')}}>Connectez-vous pour vous abonner</button>
       )}

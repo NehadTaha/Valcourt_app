@@ -61,6 +61,47 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/m
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
+### Webhook routes
+Webhook endpoint to receive payloads from WordPress and save them to the database
+
+Route: POST /webhook
+Description: Receives event data from WordPress and saves or updates it in the database.
+Actions:
+Extracts event data from the request payload.
+Updates or inserts event data into the events collection.
+Sends an email notification about the event.
+Sorts events by date and returns them in the response.
+Webhook endpoint to delete a post/event
+
+Route: POST /webhook/delete
+Description: Deletes an event and updates related venue data.
+Actions:
+Deletes the event from the events collection.
+Removes references to the deleted event from the related venue data.
+Updates the venues collection accordingly.
+Webhook endpoint to receive project data from WordPress
+
+Route: POST /webhook/projets
+Description: Receives project data from WordPress and saves or updates it in the database.
+Actions:
+Extracts project data from the request payload.
+Updates or inserts project data into the projects collection.
+Sorts projects by date and returns them in the response.
+Webhook endpoint to delete a project
+
+Route: POST /webhook/deleteProjets
+Description: Deletes a project from the database.
+Actions:
+Deletes the project from the projects collection.
+Webhook endpoint to receive "nouvelles" posts from WordPress
+
+Route: POST /nouvelles
+Description: Receives "nouvelles" post data from WordPress and saves it in the database if it belongs to the "nouvelles" category.
+Actions:
+Extracts post data from the request payload.
+Checks if the post belongs to the "nouvelles" category.
+Updates or inserts post data into the database.
+
 ### Deployment
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)

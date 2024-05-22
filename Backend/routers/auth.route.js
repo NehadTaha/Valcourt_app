@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
 
 // Generates a random string
 const generateRandString = () => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789{}/*<>?!@$%&()-+';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789{}/*?!@$%&()-+';
   const len = 8
   let randStr = ''
   for (let i = 0; i < len; i++) {
